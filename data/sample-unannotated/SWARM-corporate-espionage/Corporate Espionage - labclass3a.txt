@@ -1,0 +1,137 @@
+
+
+###  
+
+#### **Corporate Espionage**
+
+**Risk Threat Consultancy Group report to Ultimate Audio (UA)**
+
+**Assessment of Shane Jeffries (Staff ID 23AB), UA Technical and Product Development Team**
+
+Background
+
+Shane Jeffries has recently been the subject of a complaint from a fellow Technical and Product Development Team Member, James Bourne, regarding his odd working hours. Shane Jeffries’ role in the development of MAX10, the upcoming release of MAX10, and the importance of this release to UA, have made necessary an investigation of this complaint and an assessment of the employee. The following assessment takes place ahead of any formal or overt investigations and its aim is to determine any further course of action, including the termination of Shane Jeffries’ employment at UA is 1) warranted, and 2) advisable, given the contingencies at play.  
+
+_Assessment of Employee's Position Suitability_
+
+1.  Shane Jeffries Prior Work History
+
+Shane Jeffries has previously worked as a Junior Technology Developer at NewTekDev and Queen Tech, for the same amount of time (6 months), then he participated in a month-long internship with Queen Tech. He has been employed at UA for three years.
+
+2\. Employee Statements
+
+Linda Kim (Jeffries’ Supervisor): Shane Jeffries is a valuable member of her team, and his participation is critical to the release of the MAX10. He is open about his past history with Queen Tech. She was not aware of the inconsistencies in Jeffries polygraph testing. She trusts him and thus does not observe his work closely.
+
+Missive from James Bourne (Jeffries’ Colleague) to Linda Kim: In an email, Bourne relayed a conversation that he overheard, which discussed how Jeffries had been working odd hours. This seems like a somewhat unreliable source.  
+
+Jimmy Langford (UA Security Team Leader): Jimmy has passed onto us a complaint Jeffries’ has sent through to HR that was never addressed. Jeffries states that “Paul Gertrude and James Bourne made inappropriate comments, which I would categorize as homophobic . . . I’ve been trying to avoid them as much as I can but it’s hard when you work in the same team.”
+
+3\. Probability Testing
+
+**ProbabilityQuestion  1: ** According to the polygraph results,  what is the percentage  (%)  probability that Shane Jeffries lied on Question D during the polygraph?
+
+>88%
+
+**Probability Question 2:** Given the findings of the ‘Indicators Check’, and assuming an initial probability of theft equivalent to the probability that Shane lied on the polygraph, what is the probability that Shane has or will perpetrate acts of IP theft or espionage?
+
+<IMAGE>
+
+>P(Shane is perpetrator|Shane displayed scanning behaviour)
+
+=0.63*0.88/(0.3333*0.12+0.63*0.88)
+
+=93%
+
+>P(Shane is perpetrator|Shane displayed accessing behaviour)
+
+=0.81*0.88/(0.25*0.12+0.81*0.88)
+
+=95%
+
+**Probability problem 3:** Given that we do not know which model Security Officers used to test the sample and that Shane’s test was negative, what is the probability that the result is a false negative reading?
+
+Percentage of adults within Jeffries (27) age bracket, (20-29,) that take illicit drugs – 28%
+
+DD3-U (updated, 31% of stores)
+
+  * false positive rate of 6%
+  * true positive rate of 93%.
+  * false negative/true negative = rate of 1%
+
+DD3-O (older, 69% of stores)
+
+  * false positive rate of 23%
+  * true positive reading 81% of the time.
+  * therefore OF the true positive reading, there is a 23% that is it a false positive
+
+Given that Shane used the DD3-U:
+
+100 - (31% x 93%) - (31%x6%)
+
+100 - (28.83% ) - (18.6%)
+
+Probability of false negative OR true negative = 52.57%
+
+Data is still inconclusive.
+
+4\.  Analysis of Schematics, Exit/Entry Logs and Printer Records
+
+In the lab, Shane’s desk is closest to the Secure Lab, which requires a swipe access to enter and prohibits mobile phones. He also had in his possession a copy of ‘ _Ultrasonic Transducers: Materials and Design for Sensors, Actuators and Medical Applications (1st Edition)_ ’ edited by K Nakamura and a copy of ‘
+_Handbook of Image-based Security Techniques_ ’ by Jasjit Suri, Shivendra Shivani, and Suneeta Agarwal, neither of which were relevant to his job as a Technology Developer for UA.
+
+According to Building Security entry/exit logs, Shane entered Braddon office at odd hours, which does provide Bourne’s rumour with more solid evidence. Logs report that he arrived at 5am, on a Wednesday 2 weeks ago.
+
+At the same time (Wednesday, 2 weeks ago) printer records show that Jeffries printed an unusually large number of documents – 15 in total.  
+
+3\. For/Against arguments about Shane Jeffries being the spy
+
+Arguments cornering Shane Jeffries being the corporate spy For | Against  
+---|---  
+  
+Showed inconsistencies on the polygraph test which implies he does have something motivating him to break confidentiality.
+
+|
+
+Jeffries has supposedly been treated in a derogatory way due to his sexual orientation, which has been unaddressed by HR, which could explain resentment against the company.
+
+He was also shown to be in possession of a copy of ‘ _How to Start a Startup: The Silicon Valley Playbook for Entrepreneurs_ ’ by Tarun Agarwal and a pamphlet for StartCon 2020, which could imply that Jeffries is planning to break away from the company, instead of being tied to Queen Tech.  
+  
+Has been unsupervised in the lab | Kim (his supervisor) reports this is out of trust  
+Has accessed the lab and printers outside of work hours, which was observed by some of his peers | -no justification provided-  
+  
+Has recently come by a large amount of money from anonymous sources
+
+| -no justification provided-  
+  |  
+  
+
+4\. Conclusion
+
+Given the above evidence, it seems likely that Jeffries is indeed a likely suspect of corporate espionage. No other suspects have been observed. There does appear to be a history of animosity between Jeffries and his colleague Bournes.
+
+_Risk Assessment  _
+
+  
+
+Below is the advice that the RRTCG security team has formulated for UA:
+
+In the News Article, ‘the Protector’, two key bits of information have been provided;
+
+“Researchers suggest that a stolen piece of key developing technology could be worth $10s of millions of dollars for multinational companies in fierce competition with one another.”
+
+“[Head of Technology Development at Queen Tech Tzuyu] Lee’s comments [on intolerance towards corporate espionage] are in the lead up to the highly anticipated SOUND FORUM, to be held in one month’s time at the ICC Sydney. Many companies are expected to unveil their new and developing technology at the event.”
+
+ UA’s Financial Forecasting has created the following prediction depending on the imminent release of the MAX10, which Kim has reported Jeffries is irreplaceable to make happen:
+
+<IMAGE>
+
+There are thus three financial outcomes to the situation:
+
+         1\. Jeffries is removed from the project under suspicion, and MAX10 is withheld – UA has a predicted loss of $7 million due to not releasing the MAX10
+
+         2\. Jeffries is not removed from the project, and MAX10 is launched – UA does not have a predicted loss, but the risk of stolen technology could benefit Queen Tech up to $10s of millions
+
+         3\. Jeffries is removed from the project under suspicion, and the MAX10 is launched – UA may not have a successful launch, but there is no risk of corporate espionage, there MAY be a loss of $7 million, but there is also a lessened risk of Queen Tech profiting from espionage
+
+RTCG’s advice: Our security team advises that the third outcome has the least amount of loss. In consideration, however, of the potential reputational costs, if Jeffries is found to be innocent, it is further advised that additional covert investigation is done into the relationship between Bournes and Jeffries, Jeffries unusual use of the printers and the reason for Jeffries sudden incomes be investigated before completely going overt.
+

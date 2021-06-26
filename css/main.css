@@ -1,0 +1,41 @@
+:root {
+	--colour-bg: #fcfcfc;
+	--colour-bg-alt: #f6f6f6;
+
+	--colour-support: #859900;
+	--colour-attack: #dc322f;
+	--colour-summary: #000000;
+	--colour-equivalence: var(--colour-bg-alt);
+
+	--colour-source: #039be5;
+	--colour-source-tint: #e1f5fe;
+	--colour-source-tint-2: #b3e5fc;
+
+	--bp1: #859900;
+	--bp2: #dc322f;
+
+	--header-height: 30px;
+	--panel-width: 500px;
+	--border-width: 4px;
+
+	--sans-serif-stack: 'IBM Plex Sans', sans-serif;
+	--serif-stack: 'IBM Plex Serif', serif;
+	--mono-stack: 'IBM Plex Mono', monospace;
+}
+
+html {
+	font-family: var(--sans-serif-stack);
+}
+
+body {
+	max-height: 100vh;
+	margin: 0;
+
+	display: grid;
+	grid-template-columns: 100%;
+	grid-template-rows: calc(100vh - 20px) 20px;
+}
+
+.hide {
+	display: none !important;
+}

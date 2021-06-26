@@ -1,0 +1,93 @@
+  
+  
+# Problem 3 – Corporate Espionage
+
+The Risk Threat Consultancy Group (RTCG) has been engaged by US senior management to review Shane Jeffries’ file following an anonymous tip from another employee that alleges that he is secretly working for a rival company and is stealing UA’s technology. UA have asked RTCG to provide an assessment of the employee’s activities before they undertake more overt investigative options.
+
+## Key Message:
+
+Based on our inquiries we assess that Shane Jeffries is suitable to hold a position at UA but we recommend that HR further investigate his complaint regarding the behaviour of his two colleagues to avoid his departure from UA prior to the launch of MAX10.
+
+## Key Judgements:
+
+  * Shane’s personnel file indicates that he is a highly valuable staff member based on his referee reports and work experience. His current line manager has indicated that Shane is pivotal to the development of MAX10. 
+    * The financial repercussions of not releasing MAX10 are significant and could cut earnings for the next financial year by 46%.
+  * An overt investigation of Shane may require suspending his employment which would correspond with the release phase for MAX10. We further assess that Shane Jeffries may be considering leaving UA to start his own venture and an unwarranted overt investigation may prompt his resignation. 
+  * While there are some indications that Shane may be conducting corporate espionage we assess there are mitigating circumstances which explain his behaviour, in particular the report he made to HR two weeks ago about workplace bullying. If no action has been taken in respect of Shane’s bullying complaint we recommend it be actioned immediately.
+
+##  
+
+## Assessment of Shane Jeffries’ suitability to hold a position at UA
+
+### Skills suitability
+
+There seems no question Shane possesses highly valued technical skills.
+
+Evidence base:
+
+  1. His strong academic results – per his CV – 1st class Hons in Engineering from a top tier Australian University 2. All jobs since leaving university have been in the same technical field 3. His glowing prior referee report from his most recent job at NTD – per referee report from Peyton – “his skills are second to none”
+  4. His glowing referee from his current line manager – per line manager interview from Linda Kim – “he is my best employee, pivotal to the development of MAX10, without him the project would fall apart” and “he is very friendly with her and the rest of the team”, “he is dedicated to the work and the company”. 5. The fact the MAX10 project is a high value project for his current employer, and how important Shane is to the project – it seems he is pivotal to the company’s economic prospects on this project
+
+### Workplace fit
+
+Prior referee from NTD – “he is friendly employee who got along with everyone he met”
+
+#### Current job – positives
+
+  1. Shane has been at UA for 3 years – suggests he has loyalty to this employer noting his previous two jobs were much shorter (6mths each).  Other than one report to HR two weeks ago, we have no evidence that Shane is unhappy at work – indeed, he seems to be working on a key project and seems to be liked by his manager and to get along with his peers.  He seems hardworking and dedicated. 2. Shane has been recognised at work – line manager reports Shane is “pivotal to the development of MAX10, without him it would fall apart”.  We know MAX10’s release will be economically important to UA – it will add $7 million to projected earnings, almost doubling returns for the company for the year.
+
+#### Current job - negatives
+
+  3. Shane’s report to HR of homophobic slurs in the workplace by his team members James and Paul 2 weeks ago.  Unclear what, if any, response the workplace has made to support Shane.  If Shane thinks he isn’t being supported through workplace harassment scenario, this can contribute to him feeling unhappy at work. 
+  4. Report to Shane’s line manager from colleague James, saying he overheard Pam telling Nick “Shane is working odd hours and wants to know what Shane is up to” then coupled with request that the manager “prioritise” James’ tech proposal over Shane’s work.  This suggests friction in the workplace between James and Shane – and suggests possible jealousy on the part of James.  We know Shane is integral on the MAX10 project.  Maybe James is feeling sidelined and wants more of the action and is using Shane’s “odd hours” as a justification to sideline Shane’s work and promote his own – this seems pretty weak justification for deprioritising the economically lucrative MAX10 project. 5. Shane’s recent Instagram post “be nice to people it’s not that hard” – suggests someone is not being nice to him.  This may be a reference to his colleagues’ behaviour and that it is affecting him negatively.
+
+### Indicators of potential corporate espionage
+
+#### Supporting indicators
+
+  1. Line manager interview Linda Kim – “she did not need to overly manage Shane as he often did his own thing”.  Lack of supervision and working on his own represents a vulnerability – easier for him to undertake insider behaviour.  His desk position is somewhat private such that he could be accessing information on his computer without colleagues having good visibility. 2. Change in his work hours from 3 weeks ago – went from being consistent every day during core hours 4 weeks ago, to coming in at different times including some very early starts, very late finishes, and working on weekends. 3. Printer records shows that during the days where he was in the office, there were corresponding patterns in his activity – e.g. Wednesday 2 weeks ago he was in the office from 0500hrs and did an uncharacteristically high degree of printing (15); on all the weekend days he was in the office he did both printing and scan/copying including on the most recent Sunday he was in for an hour he printed 8 documents. 4. IT audit – showed scanning and access 3-6 weeks ago.  No information on his scanning or access during the past 3 weeks.  If we assume no information = no activity, could suggest he hasn’t done any “suspicious” behaviour in that time.  BUT maybe he didn’t have to because he scanned and accessed material of value 3-6 weeks ago and moved it all to his personal directory to then access/copy/print later at his leisure. During the past 3 weeks he may have printed/copied and removed any material. 5. While UA Security have advised that they have not observed Shane removing any documents relating to technical capability development we have no information about the robustness of UA Security’s checking procedures. 
+  6. The polygraph result when he was first hired 3yrs ago at UA – “is there any reason why you would not maintain the confidentiality and secrecy requirements of a role with UA” – NO – polygraph says he is lying.  If he was in fact lying, could indicate he took a position with UA intending to breach confidentiality/secrecy.  He has in the past 3yrs worked his way to an integral position in the MAX10 project. 7. The handwritten anonymous note to HR 3 days ago saying Shane is secretly working for Queen Tech suggesting longstanding suspicions about allegiances confirmed in the last few days – he is stealing and providing secrets to the competition – Queen Tech. 8. Shane has previously worked at Queen Tech – but, he’s been open about that, it was on his CV.  He has indirect social connection to Queen Tech’s Head of Technical Development as Tzuyu Lee is married to Shane’s former boss at NTD Peyton. 9. Shane was in possession of a book on how to start your own start-up and attended a conference recently which was possible StartCon 2020 (pamphlet discovered in his desk and social media post indicates he attended a conference where he met amazing people). 10. Indications of financial issues: 
+    1. Instagram – Shane showing off picture of brand-new car – the source of funding for the car is currently unexplained and further inquiries should be conducted to determine whether the funds were received for nefarious activity. 2. Based on Shane’s age, according to recent statistics, there is a 28% chance he has illicitly used drugs in the last 12 months. While his drug test returned a negative result it is possible the test was faulty.  An ongoing drug habit might indicate financial difficulties. 3. The phone calls to the bank about loans may indicate financial difficulties.
+
+#### Alternate explanation / mitigating factors
+
+  1. Doing his own thing with minimal supervision – this could just indicate his ability to work autonomously and can be trusted with less oversight. 2. Workplace conflict – he feels uncomfortable in the workplace given he’s experiencing homophobic slurs from his peers, so is coming to work at odd times to avoid them.  
+  3. Re the printing and scanning behaviour during non-core hours – UA Security say they did not observe Shane removing documents relating to technical capability development.  Given there are indications Shane is interested in starting his own company his scanning and access behaviour may be in the interests of making a career change. 4. Re IT audit – non-perpetrators also show scanning and access behaviour.  So, detection of him showing these behaviours is not on its own evidence of insider activity. 5. Re polygraph result: 1. There is a 12% chance the result for Question D was a false positive 2. Shane could have been lying, but for a reason unrelated to corporate espionage e.g. he would consider breaching confidentiality but only if his life were threatened 3. It is possible HR did follow up the question and he gave a satisfactory explanation, meaning HR were satisfied that he didn’t pose an insider threat risk, but this wasn’t recorded anywhere 6. Shane’s partner also posted about the car online.  It’s unclear who bought the car – Brian or Shane.  We don’t know about Brian’s financial situation – maybe he earns a higher salary than Shane.  We do know Brian recently received a significant financial “gift” from lawyers which could have covered the expense of the car. 7. We don’t know who the source of the anonymous tip is, we don’t know what their credibility or motivation is.  We don’t have an evidence base underlying their allegation.  It is feasible that it is a vexatious allegation made by one of the two individuals who are subject of the complaint made by Shane 2 weeks ago. 8. Shane is a smart, hard worker.  He seems to have particularly strong and creative technical skills.  After a few years getting experience in tech firms, it would not be unusual for him to consider starting his own company. 9. As a 27-year-old professional, it is not an unusual time of life to seek a loan e.g. to buy a property.  We don’t know what the loan is for and would need to make further enquiries to confirm.  It may be that he is seeking finance for a potential start-up venture.
+
+### Repercussions of accusing Shane of insider behaviour
+
+Shane is integral to MAX10’s success.  MAX10 will add $7 million to the projected company earnings next financial year. If Shane were to leave UA it is likely that MAX10 will not be released as projected.
+
+Taking overt action may require suspending Shane’s employment and it may also prompt his resignation, particularly if the accusation is untrue. It is feasible that Shane’s recent behaviour indicates he is ready to leave the company due to HR not pursuing his complaint. We recommend that HR investigate his complaint made 2 weeks ago in relation to the behaviour of two of his team members (Paul Gertrude and James Bourne).
+
+## Analysis of probabilities supporting the assessment:
+
+###  
+Probability Question 1:
+
+According to the polygraph results, what is the percentage (%) probability that Shane Jeffries lied on Question D during the polygraph?
+
+Given there is a 12% chance of a polygraph test falsely accusing participants of lying there is an 88% chance that Shane Jeffries lied on Question D during the polygraph.
+
+  
+
+### Probability Question 2:
+
+Given the findings of the ‘Indicators Check’, and assuming an initial probability of theft equivalent to the probability that Shane lied on the polygraph, what is the probability that Shane has or will perpetrate acts of IP theft or espionage?
+
+If we assume an initial probability of 88% based on the polygraph test result, the probability Shane is involved in malicious activity based on his activities is as follows:
+
+  1. Based on his scanning activity: web-browsing for external information unrelated to direct areas of responsibility – there is a 55.44% probability that Shane has or will perpetrate acts of IP theft or espionage; and, 2. Based on his access activity: accessing internal information and tasks unrelated to direct areas of responsibility – there is a 71.28% probability that Shane has or will perpetrate acts of IP theft or espionage.
+
+  
+
+### Probability Problem 3:
+
+Given that we do not know which model drug test the Security Officers used to test the sample and that Shane’s test was negative, what is the probability that the result is a false negative reading?
+
+Given there is no way of identifying the model of the drug test used, there is a 7-19% chance of a false negative reading:
+
+The older model (DD3-O) has a false positive rate of 23% and a true positive reading 81% of the time. Which means that there is a 19% chance the test did not detect a positive reading.
+
+The updated model (DD3-U) has a false positive rate of 6% and a true positive rate of 93%.  Which means that there is a 7% chance that the test did not detect a positive reading.
+

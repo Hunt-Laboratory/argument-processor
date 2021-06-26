@@ -1,0 +1,322 @@
+  
+  
+Contributors: pharlap649, blackcockatoo586, blackswan705, bluewhale248, cockatoo319, crocodile147, flyingfox651, frogmouth979, gecko593, pobblebonk917, possum193, wallaby468, wombat650
+
+# Shane Jeffries's Suitability to Hold Position at Ultimate Audio & the Repercussions of this Decision.
+
+## Overall contention:
+
+As a result of the Documents of Evidence analysed by the Risk Threat Consultancy Group, we conclude that Shane Jeffries should no longer hold a position at Ultimate Audio on the grounds of corporate espionage.
+
+## Key takeaways from documentation provided:
+
+Document 1/XX
+
+Personnel file
+
+|
+
+  * Worked at Queen Tech for total of 7 months
+  * Queen Tech was his first job, he may have loyalties and connections there
+
+  
+---|---  
+  
+3/XX
+
+Interview with Peyton Winger
+
+|
+
+  * Shane was worked at a start up. He was involved in creating new and never-before-seen technology
+  * Very talented in his field; skills "second to none"
+
+  
+  
+4/YY
+
+Polygraph
+
+|
+
+  * Lied when answering no to question D; he may have a reason to breach confidentiality and secrecy requirements
+
+  
+  
+4/XX
+
+Interview with line manager Linda Kim
+
+|
+
+  * If Shane was fired, UA would not release the MAX10 as projected. Queen Tech would be more likely to capitalise at the SOUND FORUM
+  * Shane very independent, trusted to do his own thing
+
+  
+  
+4/ZZ
+
+Lab schematics
+
+|
+
+  * Shane's desk is the closest to the lockers for phones and digital storage
+
+  
+  
+5/XX
+
+Entry/exit logs
+
+|
+
+  * Shane normally works 8 hour days. Hours were normal 3-4 weeks ago.
+  * Two weeks ago he worked very late on Monday (9am til 11pm) and started very early that Wednesday (5am til 1pm)
+  * Last week it was even more odd. Working only 6pm-8pm on Monday and 7-7.30am on Sunday. He has never come in on a Sunday in the last month
+
+  
+  
+6/YY
+
+Printer records
+
+|
+
+  * Generally little scanning and few print jobs every day
+  * Typical abnormal print record:  Wednesday two weeks ago (15 print, Shane works from 5:00 to 13:00 that day).
+  * Sunday last week (print 8 documents in 30 minutes 7-7.30am)
+  * Scan/copy number increases as the working time became abnormal
+
+  
+  
+6/ZZ
+
+IT Usage report
+
+|
+
+  * UA IT Security analysts found indicators of both scanning and access on Shane’s file dating from three to six weeks ago. 
+
+  
+  
+7/XX
+
+News article
+
+|
+
+  * Sound Forum held in 3 weeks (from today)
+  * As investment and cash flow in the technology world increases, so too are the number of people and groups looking to steal the hard work of others, and leverage new technology that could make or break companies.(general trend)
+
+  
+  
+8/XX
+
+Email from James Bourne
+
+|
+
+  * Other staff are noticing Shane working odd hours
+
+  
+  
+9/XX
+
+Shane's social media
+
+|
+
+  * Bought a new car
+  * "Needed this" referring to alcohol, may indicate that Shane gets a lot pressure from this work at UA
+  * "Be nice to people it's not that hard" may indicate facing interpersonal issues at work, possible workplace bullying or harrasment
+  * Post about great convention may indicate he is networking to meet new people
+
+  
+  
+11/XX
+
+Anonymous HR report
+
+|
+
+  * Direct accusation Shane is secretly working for Queen Tech
+
+  
+  
+12/XX
+
+Email to HR from Shane
+
+|
+
+  * Reported homophobic comments made by colleagues two weeks ago
+  * Trying to avoid colleagues since
+
+  
+  
+13/XX
+
+Interview with Tzuyu Lee
+
+|
+
+  * Tzuyu Lee is head of technology at Queen Tech
+  * Her husband is Peyton Winger, works at NewTekDev, he gave the reference for Shane
+
+  
+  
+14/YY
+
+Drug test results
+
+|
+
+  * Shane tested negative
+
+  
+  
+15/XX
+
+Security spot check
+
+|
+
+Items found were:
+
+  * Bank statement for joint account (Shane Jeffries and Brian Diaz), Brian may be Shane's partner
+  * Found a book "how to start a startup" and pamphlet for StartCon 2020 indicating Shane may be looking to start his own business
+  * Stress ball, indicating Shane was stressed
+  * Medication and pills, either Shane again is stressed or he is sick or has some underlying medical condition
+
+  
+  
+16/XX
+
+Bank records
+
+|
+
+  * $9,800 payment to MJ and SC referencing 'cover costs'
+  * $21,000 payment received from Beige Lawyers referencing 'gift'; this possibly could be involved to start up a new company or to cover something up
+
+  
+  
+17/XX
+
+Phone records
+
+|
+
+Odd calls include:
+
+  * Most called is an unknown mobile number
+  * Calls to bank for loans, may be related to taking out a loan to start a business
+  * Calls to Peyton Winger, previous manager at NewTekDev and husband of Queen Tech Head of Technology
+  * Calls to medical clinic may be to do with his health issues
+
+  
+  
+19/XX
+
+Brian Diaz social media
+
+|
+
+  * Confirms Brian is Shane's partner
+  * Purchase of dream car
+  * Also stressed and busy with work
+
+  
+  
+20/XX
+
+UA Financial Forecasting
+
+|
+
+  * UA will profit hugely from launching the MAX10
+  * Shane plays a crucial role in launching the MAX10
+
+  
+  
+
+## Probability problems:
+
+_**Question 1**_ : According to the polygraph results,  the percentage probability that Shane Jeffries lied on Question D during the polygraph is
+**88%**.
+
+_Reason:_  This question is concerned with the reliability of the negative result. The probability that the result we have is a false positive (falsely accused of lying) is 12%.
+
+The error rate on a given result allows us to infer the extent to which we can be sure that result is accurate.  This is why 88% is the correct answer.
+
+_**Question 2**_ : The probability that probability that Shane has or will perpetrate acts of IP theft or espionage is 97.82%.
+
+  
+_Reason:  _ The question is one of conditional probability - given that Shane has been both scanning and accessing, what is the probability that he is guilty? We can use the formula for conditional probability  to attain the following equation, where G= guilty, I =Innocent, S= Scanning and A =
+Accessing
+
+**Below image is a placeholder, haven't had time to fully write out an explanation yet**
+
+<IMAGE>
+
+_**Question 3**_ : Given that we do not know which model security officers used to test the sample and that Shane's test was negative, the probability that the result is a false negative reading is  **15.28%**.
+
+_Reason:_  Our understanding of 'false negative' is when you test negative but are truly positive. A 'true positive' is when you test positive and are truly positive. From Document 14/YY we know the Probability of the test being the Older model is = 0.69 and thus we can infer the Probability of the Updated model is = 0.31. In order to calculate the Probability of Shane's negative test result being a false negative, the following calculations were conducted. First the probability of Shane result being a false negative
+
+The probability of Shane using an older version of the test and having a false negative is 0.69 * 0.19 (which is 1 - 81, the rate of a true positive)  and =
+0.1311.
+
+The probability of Shane using an updated version of the test and having a false negative is  0.31 * 0.07 (which is 1 - 93, the rate of a true positive) and = 0.0217.
+
+We then add these two values together to find the probability of Shane's result being a false negative reading, 0.1311 + 0.0217 = 0.1528. This is a 15.28% probability.
+
+## Reasoning:
+
+According to the evidence analysed, the RTCG has come to the conclusion that it is likely employee Shane Jeffries was involved in corporate espionage. The following describes detailed reasoning for this conclusion.
+
+Firstly, Mr Jeffries has worked with UA’s direct competitor Queen Tech in an internship role and continued on at Queen Tech in his first job as well. This relationship suggests that there could be loyalties or good connections in place from the start. Jefferie's has also mentioned how it was an important stepping stone for him and helped him get to where he is now (perhaps even now despite working for UA).
+
+Peyton Winger mentioned that Shane’s skills were second to none and did not want him leaving his role, the same could have been noticed with his previous workmates and managers at Queen Tech and may have provided him with some incentives for his recent work.
+
+Shane’s polygraph analysis showcased him failing his polygraph test regarding Question D. Which was 'Is there any reason why you would not maintain the confidentiality and secrecy requirements of a role with UA?' He answered: No. This was conducted three years before where he previously also worked on a project for the Department of Defence. This could suggest that Shane may have had this planned from as long ago as then. This assumption is supported by the Probability calculated in Question 1, where even when taking error into consideration, there is still an 88% chance that his answer to Question D was in fact a lie.
+
+The Interview with Linda Kim could also suggest a few things: Shane often did his own thing and was not overly managed. This freedom and lack of supervision could allow him to get away with anything suspicious or incriminating. Shane was also integral to the development of MAX10 and without him, the project would fall apart. Thereby, Linda may not have given too much weight on the anonymous complaint that was submitted since firing Shane would risk going ahead of the whole project. Linda was also not aware of the inconsistencies in Shane’s polygraph and thus this supports why Linda was confident in Shane’s integrity.
+
+The Lab schematics also showed that Shane was closest to the lockers and the entry/exit of the lab. This could suggest that it was possible for him to sneak something in and out of the lab without anyone noticing.
+
+Regarding the time and printer records, Shane showcased odd time log activity in the past  **two**   **weeks** , which correlates to the unusual printing activity in the  **past 2 weeks**. Furthermore, IT was unable to provide information on what was being printed whereas, despite UA security reporting documents included lists of names and some general public information about the company, it could just be encrypted to seem like normal information.
+
+The bank transactions of a 9,800 as cover costs and 9,800 as cover costs and21,900 labelled as a gift by Beige Lawyers did not make any clear sense. These labels were clearly not indicative of the real description. This could be a method that Jeffries used as a payment to carry out the espionage. Giving money in the form of gifts might be a mask to avoid paying taxes on the funding.
+
+As well as his all records to ‘unknown mobile numbers’.
+
+The I.T usage report showcased that Shane had both indicators of scanning and access to malicious activity. ( **Support from probability Question 2).  **
+
+Possible motivations for corporate espionage could include the inappropriate homophobic comments made by his co-workers and no action taken by the HR could have made him disappointed and mad.
+
+Evidence correlating to that can be Shane’s Instagram posts in the past  **2 weeks;  **The convention could suggest meeting new people who took an interest in his work, the ‘needed this’ and ‘be nice to people’ could be referred to his frustrations in his work environment and lastly, how did he afford such an expensive car?
+
+More evidence corroborating Shane’s suspicious behaviour could be through the items found in the security spot check which included books on ‘How to Start a Startup: The Silicon Valley Playbook for Entrepreneurs’, ‘Ultrasonic Transducers: Materials and Design for Sensors, Actuators and Medical Applications’, and a ‘Handbook of Image-based Security Techniques’. Which could suggest his motivations on how to safely steal information and why he wants to.
+
+Brian’s Instagram posts before getting the car also seemed like he was struggling at work, maybe they needed a way out?
+
+The Protector news article showcased that key developing technology could be worth $10s of millions, which could be great incentives.
+
+There could be a possible drug use problem with the probability of  a  **false negative reading (Support from probability Question 3)**
+
+### Threat and broader implications for UA:
+
+If Shane's position at UA is terminated and that impacts upon the release of the MAX10, as document 20/XX indicates, there could be a significant financial implication for the company. It is suggested that the company could lose up to
+$7 million in earnings. This loss of earning could be just the beginning for the company if Shane really is not involved in any form of espionage and files for wrongful termination. Along with this comes a length legal battle and compensation. Additionally, this then leaves space for the rival company of Queen Tech to release their new technology and have one up on UA.
+
+## Alternatives:
+
+  1. Shane was considering opening a Start-Up:
+
+The phone call made from Jeffries phone to the bank could be indicative of him trying to seek funds for the Start-up. However, if Jeffries was doing so he would consider using a personal IP.
+
+  2. Jeffries was being harassed considering his complaint to the Hr was true and his email to Kim lee as well. 3. Jeffries and his loyalty with Queen Tech was something that there was not enough evidence for. 
+  4.    The Bank Transfer of $21,900 to Brian Diaz could be a method that Jeffries used as a payment to carry out the espionage. Giving money in the form of gifts might be a mask to avoid paying taxes on the funding. 5. Considering the complaint letter from Jeffries was untrue, it could also be considered as a mask or distraction to carry out an espionage
+
+  6. PS: The medication found in Jeffries possession included: (I looked what each of them are used for)paracetamol, ibuprofen, fexofenadine, folic acid, L-carnitine, serophene, panax ginseng and zinc, out of which folic acid, serophene are medicines that are used to treat infertility in women and panax ginseng is for erectile dysfunction. The posts on his social media, could probably be related to problems that he is facing with his wife sexually, or they are facing problems in having a child. The decreased working hours could also be seen as an effort on Jeffries behalf to try and have a child with his wife. His social media posts could be indicative of the pressure that his family might be putting on him to have a baby. This pressure could have in turn increased his drinking.
+

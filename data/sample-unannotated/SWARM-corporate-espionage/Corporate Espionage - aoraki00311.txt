@@ -1,0 +1,390 @@
+
+
+# Report on the Suitability of Shane Jeffries for Employment at Ultimate Audio
+
+**Key Findings and Judgements**
+
+Ultimate Audio (UA) requested that Risk Threat Consultancy Group (RTCG) independently assess the activities of UA staff member, Shane JEFFRIES, to determine whether he is conducting corporate espionage on behalf of competitor Queen Tech. The investigation has determined the following –
+
+  * RTCG believes that the probability that JEFFRIES is undertaking corporate espionage and/or is suitable to continue in his role is too close to 50% to justify an overt investigation. Furthermore, there is reason to believe that the accusation is false. 
+  * While available evidence taken as a whole could indicate that JEFFRIES activities are due to him undertaking corporate espionage, the evidence could equally be related to innocuous activities.
+  * The probability that JEFFRIES was lying when he answered question 4 of his polygraph test is 13.15%. The probability that a person lying on question 4 and undertaking scanning and accessing behaviours, as JEFFRIES was, is engaged in espionage is 48.10%. The probability that JEFFRIES’ recent drug test returned a false negative result is 6.91%, and aligns with prior tests indicating a very high probability that he is not a long term drug user (See Appendix 1). When considered together this evidence does not give a clear indication that JEFFRIES is engaged in espionage.
+  * Current UA security procedures may not detect all anomalies in staff activities, and it appears that some noted inconsistencies have not been fully investigated. This presents a potential risk to UA that confidentiality and secrecy may be breached.
+  * It is unclear whether the mobile phone/removable media locker denoted on the lab schematic includes technology to prevent wireless transmission of data, eg a Farraday cage.
+  * A complaint submitted by Shane JEFFRIES related to harassment based on sexuality was not actioned by Human Resources for 2 weeks, presenting a risk to UA both financially and reputationally.
+  * Evidence suggests that James BOURNE may be responsible for the anonymous letter, as retaliation for JEFFRIES’ complaint to Human Resources.
+  * UA currently has a contract with the Department of Defence to develop military grade audio technology, and accusations of espionage are likely to have significant repercussions for this contract.
+
+**Recommendations**
+
+  1. At this time, RTCG recommends further investigation of Shane JEFFRIES' activities to determine whether recent anomalies and policy breaches can be attributed to activities that are not malicious in nature. Given the tenuous connections between current evidence and the possibility of corporate espionage, this investigation should remain covert in nature to prevent the loss of JEFFRIES, a high-quality employee. 2. UA should investigate to determine the author of the handwritten note, and RTCG recommends the use of handwriting comparisons during this investigation. 
+  3. All security procedures and policies should be reviewed to ensure that there is periodic assessment of staff behaviours and a clear plan of action to uncover and investigate anomalies. 
+  4. UA should ensure that the mobile phone/removable media locker outside the lab protects UA from unauthorised wireless transmission of data. 5. RTCG recommends that a general security review of all staff should be undertaken to ensure that security policies are being/have been adhered to. 
+  6. Urgent action should be taken to resolve the HR complaint from JEFFRIES to reduce the level of financial and reputational risk to UA. 
+  7. A review of the Department of Defence contract should be undertaken to ensure that UA has met all reporting standards in relation to espionage, whether proven or unproven.
+
+**Reasoning**
+
+RTCG assessed all information and evidence provided by UA. If the evidence was taken at face value and as a whole, it could be considered reasonable to assume that the accusation of corporate espionage made against JEFFRIES is accurate. However, when the evidence is more thoroughly assessed it becomes clear that each piece of evidence could be considered in the context of innocuous and innocent activities, albeit activities that may not meet with UA administration policies.
+
+Firstly, it is concerning that the accusation was made anonymously. This could indicate a workplace culture where direct communication is not a preferred option or where there is concern for repercusions. However, it could also indicate that the veracity of the contents should be questioned as anonimity prevents confirmation of the claims with the witness. When aligned with the email from James BOURNE, which also questions the behaviour of JEFFRIES, it is reasonable to consider that BOURNE may in fact be the author of the accusation. Without further investigation, RTCG is unable to unequivocally determine the motivation of the author, however if it was indeed BOURNE the HR complaint from JEFFRIES offers important context. RTCG considers it likely that the anonymous letter was written in retaliation for JEFFRIES’ complaint and/or to diminish JEFFRIES’ reputation to allow BOURNE to further his own work.
+
+The evidence provided by UA following their covert investigation has a range of alternative interpretations other than JEFFRIES engaging in corporate espionage. RTCG therefore recommend that the evidence has insufficient weight to justify decisive overt action. For example, a large portion of evidence (including JEFFRIES’ working hours, document scanning and printing activities, phone log, medications and bank statements) could also be an indicator that JEFFRIES and DIAZ have entered into a surrogacy agreement rather than an indicator of corporate espionage. While this is only one possible scenario, it demonstrates the need for further investigation to determine whether these activities are innocuous or malicious.
+
+There is a clear connection between JEFFRIES and Queen Tech (QT) – his former employment with QT directly; his work with NewTekDev, which is managed by Peyton WINGER, husband to QT’s Head of Technology, Tzuyu LEE; and the use of WINGER as his referee. However, connections of these kinds are not unlikely in a relatively small industry. JEFFRIES’ former employment with QT and NewTekDev is as likely to represent a strategic career path as it is to represent engagement in corporate espionage. Similarly, JEFFRIES’ apparent interest in start ups in the technology sector could simply be a future goal and/or related to his current employment. In fact, he may be seeking information regarding new technology or high achieving staff to assist in his own work.
+
+The complaint made by JEFFRIES to HR is concerning for a number of reasons. Firstly, the fact that BOURNE and GERTRUDE felt able to make such comments and the lack of action by HR suggests a culture where staff wellbeing is not highly valued. This has implications for UA both reputationally and financially, particularly if JEFFRIES decides to take the complaint further and holds UA responsible for creating an unsafe working environment by not actioning his complaint. Further, when considering the email from BOURNE to KIM regarding the “odd” behaviour of JEFFRIES, it seems likely that the anonymous letter may have come from the same source and that both may have been written to try to undermine JEFFRIES’ position at UA and/or as retaliation for the HR complaint. It is essential that UA takes action to determine the author of the anonymous letter and, given it was handwritten, using hand writing comparisons of staff members would be beneficial. If BOURNE is found to be the author and the claims made can not be substantiated, UA will need to consider whether disciplinary action against BOURNE is appropriate.
+
+**APPENDIX 1.**
+
+RTCG was requested to answer three probability-based questions.  These questions were about the interpretation of test results.  It is important to note that the probability of a 'true positive test result' is not the same as the probability that a positive test result reflects the truth.
+
+<IMAGE>
+
+Bayes' Theorem allows us to account for this.  All of the answers below rely on the statistics and test results provided by the client, and assume that those are accurate.
+
+**Question 1: The probability that Jeffries was lying on question 4 is 13.15%**.  Even though the polygraph is 89% likely to give a true positive, the likelihood of a false positive is far higher which reduces the significance of the polygraph finding.
+
+**Question 2: The probability that a person reported to be lying on question 4 and scanning and accessing is engaged in espionage is 48.10%.**  Combining the tests increases our confidence, but the result is not definitive.
+
+**Question 3: The probability that the most recent ‘all clear’ drug test result is false is 6.91%**. This is based on calculating the probability of a false negative from the U test, the probability of a false negative from the O test, and then assuming that the probability of using the O test is equal to the proportion of O tests in stock (69%).  We also calculated the probability of three false negatives: 0.41%.
+
+**APPENDIX 2. Recent Timeline**  
+
+<IMAGE>​​​​​​​
+
+**APPENDIX 3.  Relationship Chart**
+
+**<IMAGE>​​​​​​​**
+
+**​​​​​​​APPENDIX 4.  Admiralty Rating**
+
+<IMAGE>​​​​​​​
+
+**​​​​​​​A** **dmiralty  Rating Assessment of Evidence**
+
+**Information**
+
+|
+
+**Reliability**
+
+|
+
+**Evaluation**
+
+|
+
+**Comments**  
+  
+---|---|---|---  
+  
+1/XX Personnel File
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+2/XX Resume
+
+|
+
+C
+
+|
+
+2
+
+|
+
+  
+  
+3/XX Referee Statement from WINGER
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+4/YY Polygraph Analysis
+
+|
+
+C
+
+|
+
+3
+
+|
+
+  
+  
+4/XX KIM Interview Summary
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+4/ZZ Lab Schematics
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+5/XX Building Entry/Exit Logs
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+6/YY Printer Records
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+6/ZZ IT Usage Report
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+7/XX News Article re Corporate Espionage
+
+|
+
+F
+
+|
+
+3
+
+|
+
+  
+  
+8/XX Email from BOURNE to KIM
+
+|
+
+D
+
+|
+
+4
+
+|
+
+BOURNE is making a comment about an overheard conversation and using it to advance his agenda.  
+  
+9/XX Social Media Posts by JEFFERIES
+
+|
+
+C
+
+|
+
+3
+
+|
+
+Cannot verify JEFFERIES posted these images.  
+  
+10/XX Email from LANGFORD to RTCG
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+11/XX Anonymous handwritten note
+
+|
+
+E
+
+|
+
+4
+
+|
+
+The note was anonymous and handwritten, therefore the person did not have the courage of their convictions to put their name to it.  
+  
+12/XX Email from JEFFRIES to HR
+
+|
+
+B
+
+|
+
+3
+
+|
+
+  
+  
+13/XX Media interview with LEE
+
+|
+
+F
+
+|
+
+3
+
+|
+
+  
+  
+14/YY Drug test results
+
+|
+
+C
+
+|
+
+2
+
+|
+
+  
+  
+15/XX Contents of JEFFRIES’ desk
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+16/XX JEFFERIES & DIAZ’s Bank Statement
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+17/XX Phone Records from JEFFERIE’s Work Phone
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+19/XX Social Media Posts by DIAZ
+
+|
+
+C
+
+|
+
+3
+
+|
+
+Cannot verify DIAZ posted these images.  
+  
+20/XX UA Financial Forecast
+
+|
+
+B
+
+|
+
+2
+
+|
+
+  
+  
+
