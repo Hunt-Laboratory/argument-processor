@@ -1,8 +1,8 @@
-const {neverland: $, render, html, useState} = window.neverland;
+const {neverland: Component, render, html, useState} = window.neverland;
 
 import Router from './Router.js';
 
-const App = $(function() {
+const App = Component(function() {
 	
 	const [appStatus, setAppStatus] = useState({
 		isLoggedIn: false,

@@ -1,41 +1,250 @@
 :root {
-	--colour-bg: #fcfcfc;
-	--colour-bg-alt: #f6f6f6;
-
-	--colour-support: #859900;
-	--colour-attack: #dc322f;
-	--colour-summary: #000000;
-	--colour-equivalence: var(--colour-bg-alt);
-
-	--colour-source: #039be5;
-	--colour-source-tint: #e1f5fe;
-	--colour-source-tint-2: #b3e5fc;
-
-	--bp1: #859900;
-	--bp2: #dc322f;
-
-	--header-height: 30px;
-	--panel-width: 500px;
-	--border-width: 4px;
-
-	--sans-serif-stack: 'IBM Plex Sans', sans-serif;
-	--serif-stack: 'IBM Plex Serif', serif;
-	--mono-stack: 'IBM Plex Mono', monospace;
+  --background: #fcfcfc;
+  --background-tone: #f6f6f6;
+  --black: #000;
+  --colour-support: #859900;
+  --colour-attack: #dc322f;
+  --colour-summary: #000000;
+  --sans-serif-stack: "IBM Plex Sans", sans-serif;
+  --serif-stack: "IBM Plex Serif", serif;
+  --mono-stack: "IBM Plex Mono", monospace;
+  --p: 20px;
+  --h: calc(var(--p) / 2);
+  --q: calc(var(--p) / 4);
 }
 
 html {
-	font-family: var(--sans-serif-stack);
+  font-family: var(--sans-serif-stack);
+  background-color: var(--background);
+  height: 100%;
 }
 
 body {
-	max-height: 100vh;
-	margin: 0;
-
-	display: grid;
-	grid-template-columns: 100%;
-	grid-template-rows: calc(100vh - 20px) 20px;
+  margin: 0;
+  display: flex;
+  padding: 0;
+  scroll-behavior: smooth;
+  min-height: 100%;
+  align-items: center;
+}
+body::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+body::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+  margin: 0;
+}
+body::-webkit-scrollbar-thumb {
+  background-color: #dedede;
+  border-radius: 10px;
 }
 
 .hide {
-	display: none !important;
+  display: none !important;
 }
+
+main {
+  margin: calc(6*var(--p)) auto;
+  width: fit-content;
+  min-width: 100%;
+}
+main .node {
+  display: grid;
+  grid-template-columns: auto 0 600px auto 1fr;
+  grid-template-rows: auto;
+  margin-top: -1px;
+  opacity: 1;
+  transition: opacity 0.1s;
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+main .node.transparent {
+  opacity: 0;
+}
+main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+main .node.type-claim .textarea {
+  font-weight: 500;
+}
+main .node .handle {
+  cursor: grab;
+}
+main .node .handle:hover {
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23dddddd' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
+}
+main .node .caret {
+  padding: var(--p);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  cursor: pointer;
+  text-align: right;
+  color: #bcbcbc;
+  -webkit-transition: width 0.1s;
+  transition: width 0.1s;
+}
+main .node .caret:hover {
+  background-color: var(--background-tone);
+  color: black;
+}
+main .node .caret:hover + .controls {
+  background-color: var(--background-tone);
+}
+main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: default;
+}
+main .node .caret svg {
+  -webkit-transition: transform 0.25s;
+  transition: transform 0.25s;
+}
+main .node .caret.open svg {
+  transform: rotate(90deg);
+}
+main .node .padding {
+  box-sizing: border-box;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  visibility: hidden;
+}
+main .node .padding button {
+  display: flex;
+  padding: var(--p);
+  border: 0;
+  background-color: transparent;
+  align-self: stretch;
+  cursor: pointer;
+  color: #bcbcbc;
+  align-items: center;
+  font-size: 1rem;
+}
+main .node .padding button:focus {
+  outline: none;
+}
+main .node .padding button:hover {
+  color: black;
+  background-color: var(--background-tone);
+}
+main .node:hover .padding {
+  visibility: visible;
+}
+main .node:hover .controls .inbetween {
+  visibility: visible;
+}
+main .node .textarea {
+  padding: var(--p);
+}
+main .node .textarea:focus {
+  outline: none;
+  background-color: #efefef;
+}
+main .node .textarea:focus:hover {
+  background-color: #efefef;
+}
+main .node .textarea:hover {
+  background-color: var(--background-tone);
+}
+main .node .controls {
+  position: relative;
+}
+main .node .controls .inbetween {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  margin-left: -10px;
+  box-sizing: border-box;
+  cursor: pointer;
+  background-color: var(--background);
+  border: 1px solid #cdcdcd;
+  width: 20px;
+  height: 20px;
+  max-width: 500px;
+  font-size: 0.8rem;
+  z-index: 200;
+  visibility: hidden;
+  color: #cdcdcd;
+  border-radius: var(--q);
+  text-align: center;
+}
+main .node .controls .inbetween:hover {
+  background-color: var(--background-tone);
+  color: black;
+}
+main .node .controls .inbetween.above {
+  top: 0;
+  margin-top: -10px;
+}
+main .node .controls .inbetween.below {
+  bottom: 0;
+  margin-bottom: -11px;
+}
+main .node .controls .inbetween.indented {
+  bottom: 0;
+  margin-bottom: -11px;
+  left: calc(3 * var(--p));
+}
+main .node .controls:hover .inbetween {
+  visibility: visible;
+}
+
+.toolbar {
+  position: fixed;
+  top: var(--p);
+  right: var(--p);
+  z-index: 100;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  border-radius: var(--q);
+}
+.toolbar button {
+  background-color: var(--black);
+  /*background-color: transparent;*/
+  color: var(--background);
+  border: none;
+  padding: var(--h);
+}
+.toolbar button:first-of-type {
+  border-radius: var(--q) var(--q) 0 0;
+}
+.toolbar button:last-of-type {
+  border-radius: 0 0 var(--q) var(--q);
+}
+.toolbar button:hover {
+  cursor: pointer;
+  background-color: #000000cc;
+  /*color: var(--black);*/
+}
+.toolbar button:focus {
+  outline: none;
+}
+.toolbar button:before {
+  content: attr(data-action);
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-right: 100%;
+  margin-top: calc(-1 * var(--h));
+  padding: var(--h);
+  border-radius: var(--q) 0 0 var(--q);
+  text-align: right;
+  color: var(--black);
+  background-color: #fcfcfcaa;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+}
+.toolbar button:hover:before {
+  display: block;
+}
+
+/*# sourceMappingURL=main.css.map */
