@@ -11,6 +11,7 @@ const Toolbar = Component(function(corpus, setAppStatus) {
 		${Button('acorn', 'Seed', () => {})}
 		${Button('adjust', 'Contrast', () => {})}
 		${Button('air-freshener', 'Freshen Up', () => {})}
+		${Button('keyboard', 'Keyboard Shortcuts', () => {})}
 	</div>`;
 
 });

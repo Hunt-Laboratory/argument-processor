@@ -6,13 +6,16 @@ import Toolbar from './Toolbar.js';
 import utils from '../utils.js';
 let { randomString, setCaret } = utils;
 
+import example from './example.js';
+
 const Processor = Component(function(corpus, setAppStatus) {
 	
 	function defaultNode(indent) {
 		return {
 			id: randomString(),
 			text: '',
-			type: 'claim',
+			type: 'premise',
+			label: 'premise',
 			open: true,
 			display: true,
 			indent: indent
@@ -51,10 +54,18 @@ const Processor = Component(function(corpus, setAppStatus) {
 
 		for (let k = 0; k < doc.length; k++) {
 
+			if (k == 0) {
+				doc[k].indent = 0;
+			} else if (doc[k].indent > doc[k-1].indent + 1) {
+				doc[k].indent = doc[k-1].indent + 1;
+			}
+
 			if (doc[k].indent == 0) {
 				doc[k].parent = null;
+				doc[k].type = 'claim';
 			} else {
 				doc[k].parent = getParent(doc, k).id;
+				doc[k].type = doc[k].label;
 			}
 
 		}
@@ -62,62 +73,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 		return doc;
 	}
 
-	let [doc, setDoc] = useState(annotate([
-		{
-			id: randomString(),
-			text: 'Sed sint tempore 33 repellat omnis qui omnis facere vel voluptatem soluta.',
-			type: 'claim',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 0
-		},
-		{
-			id: randomString(),
-			text: 'Id corporis dolores et animi culpa aut voluptatem expedita id obcaecati commodi ab pariatur quia aut enim consequatur ut laudantium inventore.',
-			type: 'support',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 1
-		},
-		{
-			id: randomString(),
-			text: 'Qui soluta odio dignissimos accusamus a tempore doloribus. Est quos reprehenderit aut accusamus alias vel optio omnis.',
-			type: 'attack',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 2
-		},
-		{
-			id: randomString(),
-			text: 'Sed sint tempore 33 repellat omnis qui omnis facere vel voluptatem soluta.',
-			type: 'attack',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 3
-		},
-		{
-			id: randomString(),
-			text: 'Id corporis dolores et animi culpa aut voluptatem expedita id obcaecati commodi ab pariatur quia aut enim consequatur ut laudantium inventore.',
-			type: 'claim',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 0
-		},
-		{
-			id: randomString(),
-			text: 'Qui soluta odio dignissimos accusamus a tempore doloribus. Est quos reprehenderit aut accusamus alias vel optio omnis.',
-			type: 'attack',
-			open: true,
-			display: true,
-			transparent: false,
-			indent: 1
-		}
-	]));
+	let [doc, setDoc] = useState(annotate(example));
 
 	let [focus, setFocus] = useState({
 		node: null,
@@ -287,8 +243,9 @@ const Processor = Component(function(corpus, setAppStatus) {
 	}
 
 	function indentNode(idx, delta) {
-		setDoc(prevDoc => {
-			let doc = _.cloneDeep(prevDoc),
+		
+		let updater = prevDoc => {
+			let doc = [...prevDoc],
 				indentIds = descendents(doc[idx]).map(d => d.id);
 
 			if (idx == 0) {
@@ -306,7 +263,11 @@ const Processor = Component(function(corpus, setAppStatus) {
 			}
 
 			return annotate(doc);
-		})
+		}
+
+		setDoc(updater);
+
+		setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
 	}
 
 	function insertNode(idx, relation) {
@@ -331,6 +292,13 @@ const Processor = Component(function(corpus, setAppStatus) {
 				return annotate(doc);
 			})
 
+			setFocus(prevFocus => {
+				let focus = {...prevFocus};
+				focus.node = newNode.id;
+				focus.caret = [0, 0];
+				return focus;
+			})
+
 			return newNode.id;
 		}
 	}
@@ -348,9 +316,92 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
+	function orderUpdateFunction(fromIndex, toIndex) {
+		return (prevDoc) => {
+			let doc = _.cloneDeep(prevDoc);
+			if (doc[fromIndex].open) {
+				doc.splice(toIndex, 0, ...doc.splice(fromIndex, 1));
+			} else {
+				let nDescendents = descendents(doc[fromIndex]).length;
+				doc.splice(toIndex, 0, ...doc.splice(fromIndex, 1 + nDescendents));
+			}
+			return annotate(doc);
+		}
+	}
+
+	let [sortable, setSortable] = useState(null);
+
+	// Manage sortablejs sequence fields.
+	useEffect(() => {
+		if (sortable === null) {
+			setSortable(
+				Sortable.create(
+					document.querySelector('main'),	
+					{
+						draggable: '.node',
+						handle: '.handle',
+						animation: 150,
+						delay: 0,
+						direction: 'vertical',
+						// multiDrag: true,
+						// selectedClass: 'selected',
+						// onSelect: function(evt) {
+						// 	let idx = Number(evt.item.getAttribute("data-index")),
+						// 		ids = descendents(doc[idx]).map(d => d.id);
+						// 	for (let id of ids) {
+						// 		Sortable.utils.select(document.querySelector(`#node-${id}`));
+						// 	}
+						// },
+						// onDeselect: function(evt) {
+						// 	let idx = Number(evt.item.getAttribute("data-index")),
+						// 		ids = descendents(doc[idx]).map(d => d.id);
+						// 	for (let id of ids) {
+						// 		Sortable.utils.deselect(document.querySelector(`#node-${id}`));
+						// 	}
+						// },
+						onEnd: function(evt) {
+
+							// Undo sortablejs reordering of elements, so that it is instead handled by neverland state.
+
+							let element = evt.item,
+								parent = element.parentNode,
+								elements = parent.children,
+								old_idx = evt.oldIndex,
+								new_idx = evt.newIndex;
+
+							// let old_idxs = evt.oldIndicies.map(d => d.index),
+							// 	new_idxs = evt.newIndicies.map(d => d.index);
+
+							if (old_idx > new_idx) {
+								parent.insertBefore(element, elements[old_idx].nextSibling);
+							} else {
+								parent.insertBefore(element, elements[old_idx])
+							}
+
+							// Update neverland state.
+
+							setDoc(orderUpdateFunction(old_idx, new_idx));
+
+							// setGutterWidth(getGutterWidth(orderUpdateFunction(old_idx, new_idx)(doc)));
+
+						}
+					}
+				)
+			);
+		}
+
+	}, [])
+
 	useEffect(() => {
 		if (doc.length == 0) {
-			setDoc(annotate([defaultNode(0)]));
+			let newNode = defaultNode(0);
+			setDoc(annotate([newNode]));
+			setFocus(prevFocus => {
+				let focus = {...prevFocus};
+				focus.node = newNode.id;
+				focus.caret = [0, 0];
+				return focus;
+			})
 		}	
 	})
 

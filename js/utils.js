@@ -55,17 +55,20 @@ utils.setCaret = function(el, caret) {
 	let range = document.createRange();
 	let sel = window.getSelection();
 	
+	if (el.childNodes.length > 0) {
+		
+		try {
+			range.setStart(el.childNodes[0], caret[0]);
+			range.setEnd(el.childNodes[0], caret[1]);
+		} catch {
+			range.setStart(el.childNodes[0], 0);
+			range.setEnd(el.childNodes[0], 0);
+		}
 
-	try {
-		range.setStart(el.childNodes[0], caret[0]);
-		range.setEnd(el.childNodes[0], caret[1]);
-	} catch {
-		range.setStart(el.childNodes[0], 0);
-		range.setEnd(el.childNodes[0], 0);
-	}
-	
-	sel.removeAllRanges();
-	sel.addRange(range);
+		sel.removeAllRanges();
+		sel.addRange(range);
+
+	}	
 }
 
 export default utils;

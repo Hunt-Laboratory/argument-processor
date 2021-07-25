@@ -1,5 +1,7 @@
 const {neverland: Component, render, html, useState, useEffect} = window.neverland;
 
+import Caret from './Caret.js';
+
 import utils from '../utils.js';
 let { getCaret } = utils;
 
@@ -17,8 +19,23 @@ const Claim = Component(function(node, idx, doc, props) {
 		deleteNode
 	} = props;
 
+	const [menu, setMenu] = useState(false);
+
 	function children(node) {
 		return doc.filter(d => d.parent == node.id);
+	}
+
+	function descendents(node) {
+
+		let kids = children(node),
+			grandkids = [];
+
+		for (let kid of kids) {
+			grandkids = grandkids.concat(descendents(kid));
+		}
+
+		return kids.concat(grandkids);
+
 	}
 
 	function handleKeydown(e) {
@@ -26,13 +43,7 @@ const Claim = Component(function(node, idx, doc, props) {
 		if (e.key == 'Enter') {
 			e.stopPropagation();
 			e.preventDefault();
-			let newId = insertNode(idx, 'after')();
-			setFocus(prevFocus => {
-				let focus = {...prevFocus};
-				focus.node = newId;
-				focus.caret = [0, 0];
-				return focus;
-			})
+			insertNode(idx, 'after')();
 		} else if (e.key == 'Tab') {
 			e.stopPropagation();
 			e.preventDefault();
@@ -42,7 +53,8 @@ const Claim = Component(function(node, idx, doc, props) {
 			e.preventDefault();
 			setFocus(prevFocus => {
 				let focus = {...prevFocus};
-				focus.node = doc[(idx + 1) % doc.length].id;
+				let nodesBelow = doc.filter((d, i) => i > idx & d.display);
+				focus.node = nodesBelow.length > 0 ? nodesBelow[0].id : doc[0].id;
 				focus.caret = [0, 0];
 				return focus;
 			})
@@ -51,10 +63,20 @@ const Claim = Component(function(node, idx, doc, props) {
 			e.preventDefault();
 			setFocus(prevFocus => {
 				let focus = {...prevFocus};
-				focus.node = doc[(idx + doc.length - 1) % doc.length].id;
+				let nodesAbove = doc.filter((d, i) => i < idx & d.display),
+					nodesBelow = doc.filter((d, i) => i >= idx & d.display);
+				focus.node = nodesAbove.length > 0 ? nodesAbove[nodesAbove.length-1].id : nodesBelow[nodesBelow.length-1].id;
 				focus.caret = [0, 0];
 				return focus;
 			})
+		} else if (e.key == '=') {
+			e.stopPropagation();
+			e.preventDefault();
+			if (node.open) {
+				close(idx)();
+			} else {
+				open(idx)();
+			}
 		}
 
 
@@ -85,10 +107,22 @@ const Claim = Component(function(node, idx, doc, props) {
 		})
 	}
 
+	useEffect(() => {
+		let childNodes = document.querySelector(`#node-${node.id} .textarea`).childNodes;
+		if (childNodes.length > 2) {
+			childNodes[0].remove();
+		}
+	})
+
+	function Button(icon, action, callback) {
+		return html`<button onclick="${callback}" data-action="${action}"><i class="fas fa-${icon}"></i></button>`;
+	}
+
 	return html.for(node)`
 	<div
 		class="node type-${node.type} ${node.transparent ? 'transparent' : ''}"
 		id="node-${node.id}"
+		data-index="${idx}"
 		style="display: ${node.display ? 'grid' : 'none'};">
 
 		<div
@@ -96,19 +130,19 @@ const Claim = Component(function(node, idx, doc, props) {
 			id="caret-${node.id}"
 			onclick="${children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : ''}"
 			style="width: calc(${gutterWidth}px + 20px + ${3*node.indent}*var(--p));">
-				${ children(node).length > 0 ? html`<i class="fas fa-caret-right"></i>` : ''}
+				${Caret(children(node).length == 0)}
 			</div>
 		
 		<div class="controls">
 			<div class="inbetween above" onclick="${insertNode(idx, 'before')}">
 				<i class="fal fa-plus"></i>
 			</div>
-			${children(node).length == 0 ? html`<div class="inbetween below" onclick="${insertNode(idx, 'after')}">
+			<div class="inbetween below ${children(node).length > 0 ? 'hide' : ''}" onclick="${insertNode(idx, 'after')}">
 				<i class="fal fa-plus"></i>
-			</div>` : ''}
-			${children(node).length > 0 ? html`<div class="inbetween indented" onclick="${insertNode(idx, 'after')}">
+			</div>
+			<div class="inbetween indented ${children(node).length == 0 ? 'hide' : ''}" onclick="${insertNode(idx, 'after')}">
 				<i class="fal fa-plus"></i>
-			</div>` : ''}
+			</div>
 		</div>
 
 		<div
@@ -118,12 +152,51 @@ const Claim = Component(function(node, idx, doc, props) {
 			onkeydown="${handleKeydown}">${node.text}</div>
 		
 		<div
-			class="padding"
-			onclick="${deleteNode(idx)}">
+			class="padding">
 
-			<button>
+			<button onclick="${() => {setMenu(!menu)}}">
 				<i class="far fa-bars"></i>
 			</button>
+
+			<div class="curtain ${menu ? '' : 'hide'}" onclick="${() => setMenu(false)}"></div>
+
+			<div class="menu ${menu ? '' : 'hide'}">
+				${Button('angle-double-down', 'Expand all children', () => {
+					setMenu(false);
+					open(idx)();
+					let ids = descendents(node).map(d => d.id),
+						idxs = [];
+					for (let k = 0; k < doc.length; k++) {
+						if (ids.includes(doc[k].id)) {
+							idxs.push(k);
+						}
+					}
+					for (let idx of idxs) {
+						if (!doc[idx].open) {
+							open(idx)();
+						}
+					}
+				})}
+				${Button('angle-double-up', 'Collapse all children', () => {
+					setMenu(false);
+					let ids = descendents(node).map(d => d.id),
+						idxs = [];
+					for (let k = 0; k < doc.length; k++) {
+						if (ids.includes(doc[k].id)) {
+							idxs.push(k);
+						}
+					}
+					for (let idx of idxs) {
+						if (doc[idx].open) {
+							close(idx)();
+						}
+					}
+				})}
+				${Button('trash', 'Delete', () => {
+					setMenu(false);
+					deleteNode(idx)();
+				})}
+			</div>
 
 		</div>
 		

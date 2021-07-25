@@ -71,6 +71,10 @@ main .node:hover {
 main .node.type-claim .textarea {
   font-weight: 500;
 }
+main .node.selected {
+  background-color: #141414;
+  color: #f6f6f6;
+}
 main .node .handle {
   cursor: grab;
 }
@@ -107,6 +111,9 @@ main .node .caret svg {
 main .node .caret.open svg {
   transform: rotate(90deg);
 }
+main .node .caret.inactive svg {
+  opacity: 0;
+}
 main .node .padding {
   box-sizing: border-box;
   position: relative;
@@ -115,7 +122,17 @@ main .node .padding {
   justify-content: flex-start;
   visibility: hidden;
 }
-main .node .padding button {
+main .node .padding .curtain {
+  display: block;
+  position: fixed;
+  z-index: 300;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+}
+main .node .padding > button {
   display: flex;
   padding: var(--p);
   border: 0;
@@ -126,12 +143,64 @@ main .node .padding button {
   align-items: center;
   font-size: 1rem;
 }
-main .node .padding button:focus {
+main .node .padding > button:focus {
   outline: none;
 }
-main .node .padding button:hover {
+main .node .padding > button:hover {
   color: black;
   background-color: var(--background-tone);
+}
+main .node .padding .menu {
+  display: flex;
+  position: absolute;
+  top: var(--p);
+  left: var(--p);
+  flex-direction: column;
+  visibility: visible;
+  z-index: 350;
+  border-radius: var(--q);
+}
+main .node .padding .menu button {
+  border: none;
+  text-align: left;
+  padding: var(--h);
+  font-family: var(sans-serif-stack);
+  cursor: pointer;
+  background-color: var(--black);
+  color: var(--background);
+  overflow: visible;
+  box-shadow: 0 0 5px #00000088;
+  text-align: center;
+}
+main .node .padding .menu button:first-of-type {
+  border-radius: var(--q) var(--q) 0 0;
+}
+main .node .padding .menu button:last-of-type {
+  border-radius: 0 0 var(--q) var(--q);
+}
+main .node .padding .menu button:focus {
+  outline: none;
+}
+main .node .padding .menu button:hover {
+  background-color: #000000cc;
+}
+main .node .padding .menu button:before {
+  content: attr(data-action);
+  display: none;
+  position: absolute;
+  left: 0;
+  margin-left: 100%;
+  margin-top: calc(-1 * var(--h));
+  padding: var(--h);
+  border-radius: 0 var(--q) var(--q) 0;
+  text-align: left;
+  color: var(--black);
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+  z-index: 349;
+}
+main .node .padding .menu button:hover:before {
+  display: block;
 }
 main .node:hover .padding {
   visibility: visible;
@@ -195,6 +264,17 @@ main .node .controls .inbetween.indented {
 }
 main .node .controls:hover .inbetween {
   visibility: visible;
+}
+main .node.sortable-chosen {
+  opacity: 1;
+}
+main .node.sortable-chosen .caret,
+main .node.sortable-chosen .controls .inbetween,
+main .node.sortable-chosen .padding {
+  visibility: hidden;
+}
+main .node.sortable-ghost {
+  opacity: 0;
 }
 
 .toolbar {

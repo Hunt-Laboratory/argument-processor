@@ -96,6 +96,11 @@ main {
 			font-weight: 500;
 		}
 		
+		&.selected {
+			background-color: #141414;
+			color: #f6f6f6;
+		}
+
 		.handle {
 			cursor: grab;
 			// margin-left: var(--p);
@@ -105,7 +110,6 @@ main {
 				background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23dddddd' fill-opacity='1' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 			}
 		}
-
 
 		// .gutter {
 		// 	grid-column: span 2;
@@ -154,6 +158,10 @@ main {
 			&.open svg {
 				transform: rotate(90deg);
 			}
+
+			&.inactive svg {
+				opacity: 0;
+			}
 		}
 
 		
@@ -167,7 +175,18 @@ main {
 
 			visibility: hidden;
 
-			button {
+			.curtain {
+				display: block;
+				position: fixed;
+				z-index: 300;
+				top: 0;
+				left: 0;
+				width: 100vw;
+				height: 100vh;
+				background-color: transparent;
+			}
+
+			& > button {
 				display: flex;
 				padding: var(--p);
 				border: 0;
@@ -187,6 +206,73 @@ main {
 				&:hover {
 					color: black;
 					background-color: var(--background-tone);
+				}
+			}
+
+			.menu {
+				display: flex;
+				position: absolute;
+				top: var(--p);
+				left: var(--p);
+				flex-direction: column;
+				visibility: visible;
+				z-index: 350;
+				border-radius: var(--q);
+				// overflow: hidden;
+
+				button {
+					border: none;
+					text-align: left;
+					padding: var(--h);
+					font-family: var(sans-serif-stack);
+					cursor: pointer;
+					background-color: var(--black);
+					color: var(--background);
+					overflow: visible;
+
+					box-shadow: 0 0 5px #00000088;
+					text-align: center;
+
+					&:first-of-type {
+						border-radius: var(--q) var(--q) 0 0;
+					}
+					&:last-of-type {
+						border-radius: 0 0 var(--q) var(--q);
+					}
+
+					&:focus {
+						outline: none;
+					}
+
+					&:hover {
+						// text-decoration: underline;
+						background-color: #000000cc;
+					}
+
+					&:before {
+						content: attr(data-action);
+						
+						display: none;
+						position: absolute;
+						left: 0;
+						margin-left: 100%;
+						margin-top: calc(-1 * var(--h));
+						padding: var(--h);
+						border-radius: 0 var(--q) var(--q) 0;
+						
+						text-align: left;
+						color: var(--black);
+
+						// background-color: #fcfcfcaa;
+						backdrop-filter: blur(2px);
+						white-space: nowrap;
+
+						z-index: 349;
+					}
+					
+					&:hover:before {
+						display: block;
+					}
 				}
 			}
 		}
@@ -280,6 +366,23 @@ main {
 
 		}
 
+
+		&.sortable-chosen {
+			// border: none;
+			opacity: 1;
+			// background-color: #000;
+
+			.caret,
+			.controls .inbetween,
+			.padding {
+				visibility: hidden;
+			}
+
+		}
+
+		&.sortable-ghost {
+			opacity: 0;
+		}
 	}
 }
 
