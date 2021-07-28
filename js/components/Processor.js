@@ -14,8 +14,8 @@ const Processor = Component(function(corpus, setAppStatus) {
 		return {
 			id: randomString(),
 			text: '',
-			type: 'premise',
-			label: 'premise',
+			type: 'pro',
+			label: 'pro',
 			open: true,
 			display: true,
 			indent: indent
@@ -316,6 +316,17 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
+	function cycleType(idx) {
+		return () => {
+			let types = ['pro', 'con'];
+			setDoc(prevDoc => {
+				let doc = [...prevDoc];
+				doc[idx].label = types[(types.indexOf(doc[idx].label) + 1) % types.length];
+				return annotate(doc);
+			})
+		}
+	}
+
 	function orderUpdateFunction(fromIndex, toIndex) {
 		return (prevDoc) => {
 			let doc = _.cloneDeep(prevDoc);
@@ -414,7 +425,8 @@ const Processor = Component(function(corpus, setAppStatus) {
 		indentNode,
 		insertNode,
 		updateNodeText,
-		deleteNode
+		deleteNode,
+		cycleType
 	}
 
 	return html`

@@ -5,9 +5,12 @@
 	--background-tone: #f6f6f6;
 	--black: #000;
 
-	--colour-support: #859900;
-	--colour-attack: #dc322f;
-	--colour-summary: #000000;
+	--colour-pro: #859900;
+	--colour-pro-44: #85990044;
+	--colour-pro-aa: #85990088;
+	--colour-con: #dc322f;
+	--colour-con-44: #dc322f44;
+	--colour-con-aa: #dc322f88;
 
 	--sans-serif-stack: 'IBM Plex Sans', sans-serif;
 	--serif-stack: 'IBM Plex Serif', serif;
@@ -86,12 +89,6 @@ main {
 			border-bottom: 1px solid #cdcdcd;
 		}
 		
-		&.type-support .textarea {
-			// color: var(--colour-support);
-		}
-		&.type-attack .textarea {
-			// color: var(--colour-attack);
-		}
 		&.type-claim .textarea {
 			font-weight: 500;
 		}
@@ -111,16 +108,6 @@ main {
 			}
 		}
 
-		// .gutter {
-		// 	grid-column: span 2;
-		// 	grid-row: 1 / 2;
-		// 	align-self: stretch;
-
-		// 	cursor: pointer;
-		// 	box-sizing: border-box;
-		// 	border-right: 3px solid pink;
-		// }
-
 		.caret {
 			padding: var(--p);
 			box-sizing: border-box;
@@ -131,18 +118,12 @@ main {
 
 			cursor: pointer;
 			text-align: right;
-			color: #bcbcbc;
-
+			
 			-webkit-transition: width .1s;
 			transition: width .1s;
 
 			&:hover {
 				background-color: var(--background-tone);
-				color: black;
-
-				& + .controls {
-					background-color: var(--background-tone);
-				}
 			}
 
 			&.inactive:hover {
@@ -150,19 +131,58 @@ main {
 				cursor: default;
 			}
 
-			svg {
-				-webkit-transition: transform .25s;
-				transition: transform .25s;
-			}
-			
-			&.open svg {
-				transform: rotate(90deg);
-			}
-
 			&.inactive svg {
 				opacity: 0;
 			}
+
+			.dot {
+				box-sizing: border-box;
+				display: grid;
+				padding-left: 8px;
+				padding-top: 2px;
+				border-radius: var(--h);
+				width: var(--p);
+				height: var(--p);
+
+				-webkit-transition: transform .25s;
+				transition: transform .25s;
+
+				&.open {
+					transform: rotate(90deg);
+				}
+
+				&.type-pro {
+					background-color: var(--colour-pro-44);
+					color: var(--colour-pro-aa);
+				}
+				&.type-con {
+					background-color: var(--colour-con-44);
+					color: var(--colour-con-aa);
+				}
+				&.type-claim {
+					background-color: transparent;
+					color: #bfbfbf;
+				}
+			}
+
+			&:hover {
+				.dot {
+					&.type-pro {
+						color: var(--colour-pro);
+					}
+					&.type-con {
+						color: var(--colour-con);
+					}
+					&.type-claim {
+						color: black;
+					}
+				}
+			}
+
+
+
 		}
+		
 
 		
 		.padding {

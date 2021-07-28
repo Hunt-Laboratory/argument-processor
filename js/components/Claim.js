@@ -16,7 +16,8 @@ const Claim = Component(function(node, idx, doc, props) {
 		indentNode,
 		insertNode,
 		updateNodeText,
-		deleteNode
+		deleteNode,
+		cycleType
 	} = props;
 
 	const [menu, setMenu] = useState(false);
@@ -69,7 +70,7 @@ const Claim = Component(function(node, idx, doc, props) {
 				focus.caret = [0, 0];
 				return focus;
 			})
-		} else if (e.key == '=') {
+		} else if (e.key == '=' & !e.ctrlKey) {
 			e.stopPropagation();
 			e.preventDefault();
 			if (node.open) {
@@ -77,6 +78,10 @@ const Claim = Component(function(node, idx, doc, props) {
 			} else {
 				open(idx)();
 			}
+		} else if (e.key == '+') {
+			e.stopPropagation();
+			e.preventDefault();
+			cycleType(idx)();
 		}
 
 
@@ -126,11 +131,13 @@ const Claim = Component(function(node, idx, doc, props) {
 		style="display: ${node.display ? 'grid' : 'none'};">
 
 		<div
-			class="caret ${node.open ? 'open' : ''} ${children(node).length == 0 ? 'inactive' : ''}"
+			class="caret ${children(node).length == 0 ? 'inactive' : ''}"
 			id="caret-${node.id}"
 			onclick="${children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : ''}"
 			style="width: calc(${gutterWidth}px + 20px + ${3*node.indent}*var(--p));">
-				${Caret(children(node).length == 0)}
+				<div class="dot ${node.open ? 'open' : ''} type-${node.type}">
+					${Caret(children(node).length == 0)}
+				</div>
 			</div>
 		
 		<div class="controls">
@@ -161,21 +168,10 @@ const Claim = Component(function(node, idx, doc, props) {
 			<div class="curtain ${menu ? '' : 'hide'}" onclick="${() => setMenu(false)}"></div>
 
 			<div class="menu ${menu ? '' : 'hide'}">
-				${Button('angle-double-down', 'Expand all children', () => {
+				${Button('paint-brush', 'Change type', () => {
 					setMenu(false);
-					open(idx)();
-					let ids = descendents(node).map(d => d.id),
-						idxs = [];
-					for (let k = 0; k < doc.length; k++) {
-						if (ids.includes(doc[k].id)) {
-							idxs.push(k);
-						}
-					}
-					for (let idx of idxs) {
-						if (!doc[idx].open) {
-							open(idx)();
-						}
-					}
+					setFocus({ node: null, caret: [0, 0] });
+					cycleType(idx)();
 				})}
 				${Button('angle-double-up', 'Collapse all children', () => {
 					setMenu(false);
@@ -207,5 +203,22 @@ const Claim = Component(function(node, idx, doc, props) {
 	</div>`;
 
 })
+
+				// ${Button('angle-double-down', 'Expand all children', () => {
+				// 	setMenu(false);
+				// 	open(idx)();
+				// 	let ids = descendents(node).map(d => d.id),
+				// 		idxs = [];
+				// 	for (let k = 0; k < doc.length; k++) {
+				// 		if (ids.includes(doc[k].id)) {
+				// 			idxs.push(k);
+				// 		}
+				// 	}
+				// 	for (let idx of idxs) {
+				// 		if (!doc[idx].open) {
+				// 			open(idx)();
+				// 		}
+				// 	}
+				// })}
 
 export default Claim;

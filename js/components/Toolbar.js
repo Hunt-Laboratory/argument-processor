@@ -7,11 +7,9 @@ const Toolbar = Component(function(corpus, setAppStatus) {
 	}
 
 	return html`<div class="toolbar">
-		${Button('edit', 'Edit', () => {})}
-		${Button('acorn', 'Seed', () => {})}
-		${Button('adjust', 'Contrast', () => {})}
-		${Button('air-freshener', 'Freshen Up', () => {})}
-		${Button('keyboard', 'Keyboard Shortcuts', () => {})}
+		${Button('save', 'Save', () => {})}
+		${Button('download', 'Download', () => {})}
+		${Button('keyboard', 'Shortcuts', () => {})}
 	</div>`;
 
 });
