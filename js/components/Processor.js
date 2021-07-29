@@ -18,7 +18,8 @@ const Processor = Component(function(corpus, setAppStatus) {
 			label: 'pro',
 			open: true,
 			display: true,
-			indent: indent
+			indent: indent,
+			joint: false
 		}
 	}
 
@@ -327,6 +328,14 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
+	function toggleJoin(idx) {
+		setDoc(prevDoc => {
+			let doc = [...prevDoc];
+			doc[idx].joint = !doc[idx].joint;
+			return doc;
+		})
+	}
+
 	function orderUpdateFunction(fromIndex, toIndex) {
 		return (prevDoc) => {
 			let doc = _.cloneDeep(prevDoc);
@@ -426,7 +435,8 @@ const Processor = Component(function(corpus, setAppStatus) {
 		insertNode,
 		updateNodeText,
 		deleteNode,
-		cycleType
+		cycleType,
+		toggleJoin
 	}
 
 	return html`

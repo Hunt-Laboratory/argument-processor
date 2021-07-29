@@ -17,7 +17,8 @@ const Claim = Component(function(node, idx, doc, props) {
 		insertNode,
 		updateNodeText,
 		deleteNode,
-		cycleType
+		cycleType,
+		toggleJoin
 	} = props;
 
 	const [menu, setMenu] = useState(false);
@@ -36,6 +37,29 @@ const Claim = Component(function(node, idx, doc, props) {
 		}
 
 		return kids.concat(grandkids);
+
+	}
+	
+	function parent(node) {
+		let parents = doc.filter(d => d.id == node.parent);
+		if (parents.length > 0) {
+			return parents[0];
+		} else {
+			return null;
+		}
+	}
+
+	function ancestors(node) {
+
+		let as = [],
+			p = parent(node);
+
+		while (p !== null) {
+			as = [p].concat(as);
+			p = parent(p);
+		}
+
+		return as;
 
 	}
 
@@ -102,6 +126,79 @@ const Claim = Component(function(node, idx, doc, props) {
 		return;
 	}
 
+	function getConnectorSpecs(direction) {
+
+		let i = node.indent;
+
+		if (i == 0) {
+
+			return `width: 0;`;
+
+		} else {
+
+			let s = `width: calc(${3*(i-1) + 1}*var(--p) + var(--h) + 2px);background: repeating-linear-gradient(to right`;
+
+			let as = ancestors(node),
+				px = 0;
+
+			// Define ancestor lines.
+
+			for (let k = 1; k < as.length; k++) {
+
+				let colour = 'transparent';
+				if (as[k].joint & as[k].type == 'pro') {
+					colour = '#dee4bb';
+				} else if (as[k].joint & as[k].type == 'con') {
+					colour = '#f6c8c7';
+				}
+
+				s = s + `,${colour} ${px}px,${colour} ${px + 4}px`;
+				s = s + `,transparent ${px + 4}px,transparent ${px + 60}px`;
+				px = px + 60;
+			}
+
+			// Define sibling line.
+
+			function prevSibling(node) {
+				let prevSiblings = doc.filter((d,i) => d.parent == node.parent & i < idx);
+				if (prevSiblings.length == 0) {
+					return null;
+				} else {
+					return prevSiblings[prevSiblings.length-1];
+				}
+			}
+
+			let colour = 'transparent',
+				refNode;
+
+			if (direction == 'up') {
+				refNode = prevSibling(node);
+			} else {
+				refNode = node;
+			}
+			
+			if (refNode !== null) {
+				if (refNode.joint) {
+					if (node.type == 'pro') {
+						colour = '#dee4bb';
+					} else if (node.type == 'con') {
+						colour = '#f6c8c7';
+					}			
+				}
+			}
+			
+			s = s + `,${colour} ${px}px,${colour} ${px + 4}px`;
+			s = s + `,transparent ${px + 4}px,transparent ${px + 60}px`;
+
+			s = s + `);`;
+
+			// console.log(s);
+
+			return s;
+		}
+
+	}
+
 	let stealFocus = () => {
 		let caret = getCaret(document.querySelector(`#node-${node.id} .textarea`));
 		setFocus(prevFocus => {
@@ -135,10 +232,18 @@ const Claim = Component(function(node, idx, doc, props) {
 			id="caret-${node.id}"
 			onclick="${children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : ''}"
 			style="width: calc(${gutterWidth}px + 20px + ${3*node.indent}*var(--p));">
-				<div class="dot ${node.open ? 'open' : ''} type-${node.type}">
-					${Caret(children(node).length == 0)}
-				</div>
+		
+			<div
+				class="connectors up"
+				style="${getConnectorSpecs('up')}"></div>
+			<div
+				class="connectors down"
+				style="${getConnectorSpecs('down')}"></div>
+
+			<div class="dot ${node.open ? 'open' : ''} type-${node.type}">
+				${Caret(children(node).length == 0)}
 			</div>
+		</div>
 		
 		<div class="controls">
 			<div class="inbetween above" onclick="${insertNode(idx, 'before')}">
@@ -172,6 +277,11 @@ const Claim = Component(function(node, idx, doc, props) {
 					setMenu(false);
 					setFocus({ node: null, caret: [0, 0] });
 					cycleType(idx)();
+				})}
+				${Button(node.joint ? 'unlink' : 'link', node.joint ? 'Disconnect from below' : 'Connect to below', () => {
+					setMenu(false);
+					setFocus({ node: null, caret: [0, 0] });
+					toggleJoin(idx);
 				})}
 				${Button('angle-double-up', 'Collapse all children', () => {
 					setMenu(false);

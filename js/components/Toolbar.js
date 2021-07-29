@@ -10,6 +10,7 @@ const Toolbar = Component(function(corpus, setAppStatus) {
 		${Button('save', 'Save', () => {})}
 		${Button('download', 'Download', () => {})}
 		${Button('keyboard', 'Shortcuts', () => {})}
+		${Button('question', 'About this tool', () => {})}
 	</div>`;
 
 });

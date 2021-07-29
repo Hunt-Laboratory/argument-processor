@@ -19,6 +19,7 @@ let example = [
 		"open":false,
 		"display":true,
 		"indent":1,
+		joint: true
 	},
 	{
 		"id":"0604910087",
@@ -28,6 +29,7 @@ let example = [
 		"open":false,
 		"display":false,
 		"indent":2,
+		joint: true,
 	},
 	{
 		"id":"7663040203",
@@ -37,6 +39,7 @@ let example = [
 		"open":true,
 		"display":false,
 		"indent":3,
+		joint: true
 	},
 	{
 		"id":"8573607752",
@@ -46,6 +49,7 @@ let example = [
 		"open":true,
 		"display":false,
 		"indent":3,
+		joint: true
 	},
 	{
 		"id":"1562350060",
@@ -64,6 +68,7 @@ let example = [
 		"open":false,
 		"display":false,
 		"indent":2,
+		joint: true
 	},
 	{
 		"id":"4849050644",
@@ -100,6 +105,7 @@ let example = [
 		"open":false,
 		"display":true,
 		"indent":1,
+		joint: true
 	},
 	{
 		"id":"7538799266",
@@ -109,6 +115,7 @@ let example = [
 		"open":true,
 		"display":false,
 		"indent":2,
+		joint: true
 	},
 	{
 		"id":"6424974159",

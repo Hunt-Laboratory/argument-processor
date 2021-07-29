@@ -6,10 +6,10 @@
 	--black: #000;
 
 	--colour-pro: #859900;
-	--colour-pro-44: #85990044;
+	--colour-pro-44: #dee4bb;
 	--colour-pro-aa: #85990088;
 	--colour-con: #dc322f;
-	--colour-con-44: #dc322f44;
+	--colour-con-44: #f6c8c7;
 	--colour-con-aa: #dc322f88;
 
 	--sans-serif-stack: 'IBM Plex Sans', sans-serif;
@@ -77,7 +77,20 @@ main {
 		// padding: var(--p);
 
 		&.transparent {
-			opacity: 0;
+
+			.textarea, .handle, .padding, .controls {
+				opacity: 0;
+			}
+
+			.caret {
+				.dot {
+					opacity: 0;
+				}
+			}
+
+			// .connectors {
+			// 	opacity: 1 !important;
+			// }
 		}
 
 		border-top: 1px solid transparent;
@@ -122,6 +135,31 @@ main {
 			-webkit-transition: width .1s;
 			transition: width .1s;
 
+			position: relative;
+
+			.connectors {
+				position: absolute;
+				right: 0;
+				z-index: 0;
+				background-color: #fedb4a44;
+				// transition: width .1s;
+
+				&.up {
+					top: 0;
+					height: calc(50%);
+				}
+
+				&.down {
+					top: calc(50%);
+					height: calc(50% + 1px);
+				}
+			}
+
+			.connectors.up {
+				
+			}
+
+
 			&:hover {
 				background-color: var(--background-tone);
 			}
@@ -143,6 +181,7 @@ main {
 				border-radius: var(--h);
 				width: var(--p);
 				height: var(--p);
+				z-index: 50;
 
 				-webkit-transition: transform .25s;
 				transition: transform .25s;

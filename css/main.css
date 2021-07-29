@@ -3,10 +3,10 @@
   --background-tone: #f6f6f6;
   --black: #000;
   --colour-pro: #859900;
-  --colour-pro-44: #85990044;
+  --colour-pro-44: #dee4bb;
   --colour-pro-aa: #85990088;
   --colour-con: #dc322f;
-  --colour-con-44: #dc322f44;
+  --colour-con-44: #f6c8c7;
   --colour-con-aa: #dc322f88;
   --sans-serif-stack: "IBM Plex Sans", sans-serif;
   --serif-stack: "IBM Plex Serif", serif;
@@ -64,7 +64,10 @@ main .node {
   border-top: 1px solid transparent;
   border-bottom: 1px solid transparent;
 }
-main .node.transparent {
+main .node.transparent .textarea, main .node.transparent .handle, main .node.transparent .padding, main .node.transparent .controls {
+  opacity: 0;
+}
+main .node.transparent .caret .dot {
   opacity: 0;
 }
 main .node:hover {
@@ -94,6 +97,21 @@ main .node .caret {
   text-align: right;
   -webkit-transition: width 0.1s;
   transition: width 0.1s;
+  position: relative;
+}
+main .node .caret .connectors {
+  position: absolute;
+  right: 0;
+  z-index: 0;
+  background-color: #fedb4a44;
+}
+main .node .caret .connectors.up {
+  top: 0;
+  height: calc(50%);
+}
+main .node .caret .connectors.down {
+  top: calc(50%);
+  height: calc(50% + 1px);
 }
 main .node .caret:hover {
   background-color: var(--background-tone);
@@ -113,6 +131,7 @@ main .node .caret .dot {
   border-radius: var(--h);
   width: var(--p);
   height: var(--p);
+  z-index: 50;
   -webkit-transition: transform 0.25s;
   transition: transform 0.25s;
 }
