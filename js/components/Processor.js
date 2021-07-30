@@ -472,7 +472,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			${doc.map((d, i) => Claim(d, i, doc, props))}
 		</main>
 
-		${Toolbar()}
+		${Toolbar(doc, setDoc)}
 	`;
 
 });
