@@ -553,6 +553,33 @@ main {
 			}
 		}
 
+		.sample {
+			padding-left: 30px;
+
+			button {
+				font-size: 1rem;
+				display: inline;
+				border: 0;
+				background-color: transparent;
+				padding: 0 !important;
+				cursor: pointer;
+				font-weight: 300;
+				color: blue;
+				
+				text-decoration: underline;
+				text-decoration-thickness: 2px;
+				text-decoration-color: #ff000044;
+
+				&:hover {
+					text-decoration-color: #ff0000;
+				}
+
+				&:focus {
+					outline: none;
+				}
+			}
+		}
+
 		.click-to-close {
 			text-align: right;
 			font-size: .8rem;

@@ -13,7 +13,7 @@ function downloadObjectAsJson(exportObj, exportName){
 	downloadAnchorNode.remove();
 }
 
-const Toolbar = Component(function(doc, setDoc) {
+const Toolbar = Component(function(doc, setDoc, title, setTitle) {
 
 	let [shortcuts, setShortcuts] = useState(false);
 	let [about, setAbout] = useState(false);
@@ -23,16 +23,26 @@ const Toolbar = Component(function(doc, setDoc) {
 	}
 
 	return html`<div class="toolbar">
+
 		${Button('folder-open', 'Open file', () => {
 			document.getElementById('file-input').click();
 		})}
-		${Button('download', 'Download', () => { downloadObjectAsJson(doc, 'Your Argument.argx') })}
+	
+		${Button('download', 'Download', () => { downloadObjectAsJson(doc, `${title}.argx`) })}
+	
+		${Button('i-cursor', 'Rename', () => {
+			setTitle(prompt("Edit the file name and click 'OK'.", title));
+		})}
+	
 		${Button('keyboard', 'Shortcuts', () => { setShortcuts(true) })}
+	
 		${Button('question', 'About this tool', () => { setAbout(true) })}
 
 		<input id="file-input" type="file" name="open-file" class="hide" onchange="${(ev) => {
 			let file = ev.target.files[0], // FileList object
 				reader = new FileReader();
+			
+			setTitle(file.name.replace('.argx', ''));
 
 			reader.onload = function(e) {
 				let data = JSON.parse(e.target.result);
@@ -41,10 +51,11 @@ const Toolbar = Component(function(doc, setDoc) {
 
 			reader.readAsText(file)
 		}}"/>
+	
 	</div>
 
 	${shortcuts ? Shortcuts(setShortcuts) : ''}
-	${about ? About(setAbout) : ''}
+	${about ? About(setAbout, setTitle, setDoc) : ''}
 
 	`;
 

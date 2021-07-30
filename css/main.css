@@ -411,6 +411,28 @@ main .node.sortable-ghost {
   background-color: #f7f7f7;
   font-family: monospace;
 }
+.modal-box .modal .sample {
+  padding-left: 30px;
+}
+.modal-box .modal .sample button {
+  font-size: 1rem;
+  display: inline;
+  border: 0;
+  background-color: transparent;
+  padding: 0 !important;
+  cursor: pointer;
+  font-weight: 300;
+  color: blue;
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: #ff000044;
+}
+.modal-box .modal .sample button:hover {
+  text-decoration-color: #ff0000;
+}
+.modal-box .modal .sample button:focus {
+  outline: none;
+}
 .modal-box .modal .click-to-close {
   text-align: right;
   font-size: 0.8rem;

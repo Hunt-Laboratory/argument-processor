@@ -6,10 +6,16 @@ import Toolbar from './Toolbar.js';
 import utils from '../utils.js';
 let { randomString, setCaret } = utils;
 
-import example from './example.js';
+import examples from './examples.js';
 
 const Processor = Component(function(corpus, setAppStatus) {
 	
+	let [title, setTitle] = useState('Watson');
+
+	useEffect(() => {
+		document.title = title;
+	}, [title]);
+
 	function defaultNode(indent) {
 		return {
 			id: randomString(),
@@ -74,7 +80,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 		return doc;
 	}
 
-	let [doc, setDoc] = useState(annotate(example));
+	let [doc, setDoc] = useState(annotate(_.cloneDeep(examples["Watson"])));
 
 	let [focus, setFocus] = useState({
 		node: null,
@@ -472,7 +478,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			${doc.map((d, i) => Claim(d, i, doc, props))}
 		</main>
 
-		${Toolbar(doc, setDoc)}
+		${Toolbar(doc, setDoc, title, setTitle)}
 	`;
 
 });

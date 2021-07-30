@@ -1,6 +1,3 @@
-import utils from '../utils.js';
-let { randomString } = utils;
-
 let example = [
 	{
 		"id":"3416398222",
