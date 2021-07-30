@@ -102,13 +102,23 @@ const Processor = Component(function(corpus, setAppStatus) {
 
 	function getGutterWidth(doc) {
 		let maxDepth = getMaxDepth(doc);
-		return Math.max(( window.innerWidth - (600 + 40 + (maxDepth-1)*60) ) / 2, 0);
+		return Math.max(( window.innerWidth - (600 + 54 + (maxDepth-1)*60 + 120) ) / 2, 0);
 	}
 
 	let [gutterWidth, setGutterWidth] = useState(getGutterWidth(doc));
 
+	function getNodeWidth(doc) {
+		let maxDepth = getMaxDepth(doc);
+		return Math.max( window.innerWidth, 120 + 600 + 54 + (maxDepth-1)*60);
+	}
+
+	let [nodeWidth, setNodeWidth] = useState(getNodeWidth(doc));
+
 	useEffect(() => {
-		window.addEventListener('resize', () => {setGutterWidth(getGutterWidth(doc))});
+		window.addEventListener('resize', () => {
+			setGutterWidth(getGutterWidth(doc));
+			setNodeWidth(getNodeWidth(doc));
+		});
 	}, [])
 
 	function children(node) {
@@ -166,6 +176,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			})
 
 			setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
+			setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
 
 			for (let id of closeIds) {
 				$(`#node-${id}`).slideUp(200);
@@ -203,6 +214,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			});
 
 			setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
+			setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
 
 			let openIds = descendents(doc[idx]).filter(d => allParentsOpen(d)).map(d => d.id);
 			for (let id of openIds) {
@@ -269,16 +281,31 @@ const Processor = Component(function(corpus, setAppStatus) {
 		setDoc(updater);
 
 		setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
+		setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
 	}
 
-	function insertNode(idx, relation) {
+	function insertAfterIdx(idx) {
+		let afterNodes = doc.map((d,i) => { 
+			return {
+				display: d.display,
+				index: i
+			}
+		}).filter((d,i) => i > idx & d.display);
+		if (afterNodes.length == 0) {
+			return idx + 1;
+		} else {
+			return afterNodes[0].index;
+		}
+	}
+
+	function insertNode(idx, relation, indent) {
 		return () => {
 
 			let newNode;
 			if (relation == 'before') {
-				newNode = defaultNode(doc[idx].indent);
+				newNode = defaultNode(indent);
 			} else if (relation == 'after') {
-				newNode = defaultNode(doc[Math.min(idx + 1, doc.length - 1)].indent);
+				newNode = defaultNode(indent);
 			}
 
 			setDoc(prevDoc => {
@@ -287,7 +314,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 				if (relation == 'before') {
 					doc.splice(idx, 0, newNode);
 				} else if (relation == 'after') {
-					doc.splice(idx + 1, 0, newNode);
+					doc.splice(insertAfterIdx(idx), 0, newNode);
 				}
 
 				return annotate(doc);
@@ -428,6 +455,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 	let props = {
 		maxDepth: getMaxDepth(doc),
 		gutterWidth,
+		nodeWidth,
 		open,
 		close,
 		setFocus,

@@ -10,6 +10,7 @@ const Claim = Component(function(node, idx, doc, props) {
 	let {
 		maxDepth,
 		gutterWidth,
+		nodeWidth,
 		open,
 		close,
 		setFocus,
@@ -18,7 +19,7 @@ const Claim = Component(function(node, idx, doc, props) {
 		updateNodeText,
 		deleteNode,
 		cycleType,
-		toggleJoin
+		toggleJoin,
 	} = props;
 
 	const [menu, setMenu] = useState(false);
@@ -68,7 +69,7 @@ const Claim = Component(function(node, idx, doc, props) {
 		if (e.key == 'Enter') {
 			e.stopPropagation();
 			e.preventDefault();
-			insertNode(idx, 'after')();
+			insertNode(idx, 'after', node.indent)();
 		} else if (e.key == 'Tab') {
 			e.stopPropagation();
 			e.preventDefault();
@@ -188,7 +189,7 @@ const Claim = Component(function(node, idx, doc, props) {
 			}
 			
 			s = s + `,${colour} ${px}px,${colour} ${px + 4}px`;
-			s = s + `,transparent ${px + 4}px,transparent ${px + 60}px`;
+			s = s + `,transparent ${px + 4}px,transparent ${px + 120}px`;
 
 			s = s + `);`;
 
@@ -220,18 +221,37 @@ const Claim = Component(function(node, idx, doc, props) {
 		return html`<button onclick="${callback}" data-action="${action}"><i class="fas fa-${icon}"></i></button>`;
 	}
 
+	function nextVisibleNode(node) {
+		let afterNodes = doc.filter((d,i) => i > idx & d.display);
+		if (afterNodes.length == 0) {
+			return node;
+		} else {
+			return afterNodes[0];
+		}
+	}
+
+	function prevVisibleNode(node) {
+		let beforeNodes = doc.filter((d,i) => (i < idx) & d.display);
+		if (beforeNodes.length == 0) {
+			return node;
+		} else {
+			// console.log(beforeNodes[beforeNodes.length - 1]);
+			return beforeNodes[beforeNodes.length - 1];
+		}
+	}
+
 	return html.for(node)`
 	<div
 		class="node type-${node.type} ${node.transparent ? 'transparent' : ''}"
 		id="node-${node.id}"
 		data-index="${idx}"
-		style="display: ${node.display ? 'grid' : 'none'};">
+		style="display: ${node.display ? 'grid' : 'none'}; width: ${nodeWidth}px;">
 
 		<div
 			class="caret ${children(node).length == 0 ? 'inactive' : ''}"
 			id="caret-${node.id}"
 			onclick="${children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : ''}"
-			style="width: calc(${gutterWidth}px + 20px + ${3*node.indent}*var(--p));">
+			style="width: calc(${gutterWidth}px + 60px + ${3*node.indent}*var(--p));">
 		
 			<div
 				class="connectors up"
@@ -246,13 +266,16 @@ const Claim = Component(function(node, idx, doc, props) {
 		</div>
 		
 		<div class="controls">
-			<div class="inbetween above" onclick="${insertNode(idx, 'before')}">
+			<div class="inbetween above" onclick="${insertNode(idx, 'before', node.indent)}">
 				<i class="fal fa-plus"></i>
 			</div>
-			<div class="inbetween below ${children(node).length > 0 ? 'hide' : ''}" onclick="${insertNode(idx, 'after')}">
+			<div class="inbetween above ${node.indent >= prevVisibleNode(node).indent ? 'hide' : ''}" onclick="${insertNode(idx, 'before', prevVisibleNode(node).indent)}" style="left: ${60*(prevVisibleNode(node).indent - node.indent)}px;">
 				<i class="fal fa-plus"></i>
 			</div>
-			<div class="inbetween indented ${children(node).length == 0 ? 'hide' : ''}" onclick="${insertNode(idx, 'after')}">
+			<div class="inbetween below ${nextVisibleNode(node).indent > node.indent ? 'hide' : ''}" onclick="${insertNode(idx, 'after', node.indent)}">
+				<i class="fal fa-plus"></i>
+			</div>
+			<div class="inbetween below ${nextVisibleNode(node).indent < node.indent || nextVisibleNode(node).indent == node.indent + 1 ? '' : 'hide'}" onclick="${insertNode(idx, 'after', nextVisibleNode(node).indent)}" style="left: ${60*(nextVisibleNode(node).indent - node.indent)}px">
 				<i class="fal fa-plus"></i>
 			</div>
 		</div>
