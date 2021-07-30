@@ -298,7 +298,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			}
 		}).filter((d,i) => i > idx & d.display);
 		if (afterNodes.length == 0) {
-			return idx + 1;
+			return doc.length;
 		} else {
 			return afterNodes[0].index;
 		}
