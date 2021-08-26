@@ -33,7 +33,8 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle) {
 		${Button('magic', 'Do magic', () => { 
 			let prompt = "This AI system is like magic because";
 			fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?prompt=${encodeURIComponent(prompt)}`)
-				.then(response => console.log(response))
+				.then(response => response.json())
+				.then(data => console.log(data));
 		 })}
 
 		${Button('i-cursor', 'Rename', () => {
