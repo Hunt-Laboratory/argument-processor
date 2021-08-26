@@ -30,6 +30,12 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle) {
 	
 		${Button('download', 'Download', () => { downloadObjectAsJson(doc, `${title}.argx`) })}
 	
+		${Button('magic', 'Do magic', () => { 
+			let prompt = "This AI system is like magic because";
+			fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?prompt=${encodeURIComponent(prompt)}`)
+				.then(response => console.log(response))
+		 })}
+
 		${Button('i-cursor', 'Rename', () => {
 			setTitle(prompt("Edit the file name and click 'OK'.", title));
 		})}
