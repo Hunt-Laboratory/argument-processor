@@ -1,6 +1,7 @@
 const {neverland: Component, render, html, useState, useEffect} = window.neverland;
 
 import Shortcuts from './Shortcuts.js';
+import Settings from './Settings.js';
 import About from './About.js';
 
 function downloadObjectAsJson(exportObj, exportName){
@@ -13,30 +14,72 @@ function downloadObjectAsJson(exportObj, exportName){
 	downloadAnchorNode.remove();
 }
 
-const Toolbar = Component(function(doc, setDoc, title, setTitle) {
+const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, options, setOptions, updateNodeText) {
 
 	let [shortcuts, setShortcuts] = useState(false);
+	let [settings, setSettings] = useState(false);
 	let [about, setAbout] = useState(false);
 
 	function Button(icon, action, callback) {
 		return html`<button onclick="${callback}" data-action="${action}"><i class="fas fa-${icon}"></i></button>`;
 	}
 
+	function changeMode(mode) {
+		setMode(mode);
+		document.body.setAttribute('data-mode', mode);
+	}
+
 	return html`<div class="toolbar">
 
+		<div class="group">
+
 		${Button('folder-open', 'Open file', () => {
+			updateNodeText();
 			document.getElementById('file-input').click();
 		})}
 	
-		${Button('download', 'Download', () => { downloadObjectAsJson(doc, `${title}.argx`) })}
+		${Button('download', 'Download', () => {
+			updateNodeText();
+			downloadObjectAsJson(doc, `${title}.argx`);
+		})}
 
 		${Button('i-cursor', 'Rename', () => {
+			updateNodeText();
 			setTitle(prompt("Edit the file name and click 'OK'.", title));
 		})}
+
+		</div>
+		<div class="group">
+
+		${Button('route', 'Suggest intermediary claims', () => {
+			updateNodeText();
+			changeMode('generate-reasoning');
+		})}
+
+		${Button('comment-slash', 'Suggest assumptions', () => {
+			updateNodeText();
+			changeMode('complete-enthymeme');
+		})}
+
+		</div>
+		<div class="group">
+
+		${Button('cog', 'Settings', () => {
+			updateNodeText();
+			setSettings(true);
+		})}
+
+		${Button('keyboard', 'Shortcuts', () => {
+			updateNodeText();
+			setShortcuts(true);
+		})}
 	
-		${Button('keyboard', 'Shortcuts', () => { setShortcuts(true) })}
-	
-		${Button('question', 'About this tool', () => { setAbout(true) })}
+		${Button('question', 'About this tool', () => {
+			updateNodeText();
+			setAbout(true);
+		})}
+
+		</div>
 
 		<input id="file-input" type="file" name="open-file" class="hide" onchange="${(ev) => {
 			let file = ev.target.files[0], // FileList object
@@ -54,6 +97,7 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle) {
 	
 	</div>
 
+	${settings ? Settings(setSettings, options, setOptions) : ''}
 	${shortcuts ? Shortcuts(setShortcuts) : ''}
 	${about ? About(setAbout, setTitle, setDoc) : ''}
 

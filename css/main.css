@@ -49,6 +49,10 @@ body::-webkit-scrollbar-thumb {
   display: none !important;
 }
 
+*:focus {
+  outline: none;
+}
+
 main {
   margin: calc(6*var(--p)) auto;
   width: fit-content;
@@ -312,6 +316,24 @@ main .node .controls .inbetween.indented {
 main .node .controls:hover .inbetween {
   visibility: visible;
 }
+main .node.suggestion {
+  font-weight: 300;
+}
+main .node.suggestion .caret, main .node.suggestion .textarea, main .node.suggestion .padding, main .node.suggestion .handle {
+  background-color: #fff;
+}
+main .node.suggestion .padding {
+  visibility: visible;
+}
+main .node.suggestion .textarea:focus {
+  background-color: var(--background-tone);
+}
+main .node.suggestion .textarea:focus:hover {
+  background-color: var(--background-tone);
+}
+main .node.suggestion .textarea:hover {
+  background-color: var(--background-tone);
+}
 main .node.sortable-chosen {
   opacity: 1;
 }
@@ -334,28 +356,34 @@ main .node.sortable-ghost {
   grid-template-rows: auto;
   border-radius: var(--q);
 }
-.toolbar button {
+.toolbar .group {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  margin-bottom: 1px;
+}
+.toolbar .group:first-of-type button:first-child {
+  border-radius: var(--q) var(--q) 0 0;
+}
+.toolbar .group:last-of-type button:last-child {
+  border-radius: 0 0 var(--q) var(--q);
+}
+.toolbar .group button {
   background-color: var(--black);
   /*background-color: transparent;*/
   color: var(--background);
   border: none;
   padding: var(--h);
 }
-.toolbar button:first-of-type {
-  border-radius: var(--q) var(--q) 0 0;
-}
-.toolbar button:last-of-type {
-  border-radius: 0 0 var(--q) var(--q);
-}
-.toolbar button:hover {
+.toolbar .group button:hover {
   cursor: pointer;
   background-color: #000000cc;
   /*color: var(--black);*/
 }
-.toolbar button:focus {
+.toolbar .group button:focus {
   outline: none;
 }
-.toolbar button:before {
+.toolbar .group button:before {
   content: attr(data-action);
   display: none;
   position: absolute;
@@ -370,8 +398,56 @@ main .node.sortable-ghost {
   backdrop-filter: blur(2px);
   white-space: nowrap;
 }
-.toolbar button:hover:before {
+.toolbar .group button:hover:before {
   display: block;
+}
+
+.loader {
+  position: fixed;
+  display: block;
+  width: 100%;
+  top: 0;
+  height: 3px;
+  z-index: 90;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 100%;
+  animation: gradient 2s ease infinite;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+.hint {
+  position: fixed;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--p);
+  top: 0;
+  z-index: 80;
+  background-color: #fcfcfcaa;
+  backdrop-filter: blur(2px);
+  font-size: 0.8rem;
+  text-align: center;
+}
+.hint .key {
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.1em 0.5em;
+  margin: 0 0.2em;
+  box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+  background-color: #f7f7f7;
+  font-family: monospace;
+  font-size: 1rem;
 }
 
 .modal-box {
@@ -433,9 +509,149 @@ main .node.sortable-ghost {
 .modal-box .modal .sample button:focus {
   outline: none;
 }
+.modal-box .modal select {
+  display: block;
+  width: 100%;
+  padding: var(--q);
+}
+.modal-box .modal select:focus {
+  outline: none;
+}
+.modal-box .modal select option:hover {
+  outline: none;
+  border: none;
+}
 .modal-box .modal .click-to-close {
   text-align: right;
   font-size: 0.8rem;
+}
+
+body[data-mode=generate-reasoning] {
+  cursor: url("/img/cursors/route.svg") 0 0, pointer;
+}
+body[data-mode=generate-reasoning] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=generate-reasoning] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=generate-reasoning] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=generate-reasoning] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=generate-reasoning] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=generate-reasoning] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=generate-reasoning] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=generate-reasoning] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=generate-reasoning] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=generate-reasoning] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=generate-reasoning] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=generate-reasoning] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=generate-reasoning] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=generate-reasoning] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=generate-reasoning] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=generate-reasoning] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=generate-reasoning] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=generate-reasoning] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=generate-reasoning] main .node:hover {
+  background-color: var(--background-tone);
+}
+
+body[data-mode=complete-enthymeme] {
+  cursor: url("/img/cursors/comment-slash.svg") 0 0, pointer;
+}
+body[data-mode=complete-enthymeme] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=complete-enthymeme] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=complete-enthymeme] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=complete-enthymeme] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=complete-enthymeme] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=complete-enthymeme] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=complete-enthymeme] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=complete-enthymeme] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=complete-enthymeme] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=complete-enthymeme] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=complete-enthymeme] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=complete-enthymeme] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=complete-enthymeme] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=complete-enthymeme] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=complete-enthymeme] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=complete-enthymeme] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=complete-enthymeme] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=complete-enthymeme] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=complete-enthymeme] main .node:hover {
+  background-color: var(--background-tone);
 }
 
 /*# sourceMappingURL=main.css.map */

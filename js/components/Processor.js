@@ -10,22 +10,30 @@ import examples from './examples.js';
 
 const Processor = Component(function(corpus, setAppStatus) {
 	
-	let [title, setTitle] = useState('Watson');
+	let [title, setTitle] = useState('New Argument');
+
+	let [mode, setMode] = useState('auto');
+
+	let [options, setOptions] = useState({
+		model: 'j1-jumbo'
+	});
 
 	useEffect(() => {
 		document.title = title;
 	}, [title]);
 
-	function defaultNode(indent) {
+	function defaultNode(indent, text = '', suggestion = false, joint = false) {
+
 		return {
 			id: randomString(),
-			text: '',
+			text: text,
 			type: 'pro',
 			label: 'pro',
 			open: true,
 			display: true,
 			indent: indent,
-			joint: false
+			joint: joint,
+			suggestion: suggestion
 		}
 	}
 
@@ -70,6 +78,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			if (doc[k].indent == 0) {
 				doc[k].parent = null;
 				doc[k].type = 'claim';
+				doc[k].joint = false;
 			} else {
 				doc[k].parent = getParent(doc, k).id;
 				doc[k].type = doc[k].label;
@@ -77,28 +86,40 @@ const Processor = Component(function(corpus, setAppStatus) {
 
 		}
 
+		// Ensure that there are no 'half-joins'.
+		for (let k = 0; k < doc.length; k++) {
+			if (doc[k].joint) {
+				let siblings = children({ id: doc[k].parent }, doc).map(d => d.id);
+				if (siblings.indexOf(doc[k].id) == siblings.length - 1) {
+					doc[k].joint = false;
+				}
+			}
+		}
+
 		return doc;
 	}
 
-	let [doc, setDoc] = useState(annotate(_.cloneDeep(examples["Watson"])));
+	let [doc, setDoc] = useState(annotate(_.cloneDeep(examples["New Argument"])));
 
 	let [focus, setFocus] = useState({
 		node: null,
-		caret: [0, 0]
+		caret: [0, 0],
+		editable: true
 	});
 
 	useEffect(() => {
 		let el = document.querySelector(`#node-${focus.node} .textarea`);
-		if (el !== null) {
-
+		if (el === null) {
+		
+			document.activeElement.blur();
+		
+		} else {
+		
 			// Focus on element.
 			el.focus();
 
 			// Set caret position.
-			// try {
-				setCaret(el, focus.caret);
-			// }
-
+			setCaret(el, focus.caret);
 		}
 	})
 
@@ -120,24 +141,47 @@ const Processor = Component(function(corpus, setAppStatus) {
 
 	let [nodeWidth, setNodeWidth] = useState(getNodeWidth(doc));
 
+	function updateNodeText() {
+		setDoc(prevDoc => {
+			let doc = [...prevDoc];
+
+			for (let k = 0; k < doc.length; k++) {
+				doc[k].text = document.querySelector(`#node-${doc[k].id} .textarea`).textContent;
+			}
+
+			return doc;
+		})
+	}
+
+	// Update on window size change;
+	let [size, setSize] = useState({ width: window.innerWidth, height: window.innerHeight });
 	useEffect(() => {
 		window.addEventListener('resize', () => {
-			setGutterWidth(getGutterWidth(doc));
-			setNodeWidth(getNodeWidth(doc));
-		});
+			setSize({
+				width: window.innerWidth,
+				height: window.innerHeight
+			})
+		})
 	}, [])
+	useEffect(() => {
+		updateNodeText();
+		setGutterWidth(getGutterWidth(doc));
+		setNodeWidth(getNodeWidth(doc));
+	}, [size.width, size.height]);
 
-	function children(node) {
+
+	function children(node, doc) {
 		return doc.filter(d => d.parent == node.id);
 	}
 
-	function descendents(node) {
+	function descendents(node, doc) {
 
-		let kids = children(node),
+
+		let kids = children(node, doc),
 			grandkids = [];
 
 		for (let kid of kids) {
-			grandkids = grandkids.concat(descendents(kid));
+			grandkids = grandkids.concat(descendents(kid, doc));
 		}
 
 		return kids.concat(grandkids);
@@ -147,11 +191,9 @@ const Processor = Component(function(corpus, setAppStatus) {
 	function close(idx) {
 		return () => {
 
-			setFocus({ node: null, caret: [0, 0] });
-
 			let updater = prevDoc => {
 				let doc = [...prevDoc],
-					closeIds = descendents(doc[idx]).map(d => d.id);
+					closeIds = descendents(doc[idx], doc).map(d => d.id);
 				
 				for (let k = 0; k < doc.length; k++) {
 					if (closeIds.includes(doc[k].id)) {
@@ -162,13 +204,13 @@ const Processor = Component(function(corpus, setAppStatus) {
 				return doc;
 			};
 
-			let closeIds = descendents(doc[idx]).map(d => d.id);
+			let closeIds = descendents(doc[idx], doc).map(d => d.id);
 			
 			// document.querySelector(`#caret-${doc[idx].id}`).classList.toggle('open');
 			
 			setDoc(prevDoc => {
 				let doc = [...prevDoc],
-					closeIds = descendents(doc[idx]).map(d => d.id);
+					closeIds = descendents(doc[idx], doc).map(d => d.id);
 				
 				for (let k = 0; k < doc.length; k++) {
 					if (closeIds.includes(doc[k].id)) {
@@ -198,11 +240,9 @@ const Processor = Component(function(corpus, setAppStatus) {
 	function open(idx) {
 		return () => {
 
-			setFocus({ node: null, caret: [0, 0] });
-
 			let updater = prevDoc => {
 				let doc = [...prevDoc],
-					openIds = descendents(doc[idx]).filter(d => allParentsOpen(d)).map(d => d.id);
+					openIds = descendents(doc[idx], doc).filter(d => allParentsOpen(d)).map(d => d.id);
 				
 				for (let k = 0; k < doc.length; k++) {
 					if (openIds.includes(doc[k].id)) {
@@ -222,7 +262,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
 			setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
 
-			let openIds = descendents(doc[idx]).filter(d => allParentsOpen(d)).map(d => d.id);
+			let openIds = descendents(doc[idx], doc).filter(d => allParentsOpen(d)).map(d => d.id);
 			for (let id of openIds) {
 				$(`#node-${id}`).slideDown(200);
 			}
@@ -230,7 +270,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			setTimeout(() => {
 				setDoc(prevDoc => {
 					let doc = [...prevDoc],
-						openIds = descendents(doc[idx]).filter(d => allParentsOpen(d)).map(d => d.id);
+						openIds = descendents(doc[idx], doc).filter(d => allParentsOpen(d)).map(d => d.id);
 					
 					for (let k = 0; k < doc.length; k++) {
 						if (openIds.includes(doc[k].id)) {
@@ -249,23 +289,11 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
-	function updateNodeText(idx) {
-		return (evt) => {
-			setDoc(prevDoc => {
-				let doc = [...prevDoc];
-
-				doc[idx].text = evt.target.textContent;
-
-				return doc;
-			})
-		}
-	}
-
 	function indentNode(idx, delta) {
-		
+
 		let updater = prevDoc => {
 			let doc = [...prevDoc],
-				indentIds = descendents(doc[idx]).map(d => d.id);
+				indentIds = descendents(doc[idx], doc).map(d => d.id);
 
 			if (idx == 0) {
 				delta = 0; // No parent, so can't indent.
@@ -281,16 +309,21 @@ const Processor = Component(function(corpus, setAppStatus) {
 				doc[idx].indent = doc[idx].indent + delta;
 			}
 
-			return annotate(doc);
+			doc = annotate(doc);
+
+			setGutterWidth(getGutterWidth(doc));
+			setNodeWidth(getNodeWidth(doc));
+
+			return doc;
 		}
 
 		setDoc(updater);
 
-		setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
-		setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
+		// setGutterWidth(getGutterWidth(updater(_.cloneDeep(doc))));
+		// setNodeWidth(getNodeWidth(updater(_.cloneDeep(doc))));
 	}
 
-	function insertAfterIdx(idx) {
+	function insertAfterIdx(idx, doc) {
 		let afterNodes = doc.map((d,i) => { 
 			return {
 				display: d.display,
@@ -304,15 +337,11 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
-	function insertNode(idx, relation, indent) {
+	function insertNode(idx, relation, indent, text = '', suggestion = false, joint = false) {
 		return () => {
 
 			let newNode;
-			if (relation == 'before') {
-				newNode = defaultNode(indent);
-			} else if (relation == 'after') {
-				newNode = defaultNode(indent);
-			}
+			newNode = defaultNode(indent, text, suggestion, joint);
 
 			setDoc(prevDoc => {
 				let doc = _.cloneDeep(prevDoc);
@@ -320,16 +349,22 @@ const Processor = Component(function(corpus, setAppStatus) {
 				if (relation == 'before') {
 					doc.splice(idx, 0, newNode);
 				} else if (relation == 'after') {
-					doc.splice(insertAfterIdx(idx), 0, newNode);
+					doc.splice(insertAfterIdx(idx, doc), 0, newNode);
 				}
 
-				return annotate(doc);
+				doc = annotate(doc);
+
+				setGutterWidth(getGutterWidth(doc));
+				setNodeWidth(getNodeWidth(doc));
+
+				return doc;
 			})
 
 			setFocus(prevFocus => {
 				let focus = {...prevFocus};
 				focus.node = newNode.id;
 				focus.caret = [0, 0];
+				focus.editable = true;
 				return focus;
 			})
 
@@ -337,14 +372,34 @@ const Processor = Component(function(corpus, setAppStatus) {
 		}
 	}
 
-	function deleteNode(idx) {
+	function deleteNode(idx, includeDescendents = true) {
 		return () => {
 			setDoc(prevDoc => {
 				let doc = _.cloneDeep(prevDoc),
-					deleteIds = descendents(doc[idx]).map(d => d.id).concat([doc[idx].id]);
+					deleteIds;
+
+				if (includeDescendents) {
+					deleteIds = descendents(doc[idx], doc).map(d => d.id).concat([doc[idx].id]);
+				} else {
+					deleteIds = doc[idx].id;
+				}
 
 				doc = doc.filter(d => !deleteIds.includes(d.id));
+				doc = annotate(doc);
 
+				setGutterWidth(getGutterWidth(doc));
+				setNodeWidth(getNodeWidth(doc));
+
+				return doc;
+			})
+		}
+	}
+
+	function acceptSuggestion(idx) {
+		return () => {
+			setDoc(prevDoc => {
+				let doc = [...prevDoc];
+				doc[idx].suggestion = false;
 				return annotate(doc);
 			})
 		}
@@ -365,7 +420,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 		setDoc(prevDoc => {
 			let doc = [...prevDoc];
 			doc[idx].joint = !doc[idx].joint;
-			return doc;
+			return annotate(doc);
 		})
 	}
 
@@ -375,7 +430,7 @@ const Processor = Component(function(corpus, setAppStatus) {
 			if (doc[fromIndex].open) {
 				doc.splice(toIndex, 0, ...doc.splice(fromIndex, 1));
 			} else {
-				let nDescendents = descendents(doc[fromIndex]).length;
+				let nDescendents = descendents(doc[fromIndex], doc).length;
 				doc.splice(toIndex, 0, ...doc.splice(fromIndex, 1 + nDescendents));
 			}
 			return annotate(doc);
@@ -400,14 +455,14 @@ const Processor = Component(function(corpus, setAppStatus) {
 						// selectedClass: 'selected',
 						// onSelect: function(evt) {
 						// 	let idx = Number(evt.item.getAttribute("data-index")),
-						// 		ids = descendents(doc[idx]).map(d => d.id);
+						// 		ids = descendents(doc[idx], doc).map(d => d.id);
 						// 	for (let id of ids) {
 						// 		Sortable.utils.select(document.querySelector(`#node-${id}`));
 						// 	}
 						// },
 						// onDeselect: function(evt) {
 						// 	let idx = Number(evt.item.getAttribute("data-index")),
-						// 		ids = descendents(doc[idx]).map(d => d.id);
+						// 		ids = descendents(doc[idx], doc).map(d => d.id);
 						// 	for (let id of ids) {
 						// 		Sortable.utils.deselect(document.querySelector(`#node-${id}`));
 						// 	}
@@ -448,7 +503,14 @@ const Processor = Component(function(corpus, setAppStatus) {
 	useEffect(() => {
 		if (doc.length == 0) {
 			let newNode = defaultNode(0);
-			setDoc(annotate([newNode]));
+			setDoc(prevDoc => {
+				let doc = annotate([newNode]);
+
+				setGutterWidth(getGutterWidth(doc));
+				setNodeWidth(getNodeWidth(doc));
+
+				return doc;
+			});
 			setFocus(prevFocus => {
 				let focus = {...prevFocus};
 				focus.node = newNode.id;
@@ -456,7 +518,22 @@ const Processor = Component(function(corpus, setAppStatus) {
 				return focus;
 			})
 		}	
-	})
+	}, [doc.length])
+
+	useEffect(() => {
+		
+		// Set initial mode.
+		document.body.setAttribute('data-mode', mode);
+
+		// Set listener to return to auto cursor when escape key is pressed.
+		document.addEventListener("keydown", function(e) {
+			if (e.key === 'Escape') {
+				setMode('auto');
+				document.body.setAttribute('data-mode', 'auto');
+			}
+		});
+
+	}, [])
 
 	let props = {
 		maxDepth: getMaxDepth(doc),
@@ -464,13 +541,18 @@ const Processor = Component(function(corpus, setAppStatus) {
 		nodeWidth,
 		open,
 		close,
+		focus,
 		setFocus,
 		indentNode,
 		insertNode,
 		updateNodeText,
 		deleteNode,
 		cycleType,
-		toggleJoin
+		toggleJoin,
+		setMode,
+		acceptSuggestion,
+		mode,
+		options
 	}
 
 	return html`
@@ -478,7 +560,12 @@ const Processor = Component(function(corpus, setAppStatus) {
 			${doc.map((d, i) => Claim(d, i, doc, props))}
 		</main>
 
-		${Toolbar(doc, setDoc, title, setTitle)}
+		<div class="hint ${mode == 'auto' ? 'hide' : ''}">Press <div class="key">Esc</div> to exit tool.</div>
+
+		<div id="loader" class="loader hide"></div>
+		
+		${Toolbar(doc, setDoc, title, setTitle, setMode, options, setOptions, updateNodeText)}
+
 	`;
 
 });

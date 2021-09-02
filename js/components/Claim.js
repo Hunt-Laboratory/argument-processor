@@ -5,6 +5,13 @@ import Caret from './Caret.js';
 import utils from '../utils.js';
 let { getCaret } = utils;
 
+import query from './queryLanguageModel.js';
+
+function stop(e) {
+	e.stopPropagation();
+	e.preventDefault();
+}
+
 const Claim = Component(function(node, idx, doc, props) {
 
 	let {
@@ -13,6 +20,7 @@ const Claim = Component(function(node, idx, doc, props) {
 		nodeWidth,
 		open,
 		close,
+		focus,
 		setFocus,
 		indentNode,
 		insertNode,
@@ -20,6 +28,10 @@ const Claim = Component(function(node, idx, doc, props) {
 		deleteNode,
 		cycleType,
 		toggleJoin,
+		acceptSuggestion,
+		setMode,
+		mode,
+		options,
 	} = props;
 
 	const [menu, setMenu] = useState(false);
@@ -28,13 +40,13 @@ const Claim = Component(function(node, idx, doc, props) {
 		return doc.filter(d => d.parent == node.id);
 	}
 
-	function descendents(node) {
+	function descendents(node, doc) {
 
 		let kids = children(node),
 			grandkids = [];
 
 		for (let kid of kids) {
-			grandkids = grandkids.concat(descendents(kid));
+			grandkids = grandkids.concat(descendents(kid, doc));
 		}
 
 		return kids.concat(grandkids);
@@ -66,62 +78,195 @@ const Claim = Component(function(node, idx, doc, props) {
 
 	function handleKeydown(e) {
 
-		if (e.key == 'Enter') {
-			e.stopPropagation();
-			e.preventDefault();
-			insertNode(idx, 'after', node.indent)();
-		} else if (e.key == 'Tab') {
-			e.stopPropagation();
-			e.preventDefault();
-			indentNode(idx, e.shiftKey ? -1 : 1);
-		} else if (e.key == 'ArrowDown') {
-			e.stopPropagation();
-			e.preventDefault();
-			setFocus(prevFocus => {
-				let focus = {...prevFocus};
-				let nodesBelow = doc.filter((d, i) => i > idx & d.display);
-				focus.node = nodesBelow.length > 0 ? nodesBelow[0].id : doc[0].id;
-				focus.caret = [0, 0];
-				return focus;
-			})
-		} else if (e.key == 'ArrowUp') {
-			e.stopPropagation();
-			e.preventDefault();
-			setFocus(prevFocus => {
-				let focus = {...prevFocus};
-				let nodesAbove = doc.filter((d, i) => i < idx & d.display),
-					nodesBelow = doc.filter((d, i) => i >= idx & d.display);
-				focus.node = nodesAbove.length > 0 ? nodesAbove[nodesAbove.length-1].id : nodesBelow[nodesBelow.length-1].id;
-				focus.caret = [0, 0];
-				return focus;
-			})
-		} else if (e.key == '=' & !e.ctrlKey) {
-			e.stopPropagation();
-			e.preventDefault();
-			if (node.open) {
-				close(idx)();
-			} else {
-				open(idx)();
-			}
-		} else if (e.key == '+') {
-			e.stopPropagation();
-			e.preventDefault();
-			cycleType(idx)();
-		}
+		// function enterEditMode() {
+		// 	setFocus(prevFocus => {
+		// 		let focus = {...prevFocus};
+		// 		focus.editable = true;
+		// 		return focus;
+		// 	})
+		// }
+
+		// function exitEditMode() {
+		// 	updateNodeText();
+		// 	setFocus(prevFocus => {
+		// 		let focus = {...prevFocus};
+		// 		focus.editable = false;
+		// 		return focus;
+		// 	})
+		// }
 
 
-		setTimeout(() => {
-			let caret = getCaret(document.querySelector(`#node-${node.id} .textarea`));
-			if (caret === undefined) {
-				caret = [0, 0];
+		// if (focus.editable) {
+
+
+			let actions = {
+				// 'Escape': () => {
+				// 	stop(e);
+				// 	exitEditMode();
+				// },
+				'Enter': () => {
+					stop(e);
+					updateNodeText();
+					insertNode(idx, 'after', node.indent)();
+				},
+				'Tab': () => {
+					stop(e);
+
+					// Maintain caret position.
+					let caret = getCaret(document.querySelector(`#node-${node.id} .textarea`));
+					if (caret === undefined) {
+						caret = [0, 0];
+					}
+
+					updateNodeText();
+
+					setFocus(prevFocus => {
+						let focus = {...prevFocus};
+						focus.caret = caret;
+						return focus;
+					})
+
+					// Indent node.
+					indentNode(idx, e.shiftKey ? -1 : 1);
+
+				},
+				'ArrowDown': () => {
+					if (e.ctrlKey) {
+						stop(e);
+						updateNodeText();
+						setFocus(prevFocus => {
+							let focus = {...prevFocus};
+							let nodesBelow = doc.filter((d, i) => i > idx & d.display);
+							focus.node = nodesBelow.length > 0 ? nodesBelow[0].id : doc[0].id;
+							let n = doc.filter(d => d.id == focus.node)[0].text.length;
+							focus.caret = [n, n];
+							return focus;
+						})
+					}
+				},
+				'ArrowUp': () => {
+					if (e.ctrlKey) {
+						stop(e);
+						updateNodeText();
+						setFocus(prevFocus => {
+							let focus = {...prevFocus};
+							let nodesAbove = doc.filter((d, i) => i < idx & d.display),
+								nodesBelow = doc.filter((d, i) => i >= idx & d.display);
+							focus.node = nodesAbove.length > 0 ? nodesAbove[nodesAbove.length-1].id : nodesBelow[nodesBelow.length-1].id;
+							let n = doc.filter(d => d.id == focus.node)[0].text.length;
+							focus.caret = [n, n];
+							return focus;
+						})
+					}
+				},
+				'=': () => {
+					if (!e.ctrlKey) {
+						stop(e);
+						updateNodeText();
+						if (node.open) {
+							close(idx)();
+						} else {
+							open(idx)();
+						}
+					}
+				},
+				'+': () => {
+					stop(e);
+					updateNodeText();
+					cycleType(idx)();
+				}
+			};
+
+			if (['Enter', 'Tab', 'ArrowDown', 'ArrowUp', '+', '='].includes(e.key)) {
+				actions[e.key]();
 			}
-			setFocus(prevFocus => {
-				let focus = {...prevFocus};
-				focus.caret = caret;
-				return focus;
-			})
-			updateNodeText(idx)(e);
-		}, 0)
+
+		// } // else {
+
+		// 	let actions = {
+		// 		'Escape': () => {
+		// 			stop(e);
+		// 			setFocus(prevFocus => {
+		// 				let focus = {...prevFocus};
+		// 				focus.node = null;
+		// 				focus.editable = false;
+		// 				return focus;
+		// 			})
+		// 		},
+		// 		' ': () => {
+		// 			stop(e);
+		// 			setFocus(prevFocus => {
+		// 				let focus = {...prevFocus};
+		// 				focus.editable = true;
+		// 				let n = node.text.length;
+		// 				focus.caret = [n, n];
+		// 				return focus;
+		// 			})
+		// 		},
+		// 		'Enter': () => {
+		// 			stop(e);
+		// 			insertNode(idx, 'after', node.indent)();
+		// 		},
+		// 		'Tab': () => {
+		// 			stop(e);
+		// 			indentNode(idx, e.shiftKey ? -1 : 1);
+		// 		},
+		// 		'ArrowDown': () => {
+		// 			stop(e);
+		// 			setFocus(prevFocus => {
+		// 				let focus = {...prevFocus};
+		// 				let nodesBelow = doc.filter((d, i) => i > idx & d.display);
+		// 				focus.node = nodesBelow.length > 0 ? nodesBelow[0].id : doc[0].id;
+		// 				focus.caret = [0, 0];
+		// 				return focus;
+		// 			})
+		// 		},
+		// 		'ArrowUp': () => {
+		// 			stop(e);
+		// 			setFocus(prevFocus => {
+		// 				let focus = {...prevFocus};
+		// 				let nodesAbove = doc.filter((d, i) => i < idx & d.display),
+		// 					nodesBelow = doc.filter((d, i) => i >= idx & d.display);
+		// 				focus.node = nodesAbove.length > 0 ? nodesAbove[nodesAbove.length-1].id : nodesBelow[nodesBelow.length-1].id;
+		// 				focus.caret = [0, 0];
+		// 				return focus;
+		// 			})
+		// 		},
+		// 		'=': () => {
+		// 			if (!e.ctrlKey) {
+		// 				stop(e);
+		// 				if (node.open) {
+		// 					close(idx)();
+		// 				} else {
+		// 					open(idx)();
+		// 				}
+		// 			}
+		// 		},
+		// 		'+': () => {
+		// 			stop(e);
+		// 			cycleType(idx)();
+		// 		}
+		// 	}
+
+		// 	if (['Escape', ' ', 'Enter', 'Tab', 'ArrowDown', 'ArrowUp', '=', '+'].includes(e.key)) {
+		// 		actions[e.key]();
+		// 	}
+
+		// }
+
+
+		// setTimeout(() => {
+		// 	let caret = getCaret(document.querySelector(`#node-${node.id} .textarea`));
+		// 	if (caret === undefined) {
+		// 		caret = [0, 0];
+		// 	}
+		// 	setFocus(prevFocus => {
+		// 		let focus = {...prevFocus};
+		// 		focus.caret = caret;
+		// 		return focus;
+		// 	})
+		// 	updateNodeText();
+		// }, 0)
 
 
 		return;
@@ -201,9 +346,20 @@ const Claim = Component(function(node, idx, doc, props) {
 	}
 
 	let stealFocus = () => {
+
 		let caret = getCaret(document.querySelector(`#node-${node.id} .textarea`));
+		// console.log(caret);
+		// console.log(focus.node == node.id);
+
+		// if (focus.editable) {
+			updateNodeText();
+		// }
+		
 		setFocus(prevFocus => {
 			let focus = {...prevFocus};
+			// if (!focus.editable && focus.node == node.id) {
+			// 	focus.editable = true;
+			// };
 			focus.node = node.id;
 			focus.caret = caret;
 			return focus;
@@ -240,17 +396,90 @@ const Claim = Component(function(node, idx, doc, props) {
 		}
 	}
 
+	function nodeClickHandler(node) {
+
+		switch(mode) {
+			case 'generate-reasoning':
+				return async function() {
+					document.querySelector('#loader').classList.remove('hide');
+
+					let context = {
+						start: node.text,
+						end: parent(node).text
+					};
+
+					let q = await query(context, options, 'generate-reasoning', 1);
+					// let q = ["A ~ B ~ C ~ D ~ E"];
+					
+					console.log(q);
+
+					q = q.map(d => d.split(' ~ '))[0];
+
+					// Reverse and trim.
+					q.shift();
+					if (q[q.length-1].toLowerCase() == context.end.toLowerCase()) {
+						q.pop();
+					}
+					q.reverse();
+
+					// Insert new nodes.
+					for (let k = 0; k < q.length; k++) {
+						insertNode(idx + k, 'before', node.indent + k, q[k], true)();
+					}
+
+					indentNode(idx + q.length, q.length);
+
+					setMode('auto');
+					document.body.setAttribute('data-mode', 'auto');
+
+					setFocus({ node: null, caret: [0, 0] });
+
+					document.querySelector('#loader').classList.add('hide');
+				}
+				break;
+			case 'complete-enthymeme':
+				return async function() {
+					document.querySelector('#loader').classList.remove('hide');
+
+					let context = {
+						premise: node.text,
+						conclusion: parent(node).text
+					};
+					let q = await query(context, options, 'complete-enthymeme', 6);
+
+					for (let k = 0; k < q.length; k++) {
+						insertNode(idx + k, 'after', node.indent, q[k], true)();
+					}
+					
+					for (let k = 0; k < q.length; k++) {
+						toggleJoin(idx + k);
+					}
+
+					setMode('auto');
+					document.body.setAttribute('data-mode', 'auto');
+
+					setFocus({ node: null, caret: [0, 0] });
+
+					document.querySelector('#loader').classList.add('hide');
+				}
+				break;
+			default:
+				return '';
+		}
+	}
+
 	return html.for(node)`
 	<div
-		class="node type-${node.type} ${node.transparent ? 'transparent' : ''}"
+		class="node type-${node.type} ${node.transparent ? 'transparent' : ''} ${node.suggestion ? 'suggestion' : ''}"
 		id="node-${node.id}"
 		data-index="${idx}"
-		style="display: ${node.display ? 'grid' : 'none'}; width: ${nodeWidth}px;">
+		style="display: ${node.display ? 'grid' : 'none'}; width: ${nodeWidth}px;"
+		onclick="${nodeClickHandler(node)}">
 
 		<div
 			class="caret ${children(node).length == 0 ? 'inactive' : ''}"
 			id="caret-${node.id}"
-			onclick="${children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : ''}"
+			onclick="${mode === 'auto' ? (children(node).length > 0 ? (node.open ? close(idx) : open(idx)) : '') : ''}"
 			style="width: calc(${gutterWidth}px + 60px + ${3*node.indent}*var(--p));">
 		
 			<div
@@ -282,14 +511,17 @@ const Claim = Component(function(node, idx, doc, props) {
 
 		<div
 			class="textarea"
-			contenteditable
-			onclick="${stealFocus}"
+			contenteditable="${focus.node == node.id}"
+			tabindex="0"
+			onclick="${mode === 'auto' ? stealFocus : () => {}}"
 			onkeydown="${handleKeydown}">${node.text}</div>
 		
 		<div
 			class="padding">
 
-			<button onclick="${() => {setMenu(!menu)}}">
+			<button
+				class="${node.suggestion ? 'hide' : ''}"
+				onclick="${mode === 'auto' ? () => {setMenu(!menu)} : () => {}}">
 				<i class="far fa-bars"></i>
 			</button>
 
@@ -308,7 +540,7 @@ const Claim = Component(function(node, idx, doc, props) {
 				})}
 				${Button('angle-double-up', 'Collapse all children', () => {
 					setMenu(false);
-					let ids = descendents(node).map(d => d.id),
+					let ids = descendents(node, doc).map(d => d.id),
 						idxs = [];
 					for (let k = 0; k < doc.length; k++) {
 						if (ids.includes(doc[k].id)) {
@@ -327,6 +559,17 @@ const Claim = Component(function(node, idx, doc, props) {
 				})}
 			</div>
 
+			<button
+				class="${node.suggestion ? '' : 'hide'}"
+				onclick="${acceptSuggestion(idx)}">
+				<i class="far fa-check"></i>
+			</button>
+			<button
+				class="${node.suggestion ? '' : 'hide'}"
+				onclick="${deleteNode(idx, false)}">
+				<i class="far fa-times"></i>
+			</button>
+
 		</div>
 		
 		<div class="handle">
@@ -340,7 +583,7 @@ const Claim = Component(function(node, idx, doc, props) {
 				// ${Button('angle-double-down', 'Expand all children', () => {
 				// 	setMenu(false);
 				// 	open(idx)();
-				// 	let ids = descendents(node).map(d => d.id),
+				// 	let ids = descendents(node, doc).map(d => d.id),
 				// 		idxs = [];
 				// 	for (let k = 0; k < doc.length; k++) {
 				// 		if (ids.includes(doc[k].id)) {

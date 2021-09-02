@@ -58,6 +58,10 @@ body {
 	display: none !important;
 }
 
+*:focus {
+	outline: none;
+}
+
 main {
 	margin: calc(6*var(--p)) auto;
 	
@@ -426,6 +430,33 @@ main {
 
 		}
 
+		&.suggestion {
+
+			.caret, .textarea, .padding, .handle {
+				background-color: #fff;
+			}
+
+			.padding {
+				visibility: visible;
+			}
+
+			.textarea {
+				&:focus {
+					background-color: var(--background-tone);
+					
+					&:hover {
+						background-color: var(--background-tone);
+					}					
+				}
+
+				&:hover {
+					background-color: var(--background-tone);
+				}
+			}
+
+			font-weight: 300;
+		}
+
 
 		&.sortable-chosen {
 			// border: none;
@@ -460,56 +491,124 @@ main {
 	grid-template-rows: auto;
 
 	border-radius: var(--q);
-	
-	button {
-		background-color: var(--black);
-		/*background-color: transparent;*/
-		color: var(--background);
-		border: none;
-		padding: var(--h);
-		
+
+	.group {
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto;
+		margin-bottom: 1px;
+
 		&:first-of-type {
-			border-radius: var(--q) var(--q) 0 0;
+			& button:first-child {
+				border-radius: var(--q) var(--q) 0 0;
+			}
 		}
 		&:last-of-type {
-			border-radius: 0 0 var(--q) var(--q);
-		}
-
-		&:hover {
-			cursor: pointer;
-			background-color: #000000cc;
-			/*color: var(--black);*/
-		}
-
-		&:focus {
-			outline: none;
+			& button:last-child {
+				border-radius: 0 0 var(--q) var(--q);
+			}
 		}
 		
-		&:before {
-			content: attr(data-action);
-			
-			display: none;
-			position: absolute;
-			right: 0;
-			margin-right: 100%;
-			margin-top: calc(-1 * var(--h));
+		button {
+			background-color: var(--black);
+			/*background-color: transparent;*/
+			color: var(--background);
+			border: none;
 			padding: var(--h);
-			border-radius: var(--q) 0 0 var(--q);
 			
-			text-align: right;
-			color: var(--black);
 
-			background-color: #fcfcfcaa;
-			backdrop-filter: blur(2px);
-			white-space: nowrap;
+			&:hover {
+				cursor: pointer;
+				background-color: #000000cc;
+				/*color: var(--black);*/
+			}
+
+			&:focus {
+				outline: none;
+			}
+			
+			&:before {
+				content: attr(data-action);
+				
+				display: none;
+				position: absolute;
+				right: 0;
+				margin-right: 100%;
+				margin-top: calc(-1 * var(--h));
+				padding: var(--h);
+				border-radius: var(--q) 0 0 var(--q);
+				
+				text-align: right;
+				color: var(--black);
+
+				background-color: #fcfcfcaa;
+				backdrop-filter: blur(2px);
+				white-space: nowrap;
+			}
+			
+			&:hover:before {
+				display: block;
+			}
 		}
-		
-		&:hover:before {
-			display: block;
-		}
+
+	}
+	
+}
+
+.loader {
+	position: fixed;
+	display: block;
+	width: 100%;
+	top: 0;
+	height: 3px;
+	z-index: 90;
+
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+	background-size: 400% 100%;
+	animation: gradient 2s ease infinite;
+}
+
+@keyframes gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
 	}
 }
 
+.hint {
+	position: fixed;
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: var(--p);
+	top: 0;
+	
+	z-index: 80;
+
+	background-color: #fcfcfcaa;
+	backdrop-filter: blur(2px);
+
+	font-size: .8rem;
+	text-align: center;
+
+	.key {
+		display: inline-block;
+		border: 1px solid #ccc;
+		border-radius: 4px;
+		padding: 0.1em 0.5em;
+		margin: 0 0.2em;
+		box-shadow: 0 1px 0px rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+		background-color: #f7f7f7;
+		font-family: monospace;
+		font-size: 1rem;
+	}
+}
 
 .modal-box {
 	position: fixed;
@@ -580,6 +679,23 @@ main {
 			}
 		}
 
+		select {
+			display: block;
+			width: 100%;
+			padding: var(--q);
+
+			&:focus {
+				outline: none;
+			}
+
+			option {
+				&:hover {
+					outline: none;
+					border: none;
+				}
+			}
+		}
+
 		.click-to-close {
 			text-align: right;
 			font-size: .8rem;
@@ -588,4 +704,129 @@ main {
 
 	}
 
+}
+
+// Different modes.
+
+@mixin suppress-normal-interactions {
+	main {
+		.node {
+			border-top: 1px solid transparent;
+			border-bottom: 1px solid transparent;
+			// transition: border-color .1s;
+
+			&:hover {
+				border-top: 1px solid #cdcdcd;
+				border-bottom: 1px solid #cdcdcd;
+			}
+			
+			.handle {
+				cursor: inherit;
+				&:hover {
+					background-image: none;
+				}
+			}
+
+			.caret {
+				cursor: inherit;
+				&:hover {
+					background-color: transparent;
+				}
+
+				&.inactive:hover {
+					background-color: transparent;
+					cursor: inherit;
+				}
+
+				&:hover {
+					.dot {
+						&.type-pro {
+							color: var(--colour-con-aa);
+						}
+						&.type-con {
+							color: var(--colour-con-aa);
+						}
+						&.type-claim {
+							color: #bfbfbf;
+						}
+					}
+				}
+			}
+			
+			.padding {
+				& > button {
+					visibility: hidden;
+				}
+			}
+
+			&:hover {
+
+				.padding {
+					visibility: hidden;
+				}
+
+				.controls .inbetween {
+					visibility: hidden;
+				}
+			}
+
+			.textarea {
+				&:focus {
+					background-color: transparent;
+
+					&:hover {
+						background-color: transparent;
+					}
+				}
+
+				&:hover {
+					background-color: transparent;
+				}
+			}
+
+			.controls {
+				
+				.inbetween {
+					cursor: inherit;
+				}
+
+				&:hover {
+					.inbetween {
+						visibility: hidden;
+					}
+				}
+
+			}
+		}
+	}
+}
+
+body[data-mode="generate-reasoning"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('/img/cursors/route.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
+}
+
+body[data-mode="complete-enthymeme"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('/img/cursors/comment-slash.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
 }
