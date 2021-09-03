@@ -112,6 +112,9 @@ async function query(context, options, task, n) {
 			output = data;
 		});
 
+	console.log(call);
+	console.log(output);
+
 	// Refactor output.
 
 	if (['GPT-Neo-2.7B'].includes(model)) {
