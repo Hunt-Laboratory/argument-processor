@@ -112,8 +112,8 @@ async function query(context, options, task, n) {
 			output = data;
 		});
 
-	console.log(call);
-	console.log(output);
+	// console.log(call);
+	// console.log(output);
 
 	// Refactor output.
 
