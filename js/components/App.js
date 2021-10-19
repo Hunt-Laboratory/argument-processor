@@ -4,15 +4,7 @@ import Router from './Router.js';
 
 const App = Component(function() {
 	
-	const [appStatus, setAppStatus] = useState({
-		isLoggedIn: false,
-		corpus: null,
-		payload: {
-			'docs': []
-		}
-	});
-	
-	return html`${Router(appStatus, setAppStatus)}`;
+	return html`${Router()}`;
 
 });
 

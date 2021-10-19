@@ -8,15 +8,31 @@ let { randomString, setCaret } = utils;
 
 import examples from './examples.js';
 
-const Processor = Component(function(corpus, setAppStatus) {
+const Processor = Component(function() {
 	
 	let [title, setTitle] = useState('New Argument');
 
 	let [mode, setMode] = useState('auto');
 
 	let [options, setOptions] = useState({
-		model: 'j1-jumbo'
+		model: 'ada',
+		key: localStorage.getItem('key') ? localStorage.getItem('key') : '',
+		keyIsCorrect: false
 	});
+
+	useEffect(() => {
+
+		utils.hash(options.key).then(
+			hash => {
+				setOptions(prevOptions => {
+					let options = {...prevOptions};
+					options.keyIsCorrect = (hash == 'd919a84ef3fc7ee2790d0e7b63d8e5216c1c37b1b8f1a5029ba4583359734132');
+					return options;
+				})
+			}
+		);
+
+	}, [options.key]);
 
 	useEffect(() => {
 		document.title = title;

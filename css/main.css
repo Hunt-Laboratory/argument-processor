@@ -521,6 +521,21 @@ main .node.sortable-ghost {
   outline: none;
   border: none;
 }
+.modal-box .modal .key input[type=password] {
+  width: calc(100% - 2 * var(--q));
+  border: none;
+  padding: var(--q);
+  margin-bottom: var(--q);
+}
+.modal-box .modal .key input[type=password].correct {
+  background-color: var(--colour-pro-44);
+}
+.modal-box .modal .key input[type=password].incorrect {
+  background-color: var(--colour-con-44);
+}
+.modal-box .modal .key button {
+  float: right;
+}
 .modal-box .modal .click-to-close {
   text-align: right;
   font-size: 0.8rem;

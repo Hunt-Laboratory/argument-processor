@@ -106,14 +106,14 @@ async function query(context, options, task, n) {
 	// Query model.
 
 	let output;
-	let call = await fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?model=${model}&n=${n}&prompt=${encodeURIComponent(prompt)}`)
+	let call = await fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?model=${model}&n=${n}&prompt=${encodeURIComponent(prompt)}&key=${options.key}`)
 		.then(response => response.json())
 		.then(data => {
 			output = data;
 		});
 
-	// console.log(call);
-	// console.log(output);
+	console.log(call);
+	console.log(output);
 
 	// Refactor output.
 
@@ -121,6 +121,8 @@ async function query(context, options, task, n) {
 		output = output.map(d => tidy(d.generated_text));
 	} else if (['j1-large', 'j1-jumbo'].includes(model)) {
 		output = output.completions.map(d => tidy(d.data.text));
+	} else if (['ada','babbage','curie','davinci']) {
+		output = output.choices.map(d => tidy(d.text));
 	}
 
 	output = output.filter(d => d.length > 0);
