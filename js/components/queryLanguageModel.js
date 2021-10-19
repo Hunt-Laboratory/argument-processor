@@ -121,7 +121,7 @@ async function query(context, options, task, n) {
 		output = output.map(d => tidy(d.generated_text));
 	} else if (['j1-large', 'j1-jumbo'].includes(model)) {
 		output = output.completions.map(d => tidy(d.data.text));
-	} else if (['ada','babbage','curie','davinci']) {
+	} else if (['ada','babbage','curie','davinci', 'curie-instruct-beta', 'davinci-instruct-beta']) {
 		output = output.choices.map(d => tidy(d.text));
 	}
 
