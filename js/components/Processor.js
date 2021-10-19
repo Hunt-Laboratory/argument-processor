@@ -15,7 +15,7 @@ const Processor = Component(function() {
 	let [mode, setMode] = useState('auto');
 
 	let [options, setOptions] = useState({
-		model: 'ada',
+		model: 'j1-jumbo',
 		key: localStorage.getItem('key') ? localStorage.getItem('key') : '',
 		keyIsCorrect: false
 	});
