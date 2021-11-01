@@ -26,7 +26,7 @@ const Processor = Component(function() {
 			hash => {
 				setOptions(prevOptions => {
 					let options = {...prevOptions};
-					options.keyIsCorrect = (hash == 'd919a84ef3fc7ee2790d0e7b63d8e5216c1c37b1b8f1a5029ba4583359734132');
+					options.keyIsCorrect = (hash == '770dceebc5deb2e89694350f84409a547157cfded7b855dd84957c3a0cbd3230');
 					return options;
 				})
 			}
