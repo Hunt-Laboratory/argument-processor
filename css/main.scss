@@ -550,6 +550,13 @@ main {
 			&:hover:before {
 				display: block;
 			}
+
+			& svg.pro {
+				color: var(--colour-pro-44);
+			}
+			& svg.con {
+				color: var(--colour-con-44);
+			}
 		}
 
 	}
@@ -844,6 +851,66 @@ body[data-mode="complete-enthymeme"] {
 	@include suppress-normal-interactions;
 	
 	cursor: url('../img/cursors/comment-slash.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
+}
+
+body[data-mode="suggest-reasons"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('../img/cursors/hammer.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
+}
+
+body[data-mode="suggest-objections"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('../img/cursors/axe.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
+}
+
+body[data-mode="suggest-conclusion"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('../img/cursors/calculator.svg') 0 0, pointer;
+
+	main {
+		.node {
+			&:hover {
+				background-color: var(--background-tone);
+			}
+		}
+	}
+}
+
+body[data-mode="suggest-abstraction"] {
+
+	@include suppress-normal-interactions;
+	
+	cursor: url('../img/cursors/shapes.svg') 0 0, pointer;
 
 	main {
 		.node {

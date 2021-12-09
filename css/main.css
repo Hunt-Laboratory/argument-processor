@@ -401,6 +401,12 @@ main .node.sortable-ghost {
 .toolbar .group button:hover:before {
   display: block;
 }
+.toolbar .group button svg.pro {
+  color: var(--colour-pro-44);
+}
+.toolbar .group button svg.con {
+  color: var(--colour-con-44);
+}
 
 .loader {
   position: fixed;
@@ -666,6 +672,262 @@ body[data-mode=complete-enthymeme] main .node .controls:hover .inbetween {
   visibility: hidden;
 }
 body[data-mode=complete-enthymeme] main .node:hover {
+  background-color: var(--background-tone);
+}
+
+body[data-mode=suggest-reasons] {
+  cursor: url("../img/cursors/hammer.svg") 0 0, pointer;
+}
+body[data-mode=suggest-reasons] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=suggest-reasons] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=suggest-reasons] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=suggest-reasons] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=suggest-reasons] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=suggest-reasons] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-reasons] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=suggest-reasons] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-reasons] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-reasons] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=suggest-reasons] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=suggest-reasons] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=suggest-reasons] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-reasons] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=suggest-reasons] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-reasons] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-reasons] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=suggest-reasons] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-reasons] main .node:hover {
+  background-color: var(--background-tone);
+}
+
+body[data-mode=suggest-objections] {
+  cursor: url("../img/cursors/axe.svg") 0 0, pointer;
+}
+body[data-mode=suggest-objections] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=suggest-objections] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=suggest-objections] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=suggest-objections] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=suggest-objections] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=suggest-objections] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-objections] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=suggest-objections] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-objections] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-objections] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=suggest-objections] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=suggest-objections] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=suggest-objections] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-objections] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=suggest-objections] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-objections] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-objections] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=suggest-objections] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-objections] main .node:hover {
+  background-color: var(--background-tone);
+}
+
+body[data-mode=suggest-conclusion] {
+  cursor: url("../img/cursors/calculator.svg") 0 0, pointer;
+}
+body[data-mode=suggest-conclusion] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=suggest-conclusion] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=suggest-conclusion] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=suggest-conclusion] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=suggest-conclusion] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=suggest-conclusion] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-conclusion] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=suggest-conclusion] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-conclusion] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-conclusion] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=suggest-conclusion] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=suggest-conclusion] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=suggest-conclusion] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-conclusion] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=suggest-conclusion] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-conclusion] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-conclusion] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=suggest-conclusion] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-conclusion] main .node:hover {
+  background-color: var(--background-tone);
+}
+
+body[data-mode=suggest-abstraction] {
+  cursor: url("../img/cursors/shapes.svg") 0 0, pointer;
+}
+body[data-mode=suggest-abstraction] main .node {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+body[data-mode=suggest-abstraction] main .node:hover {
+  border-top: 1px solid #cdcdcd;
+  border-bottom: 1px solid #cdcdcd;
+}
+body[data-mode=suggest-abstraction] main .node .handle {
+  cursor: inherit;
+}
+body[data-mode=suggest-abstraction] main .node .handle:hover {
+  background-image: none;
+}
+body[data-mode=suggest-abstraction] main .node .caret {
+  cursor: inherit;
+}
+body[data-mode=suggest-abstraction] main .node .caret:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-abstraction] main .node .caret.inactive:hover {
+  background-color: transparent;
+  cursor: inherit;
+}
+body[data-mode=suggest-abstraction] main .node .caret:hover .dot.type-pro {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-abstraction] main .node .caret:hover .dot.type-con {
+  color: var(--colour-con-aa);
+}
+body[data-mode=suggest-abstraction] main .node .caret:hover .dot.type-claim {
+  color: #bfbfbf;
+}
+body[data-mode=suggest-abstraction] main .node .padding > button {
+  visibility: hidden;
+}
+body[data-mode=suggest-abstraction] main .node:hover .padding {
+  visibility: hidden;
+}
+body[data-mode=suggest-abstraction] main .node:hover .controls .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-abstraction] main .node .textarea:focus {
+  background-color: transparent;
+}
+body[data-mode=suggest-abstraction] main .node .textarea:focus:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-abstraction] main .node .textarea:hover {
+  background-color: transparent;
+}
+body[data-mode=suggest-abstraction] main .node .controls .inbetween {
+  cursor: inherit;
+}
+body[data-mode=suggest-abstraction] main .node .controls:hover .inbetween {
+  visibility: hidden;
+}
+body[data-mode=suggest-abstraction] main .node:hover {
   background-color: var(--background-tone);
 }
 

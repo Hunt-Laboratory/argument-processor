@@ -29,6 +29,13 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 		document.body.setAttribute('data-mode', mode);
 	}
 
+	// ${Button('calculator', 'Suggest conclusion', () => {
+	// 		updateNodeText();
+	// 		changeMode('suggest-conclusion');
+	// 	})}
+
+		
+
 	return html`<div class="toolbar">
 
 		<div class="group">
@@ -56,10 +63,25 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 			changeMode('generate-reasoning');
 		})}
 
-		${Button('comment-slash', 'Suggest assumptions', () => {
+		${Button('comment-slash', 'Suggest copremise', () => {
 			updateNodeText();
 			changeMode('complete-enthymeme');
 		})}
+
+		${Button('hammer fa-flip-horizontal', 'Suggest reasons', () => {
+			updateNodeText();
+			changeMode('suggest-reasons');
+		})}
+
+		${Button('axe fa-flip-horizontal', 'Suggest objections', () => {
+			updateNodeText();
+			changeMode('suggest-objections');
+		})}
+
+		${Button('shapes', 'Suggest abstraction', () => {
+			updateNodeText();
+			changeMode('suggest-abstraction');
+		})}		
 
 		</div>
 		<div class="group">

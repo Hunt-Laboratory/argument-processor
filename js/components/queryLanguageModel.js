@@ -1,5 +1,5 @@
 
-function tidy(text) {
+function tidy(text, task) {
 
 	let regex;
 
@@ -15,12 +15,26 @@ function tidy(text) {
 	regex = /^[0-9]\.\s*/i;
 	text = text.replace(regex, '');
 
-	regex = /^[^a-zA-Z0-9]*/i;
+	regex = /^[^a-zA-Z0-9"']*/i;
 	text = text.replace(regex, '');
 
 	// Remove trailing whitespace.
 	regex = /\s*$/i;
 	text = text.replace(regex, '');
+
+	// Truncate to only one sentence.
+	let lines = text.split('\n'),
+		sentences = lines[0].split('. ');
+	if (!['generate-reasoning'].includes(task)) {
+		if (sentences.length > 1) {
+			text = sentences[0] + '.';
+		} else {
+			text = sentences[0];
+		}
+	} else {
+		text = lines[0];
+	}
+
 
 	if (text.length > 0) {
 		text = text[0].toUpperCase() + text.substring(1)
@@ -57,8 +71,7 @@ Assumptions:
 Premises:
 * ${context.premise}
 Conclusion: ${context.conclusion}
-Assumptions:
-* `;
+Assumptions: `;
 
 	return prompt;
 }
@@ -67,20 +80,70 @@ function generateReasoningPrompt(context) {
 	let prompt = `Reason from the start claim to the end claim.
 
 Start and end claim: A cyclone hit Queensland, Australia. ~ The price of bananas increased.
-Completed chain of reasoning:
-* A cyclone hit Queensland, Australia. ~ The cyclone destroyed banana crops. ~ Supply of bananas went down, whilst demand stayed constant. ~ The price of bananas increased.
+Completed chain of reasoning: A cyclone hit Queensland, Australia. -> The cyclone destroyed banana crops. -> Supply of bananas went down, whilst demand stayed constant. -> The price of bananas increased.
 
 Start and end claim: Education levels improve. ~ Society becomes more politically polarised.
-Completed chain of reasoning:
-* Education levels improve. ~ People become more skilled at finding high-quality justifications for their existing beliefs (confirmation bias). ~ Society becomes more politically polarised.
+Completed chain of reasoning: Education levels improve. -> People become more skilled at finding high-quality justifications for their existing beliefs (confirmation bias). -> Society becomes more politically polarised.
 
 Start and end claim: People move out of cities and into the countryside. ~ Greenhouse gas emissions increase.
-Completed chain of reasoning:
-* People move out of cities and into the countryside. ~ Population density decreases. ~ Both people and products need to be transported further. ~ They are transported using vehicles that burn fossil fuels. ~ Greenhouse gas emissions increase.
+Completed chain of reasoning: People move out of cities and into the countryside. -> Population density decreases. -> Both people and products need to be transported further. -> They are transported using vehicles that burn fossil fuels. -> Greenhouse gas emissions increase.
 
 Start and end claim: ${context.start} ~ ${context.end}
-Completed chain of reasoning:
-*`;
+Completed chain of reasoning:`;
+
+	return prompt;
+}
+
+function suggestReasonsPrompt(context) {
+	let prompt = `Provide an argument for each of the following claims.
+
+Claim: Abortion should be legal.
+Argument for: Women should have a right to choose what happens to their body.
+
+Claim: Climate change is caused by humans.
+Argument for: Through burning fossil fuels, humans have released enough CO2 to explain the warming observed.
+
+Claim: John is colourblind.
+Argument for: John could not distinguish between the red and green chairs.
+
+Claim: ${context.conclusion}
+Argument for:`;
+
+	return prompt;
+}
+
+function suggestObjectionsPrompt(context) {
+	let prompt = `Provide an argument against each of the following claims.
+
+Claim: Abortion should be legal.
+Argument against: Abortion is murder.
+
+Claim: Climate change is caused by humans.
+Argument against: The climate has been changing long before the emergence of humans.
+
+Claim: We should have a Christmas party together.
+Argument against: A Christmas party would increase the spread of coronavirus.
+
+Claim: ${context.conclusion}
+Argument against:`;
+
+	return prompt;
+}
+
+function suggestAbstractionPrompt(context) {
+	let prompt = `Rewrite the following statements to be more general.
+
+tatement: Palestine is a legitimate state and deserves to be recognised as such.
+Generalisation: Legitimate states deserve recognition.
+
+Statement: Existential threats come from space. Exploring space helps humanity better understand and prepare.
+Generalisation: Knowledge about space is more useful.
+
+Statement: Uniforms reduce the social stigma attached to not having the latest brand that can harm lower income students.
+Generalisation: Uniforms reduce social stigma.
+
+Statement: ${context.claim}
+Generalisation:`;
 
 	return prompt;
 }
@@ -99,11 +162,22 @@ async function query(context, options, task, n) {
 		case 'generate-reasoning':
 			prompt = generateReasoningPrompt(context);
 			break;
+		case 'suggest-reasons':
+			prompt = suggestReasonsPrompt(context);
+			break;
+		case 'suggest-objections':
+			prompt = suggestObjectionsPrompt(context);
+			break;
+		case 'suggest-abstraction':
+			prompt = suggestAbstractionPrompt(context);
+			break;
 		default:
 			break;
 	}
 
 	// Query model.
+
+	console.log(prompt)
 
 	let output;
 	let call = await fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?model=${model}&n=${n}&prompt=${encodeURIComponent(prompt)}&key=${options.key}`)
@@ -113,19 +187,19 @@ async function query(context, options, task, n) {
 		});
 
 	// console.log(call);
-	// console.log(output);
+	console.log(output);
 
 	// Refactor output.
 
 	if (['GPT-Neo-2.7B'].includes(model)) {
-		output = output.map(d => tidy(d.generated_text));
+		output = output.map(d => tidy(d.generated_text, task));
 	} else if (['j1-large', 'j1-jumbo'].includes(model)) {
-		output = output.completions.map(d => tidy(d.data.text));
-	} else if (['ada','babbage','curie','davinci', 'curie-instruct-beta', 'davinci-instruct-beta']) {
-		output = output.choices.map(d => tidy(d.text));
+		output = output.completions.map(d => tidy(d.data.text, task));
+	} else if (['ada','babbage','curie','davinci', 'curie-instruct-beta', 'davinci-instruct-beta'].includes(model)) {
+		output = output.choices.map(d => tidy(d.text, task));
 	}
 
-	output = output.filter(d => d.length > 0);
+	output = output.filter(d => d.length > 10);
 	output = [...new Set(output)];
 
 	// Return generated text.

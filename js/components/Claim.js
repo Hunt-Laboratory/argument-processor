@@ -408,12 +408,13 @@ const Claim = Component(function(node, idx, doc, props) {
 						end: parent(node).text
 					};
 
+					console.log(context);
 					let q = await query(context, options, 'generate-reasoning', 1);
-					// let q = ["A ~ B ~ C ~ D ~ E"];
+					// let q = ["A -> B -> C -> D -> E"];
 					
 					console.log(q);
 
-					q = q.map(d => d.split(' ~ '))[0];
+					q = q.map(d => d.split(' -> '))[0];
 
 					// Reverse and trim.
 					q.shift();
@@ -446,6 +447,77 @@ const Claim = Component(function(node, idx, doc, props) {
 						conclusion: parent(node).text
 					};
 					let q = await query(context, options, 'complete-enthymeme', 6);
+
+					for (let k = 0; k < q.length; k++) {
+						insertNode(idx + k, 'after', node.indent, q[k], true)();
+					}
+					
+					for (let k = 0; k < q.length; k++) {
+						toggleJoin(idx + k);
+					}
+
+					setMode('auto');
+					document.body.setAttribute('data-mode', 'auto');
+
+					setFocus({ node: null, caret: [0, 0] });
+
+					document.querySelector('#loader').classList.add('hide');
+				}
+				break;
+			case 'suggest-reasons':
+				return async function() {
+					document.querySelector('#loader').classList.remove('hide');
+
+					let context = {
+						pros: children(node).filter(d => d.label == 'pro').map(d => d.text),
+						conclusion: node.text
+					}
+					let q = await query(context, options, 'suggest-reasons', 6);
+					let nChildren = children(node).length;
+
+					for (let k = 0; k < q.length; k++) {
+						insertNode(idx + nChildren + k, 'after', node.indent + 1, q[k], true)();
+					}
+
+					setMode('auto');
+					document.body.setAttribute('data-mode', 'auto');
+
+					setFocus({ node: null, caret: [0, 0] });
+
+					document.querySelector('#loader').classList.add('hide');
+				}
+				break;
+			case 'suggest-objections':
+				return async function() {
+					document.querySelector('#loader').classList.remove('hide');
+
+					let context = {
+						cons: children(node).filter(d => d.label == 'con').map(d => d.text),
+						conclusion: node.text
+					}
+					let q = await query(context, options, 'suggest-objections', 6);
+					let nChildren = children(node).length;
+
+					for (let k = 0; k < q.length; k++) {
+						insertNode(idx + nChildren + k, 'after', node.indent + 1, q[k], true, false, 'con')();
+					}
+
+					setMode('auto');
+					document.body.setAttribute('data-mode', 'auto');
+
+					setFocus({ node: null, caret: [0, 0] });
+
+					document.querySelector('#loader').classList.add('hide');
+				}
+				break;
+			case 'suggest-abstraction':
+				return async function() {
+					document.querySelector('#loader').classList.remove('hide');
+
+					let context = {
+						claim: node.text
+					};
+					let q = await query(context, options, 'suggest-abstraction', 3);
 
 					for (let k = 0; k < q.length; k++) {
 						insertNode(idx + k, 'after', node.indent, q[k], true)();

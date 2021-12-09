@@ -15,7 +15,7 @@ const Processor = Component(function() {
 	let [mode, setMode] = useState('auto');
 
 	let [options, setOptions] = useState({
-		model: 'j1-jumbo',
+		model: 'davinci',
 		key: localStorage.getItem('key') ? localStorage.getItem('key') : '',
 		keyIsCorrect: false
 	});
@@ -38,13 +38,13 @@ const Processor = Component(function() {
 		document.title = title;
 	}, [title]);
 
-	function defaultNode(indent, text = '', suggestion = false, joint = false) {
+	function defaultNode(indent, text = '', suggestion = false, joint = false, type = 'pro') {
 
 		return {
 			id: randomString(),
 			text: text,
-			type: 'pro',
-			label: 'pro',
+			type: type,
+			label: type,
 			open: true,
 			display: true,
 			indent: indent,
@@ -207,6 +207,8 @@ const Processor = Component(function() {
 	function close(idx) {
 		return () => {
 
+			updateNodeText();
+
 			let updater = prevDoc => {
 				let doc = [...prevDoc],
 					closeIds = descendents(doc[idx], doc).map(d => d.id);
@@ -255,6 +257,8 @@ const Processor = Component(function() {
 
 	function open(idx) {
 		return () => {
+
+			updateNodeText();
 
 			let updater = prevDoc => {
 				let doc = [...prevDoc],
@@ -353,11 +357,11 @@ const Processor = Component(function() {
 		}
 	}
 
-	function insertNode(idx, relation, indent, text = '', suggestion = false, joint = false) {
+	function insertNode(idx, relation, indent, text = '', suggestion = false, joint = false, type = 'pro') {
 		return () => {
 
 			let newNode;
-			newNode = defaultNode(indent, text, suggestion, joint);
+			newNode = defaultNode(indent, text, suggestion, joint, type);
 
 			setDoc(prevDoc => {
 				let doc = _.cloneDeep(prevDoc);
@@ -484,6 +488,8 @@ const Processor = Component(function() {
 						// 	}
 						// },
 						onEnd: function(evt) {
+
+							updateNodeText();
 
 							// Undo sortablejs reordering of elements, so that it is instead handled by neverland state.
 
