@@ -515,7 +515,8 @@ const Claim = Component(function(node, idx, doc, props) {
 					document.querySelector('#loader').classList.remove('hide');
 
 					let context = {
-						claim: node.text
+						claim: node.text,
+						conclusion: parent(node).text
 					};
 					let q = await query(context, options, 'suggest-abstraction', 3);
 

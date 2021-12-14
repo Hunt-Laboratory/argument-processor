@@ -35,7 +35,6 @@ function tidy(text, task) {
 		text = lines[0];
 	}
 
-
 	if (text.length > 0) {
 		text = text[0].toUpperCase() + text.substring(1)
 	}
@@ -131,19 +130,19 @@ Argument against:`;
 }
 
 function suggestAbstractionPrompt(context) {
-	let prompt = `Rewrite the following statements to be more general.
+	let prompt = `In the following examples, notice how the first claim is rephrased to be more abstract.
 
-tatement: Palestine is a legitimate state and deserves to be recognised as such.
-Generalisation: Legitimate states deserve recognition.
+Too specific: Nuclear power has very low greenhouse gas emissions. => We should be building more nuclear power plants.
+Better: Nuclear power is good for the environment. -> We should be building more nuclear power plants.
 
-Statement: Existential threats come from space. Exploring space helps humanity better understand and prepare.
-Generalisation: Knowledge about space is more useful.
+Too specific: School uniforms ensure that everyone is wearing the same clothes. => Schools should make students wear a uniform.
+Better: Uniforms reduce class-based discrimination. => Schools should make students wear a uniform.
 
-Statement: Uniforms reduce the social stigma attached to not having the latest brand that can harm lower income students.
-Generalisation: Uniforms reduce social stigma.
+Too specific: The Thames barrier has 5 backup generators. => The Thames barrier will not fail.
+Better: The Thames barrier has been designed with lots of redundancy. => The Thames barrier will not fail.
 
-Statement: ${context.claim}
-Generalisation:`;
+Too specific: ${context.claim} => ${context.conclusion}
+Better:`;
 
 	return prompt;
 }
