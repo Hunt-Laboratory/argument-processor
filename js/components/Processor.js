@@ -27,10 +27,13 @@ const Processor = Component(function() {
 			{
 				headers: {
 					Authorization: `Bearer ${options.key}`,
-					// 'Content-Type': 'application/json'
+					'Content-Type': 'application/json'
 				},
-				method: "GET",
-				// body: JSON.stringify(data)
+				method: "PUSH",
+				body: JSON.stringify({
+					"prompt": "Say this is a test",
+					"max_tokens": 5
+				})
 			}
 			).then(response => response.json())
 			.then(data => {
