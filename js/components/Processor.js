@@ -17,20 +17,38 @@ const Processor = Component(function() {
 	let [options, setOptions] = useState({
 		model: 'davinci',
 		key: localStorage.getItem('key') ? localStorage.getItem('key') : '',
-		keyIsCorrect: false
+		keyIsValid: false
 	});
 
 	useEffect(() => {
 
-		utils.hash(options.key).then(
-			hash => {
-				setOptions(prevOptions => {
-					let options = {...prevOptions};
-					options.keyIsCorrect = (hash == '770dceebc5deb2e89694350f84409a547157cfded7b855dd84957c3a0cbd3230');
-					return options;
-				})
+		fetch(
+			`https://api.openai.com/v1/engines/`,
+			{
+				headers: {
+					Authorization: `Bearer ${options.key}`,
+					// 'Content-Type': 'application/json'
+				},
+				method: "GET",
+				// body: JSON.stringify(data)
 			}
-		);
+			).then(response => response.json())
+			.then(data => {
+				console.log(data)
+			});
+		// const result = await response.json();
+
+		// let 
+
+		// utils.hash(options.key).then(
+		// 	hash => {
+		// 		setOptions(prevOptions => {
+		// 			let options = {...prevOptions};
+		// 			options.keyIsValid = (hash == '770dceebc5deb2e89694350f84409a547157cfded7b855dd84957c3a0cbd3230');
+		// 			return options;
+		// 		})
+		// 	}
+		// );
 
 	}, [options.key]);
 

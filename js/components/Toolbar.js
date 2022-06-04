@@ -56,7 +56,7 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 		})}
 
 		</div>
-		<div class="group ${options.keyIsCorrect ? '' : 'hide'}">
+		<div class="group ${options.keyIsValid ? '' : 'hide'}">
 
 		${Button('route', 'Suggest intermediary claims', () => {
 			updateNodeText();

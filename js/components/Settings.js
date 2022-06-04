@@ -4,23 +4,23 @@ const Settings = Component(function(setSettings, options, setOptions) {
 
 	let {
 		key,
-		keyIsCorrect
+		keyIsValid
 	} = options;
 
 	return html`<div class="modal-box">
 		<div class="modal">
-			<p>Enter key to unlock AI functionality.</p>
+			<p>Enter your OpenAI API key to enable language model tools.</p>
 
 			<div class="key">
 				<input
 					type="password"
 					value="${key}"
 					id="key"
-					class="${keyIsCorrect ? 'correct' : 'incorrect'}"
+					class="${keyIsValid ? 'correct' : 'incorrect'}"
 					></input>
 
 				<button
-					class="${keyIsCorrect ? 'hide' : ''}"
+					class="${keyIsValid ? 'hide' : ''}"
 					onclick=${evt => {
 						setOptions(prevOptions => {
 							let options = {...prevOptions},
@@ -34,12 +34,12 @@ const Settings = Component(function(setSettings, options, setOptions) {
 				</button>
 
 				<button
-					class="${keyIsCorrect ? '' : 'hide'}"
+					class="${keyIsValid ? '' : 'hide'}"
 					onclick=${evt => {
 						setOptions(prevOptions => {
 							let options = {...prevOptions};
 							options.key = '';
-							options.keyIsCorrect = false;
+							options.keyIsValid = false;
 							localStorage.removeItem('key');
 							return options;
 						})

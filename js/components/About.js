@@ -35,12 +35,4 @@ const About = Component(function(setAbout, setTitle, setDoc) {
 
 });
 
-// <p>Demo examples:</p>
-
-// <ul class="sample">
-// 	<li><button onclick="${loadExample('Luke')}">Luke</button></li>
-// 	<li><button onclick="${loadExample('Kabul 1')}">Kabul 1</button></li>
-// 	<li><button onclick="${loadExample('Kabul 2')}">Kabul 2</button></li>
-// </ul>
-
 export default About;
