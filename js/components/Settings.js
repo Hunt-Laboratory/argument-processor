@@ -59,15 +59,10 @@ const Settings = Component(function(setSettings, options, setOptions) {
 					return options;
 				})
 			}}>
-				<option value="ada" selected="${options.model == "ada"}">350M parameters (GPT-3 Ada from OpenAI)</option>
-				<option value="babbage" selected="${options.model == "babbage"}">1.3B parameters (GPT-3 Babbage from OpenAI)</option>
-				<option value="GPT-Neo-2.7B" selected="${options.model == "GPT-Neo-2.7B"}">2.7B parameters (GPT-Neo-2.7B from EleutherAI)</option>
-				<option value="curie" selected="${options.model == "curie"}">6.7B parameters (GPT-3 Curie from Open AI)</option>
-				<option value="curie-instruct-beta" selected="${options.model == "curie-instruct-beta"}">6.7B parameters (GPT-3 Curie Instruct from Open AI)</option>
-				<option value="j1-large" selected="${options.model == "j1-large"}">7.5B parameters (j1-large from AI21)</option>
-				<option value="davinci" selected="${options.model == "davinci"}">175B parameters (GPT-3 Davinci from OpenAI)</option>
-				<option value="davinci-instruct-beta" selected="${options.model == "davinci-instruct-beta"}">175B parameters (GPT-3 Davinci Instruct from OpenAI)</option>
-				<option value="j1-jumbo" selected="${options.model == "j1-jumbo"}">178B parameters (j1-jumbo from AI21)</option>
+				<option value="text-davinci-002" selected="${options.model == "text-davinci-002"}"> 175B parameters (GPT-3 Davinci) </option>
+				<option value="text-curie-001"   selected="${options.model == "text-curie-001"}">   6.7B parameters (GPT-3 Curie)   </option>
+				<option value="text-babbage-001" selected="${options.model == "text-babbage-001"}"> 1.3B parameters (GPT-3 Babbage) </option>
+				<option value="text-ada-001"     selected="${options.model == "text-ada-001"}">	    350M parameters (GPT-3 Ada)     </option>
 			</select>
 
 			<p class="click-to-close" onclick="${() => {setSettings(false)}}">Click here to close.</p>

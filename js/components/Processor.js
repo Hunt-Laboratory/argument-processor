@@ -15,7 +15,7 @@ const Processor = Component(function() {
 	let [mode, setMode] = useState('auto');
 
 	let [options, setOptions] = useState({
-		model: 'davinci',
+		model: 'text-davinci-002',
 		key: localStorage.getItem('key') ? localStorage.getItem('key') : '',
 		keyIsValid: false
 	});
@@ -23,38 +23,21 @@ const Processor = Component(function() {
 	useEffect(() => {
 
 		fetch(
-			`https://api.openai.com/v1/engines/`,
-			{
+			"https://api.openai.com/v1/engines", {
 				headers: {
-					'Authorization': `Bearer ${options.key}`,
-					'Content-Type': 'application/json',
-					'Access-Control-Allow-Origin': '*',
-					'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
-				},
-				method: "PUSH",
-				body: JSON.stringify({
-					"prompt": "Say this is a test",
-					"max_tokens": 5
-				})
+					Authorization: `Bearer ${options.key}`
+				}
 			}
-			).then(response => response.json())
-			.then(data => {
-				console.log(data)
-			});
-		// const result = await response.json();
-
-		// let 
-
-		// utils.hash(options.key).then(
-		// 	hash => {
-		// 		setOptions(prevOptions => {
-		// 			let options = {...prevOptions};
-		// 			options.keyIsValid = (hash == '770dceebc5deb2e89694350f84409a547157cfded7b855dd84957c3a0cbd3230');
-		// 			return options;
-		// 		})
-		// 	}
-		// );
-
+		)
+		.then(response => response.json())
+		.then(data => {
+			setOptions(prevOptions => {
+				let options = {...prevOptions};
+				options.keyIsValid = data.hasOwnProperty('data');
+				return options;
+			})
+		})
+		
 	}, [options.key]);
 
 	useEffect(() => {

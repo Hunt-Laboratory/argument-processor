@@ -176,28 +176,36 @@ async function query(context, options, task, n) {
 
 	// Query model.
 
-	console.log(prompt)
+	// console.log(prompt)
 
 	let output;
-	let call = await fetch(`https://o32orqaa79.execute-api.ap-southeast-2.amazonaws.com/default/huggingface?model=${model}&n=${n}&prompt=${encodeURIComponent(prompt)}&key=${options.key}`)
+
+	let call = await fetch(
+			`https://api.openai.com/v1/engines/${model}/completions`,
+			{
+				headers: {
+					'Authorization': `Bearer ${options.key}`,
+					'Content-Type': 'application/json'
+				},
+				method: 'POST',
+				body: JSON.stringify({
+					prompt: prompt,
+					n: n,
+					max_tokens: 200,
+					stop: ['\n\nPremises:']
+				}),
+			}
+		)
 		.then(response => response.json())
 		.then(data => {
 			output = data;
 		});
-
-	// console.log(call);
-	console.log(output);
+	
+	// console.log(output);
 
 	// Refactor output.
 
-	if (['GPT-Neo-2.7B'].includes(model)) {
-		output = output.map(d => tidy(d.generated_text, task));
-	} else if (['j1-large', 'j1-jumbo'].includes(model)) {
-		output = output.completions.map(d => tidy(d.data.text, task));
-	} else if (['ada','babbage','curie','davinci', 'curie-instruct-beta', 'davinci-instruct-beta'].includes(model)) {
-		output = output.choices.map(d => tidy(d.text, task));
-	}
-
+	output = output.choices.map(d => tidy(d.text, task));
 	output = output.filter(d => d.length > 10);
 	output = [...new Set(output)];
 
