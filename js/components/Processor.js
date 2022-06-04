@@ -26,8 +26,10 @@ const Processor = Component(function() {
 			`https://api.openai.com/v1/engines/`,
 			{
 				headers: {
-					Authorization: `Bearer ${options.key}`,
-					'Content-Type': 'application/json'
+					'Authorization': `Bearer ${options.key}`,
+					'Content-Type': 'application/json',
+					'Access-Control-Allow-Origin': '*',
+					'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Requested-With'
 				},
 				method: "PUSH",
 				body: JSON.stringify({
