@@ -17,7 +17,7 @@ const About = Component(function(setAbout, setTitle, setDoc) {
 
 			<p>An argument processor is to analytic reasoning what a word processor is to arbitrary text.</p>
 
-			<p>The tool is a work-in-progress. Please address any enquiries to Luke Thorburn at <a href="mailto:luke.thorburn@unimelb.edu.au">luke.thorburn@unimelb.edu.au</a>.</p>
+			<p>The tool is a work-in-progress. Please address any enquiries to <a href="https://lukethorburn.com">Luke Thorburn</a>.</p>
 
 			<p>Thank you to Ashley Barnett for contributing the following sample arguments (click to load).</p>
 
