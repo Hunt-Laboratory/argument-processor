@@ -15,9 +15,9 @@ const About = Component(function(setAbout, setTitle, setDoc) {
 		<div class="modal">
 			<p>This is a prototype <em>argument processor</em>.</p>
 
-			<p>An argument processor is to analytic reasoning what a word processor is to arbitrary text.</p>
+			<p>An argument processor is to structured argumentation what a word processor is to arbitrary text.</p>
 
-			<p>The tool is a work-in-progress. Please address any enquiries to <a href="https://lukethorburn.com">Luke Thorburn</a>.</p>
+			<p>Please address any enquiries to <a href="https://lukethorburn.com">Luke Thorburn</a>.</p>
 
 			<p>Thank you to Ashley Barnett for contributing the following sample arguments (click to load).</p>
 
