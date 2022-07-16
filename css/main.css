@@ -469,6 +469,21 @@ main .node.sortable-ghost {
   background-color: #ffffff22;
   backdrop-filter: blur(8px);
   z-index: 1000;
+  overflow-y: scroll;
+}
+.modal-box::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+  background-color: transparent;
+}
+.modal-box::-webkit-scrollbar-track {
+  background-color: transparent;
+  border-radius: 10px;
+  margin: 0;
+}
+.modal-box::-webkit-scrollbar-thumb {
+  background-color: #dedede;
+  border-radius: 10px;
 }
 .modal-box .modal {
   width: 450px;
