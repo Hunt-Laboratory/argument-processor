@@ -463,8 +463,8 @@ main .node.sortable-ghost {
   justify-content: center;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  width: calc(100vw - 2*var(--h));
+  height: calc(100vh - 2*var(--h));
   padding: var(--h);
   background-color: #ffffff22;
   backdrop-filter: blur(8px);
@@ -472,6 +472,99 @@ main .node.sortable-ghost {
 }
 .modal-box .modal {
   width: 450px;
+  max-height: 100%;
+}
+.modal-box .modal.directory {
+  width: 800px;
+  align-self: flex-start;
+  padding-top: 40px;
+}
+.modal-box .modal.directory p {
+  font-size: 0.9rem;
+}
+.modal-box .modal .file-list {
+  position: relative;
+  margin-bottom: calc(2*var(--p));
+}
+.modal-box .modal .file-list .top-actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  position: absolute;
+  top: var(--p);
+  right: calc(100% + 2*var(--p));
+}
+.modal-box .modal .file-list .top-actions button {
+  display: block;
+  position: relative;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: var(--h);
+  cursor: pointer;
+}
+.modal-box .modal .file-list .top-actions button:first-of-type {
+  border-radius: var(--q) var(--q) 0 0;
+}
+.modal-box .modal .file-list .top-actions button:last-of-type {
+  border-radius: 0 0 var(--q) var(--q);
+}
+.modal-box .modal .file-list .top-actions button:before {
+  content: attr(data-action);
+  display: none;
+  position: absolute;
+  right: 0;
+  margin-right: 100%;
+  margin-top: calc(-1 * var(--h));
+  padding: var(--h);
+  border-radius: var(--q) 0 0 var(--q);
+  text-align: right;
+  color: var(--black);
+  background-color: #fcfcfcaa;
+  backdrop-filter: blur(2px);
+  white-space: nowrap;
+}
+.modal-box .modal .file-list .top-actions button:hover {
+  background-color: #000000cc;
+}
+.modal-box .modal .file-list .top-actions button:hover:before {
+  display: block;
+}
+.modal-box .modal .file-list .file {
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+.modal-box .modal .file-list .file .open {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--p) var(--p) var(--p) 0;
+}
+.modal-box .modal .file-list .file .open .title {
+  font-weight: 500;
+}
+.modal-box .modal .file-list .file .open .edited {
+  font-weight: 300;
+  font-style: italic;
+}
+.modal-box .modal .file-list .file .open:hover .title {
+  text-decoration: underline;
+}
+.modal-box .modal .file-list .file .actions {
+  display: flex;
+}
+.modal-box .modal .file-list .file .actions button {
+  display: block;
+  background-color: transparent;
+  border: none;
+  font-size: 1rem;
+  padding: var(--p);
+  cursor: pointer;
+  opacity: 0.2;
+}
+.modal-box .modal .file-list .file .actions button:hover {
+  opacity: 1;
 }
 .modal-box .modal .shortcuts {
   display: grid;

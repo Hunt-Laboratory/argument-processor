@@ -2,16 +2,31 @@ const {neverland: Component, render, html, useState, useEffect} = window.neverla
 
 import examples from './examples.js';
 
-const About = Component(function(setAbout, setTitle, setDoc) {
+import utils from '../utils.js';
+let { randomString } = utils;
+
+const About = Component(function(setModal, setTitle, setDoc, directory, setDirectory, setDocId) {
 
 	function loadExample(name) {
 		return () => {
+			let newId = randomString();
+			setDirectory(prevDirectory => {
+				let newDirectory = {...prevDirectory};
+				newDirectory[newId] = {
+					title: name,
+					lastEdited: Date.parse(String(new Date())),
+					doc: _.cloneDeep(examples[name])
+				};
+				window.localStorage.files = JSON.stringify(newDirectory);
+				return newDirectory;
+			})
+			setDocId(newId);
 			setDoc(_.cloneDeep(examples[name]));
-			setTitle(name);
+			setModal(false);
 		}
 	}
 
-	return html`<div class="modal-box" onclick="${() => {setAbout(false)}}">
+	return html`<div class="modal-box" onclick="${() => {setModal(false)}}">
 		<div class="modal">
 			<p>This is a prototype <em>argument processor</em>.</p>
 

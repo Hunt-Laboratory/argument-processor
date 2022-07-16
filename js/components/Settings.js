@@ -1,6 +1,6 @@
 const {neverland: Component, render, html, useState, useEffect} = window.neverland;
 
-const Settings = Component(function(setSettings, options, setOptions) {
+const Settings = Component(function(setModal, options, setOptions) {
 
 	let {
 		key,
@@ -65,7 +65,7 @@ const Settings = Component(function(setSettings, options, setOptions) {
 				<option value="text-ada-001"     selected="${options.model == "text-ada-001"}">	    350M parameters (GPT-3 Ada)     </option>
 			</select>
 
-			<p class="click-to-close" onclick="${() => {setSettings(false)}}">Click here to close.</p>
+			<p class="click-to-close" onclick="${() => {setModal(false)}}">Click here to close.</p>
 		</div>
 	</div>`;
 

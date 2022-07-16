@@ -71,4 +71,29 @@ utils.setCaret = function(el, caret) {
 	}	
 }
 
+utils.recency = function(milliseconds) {
+	let now = Date.parse(String(new Date())),
+		diff = (now - milliseconds) / 1000;
+	if (diff < 60) {
+		return `${Math.round(diff)} s`;
+	} else if (diff < 3600) {
+		return `${Math.round(diff/60)} min`;
+	}  else if (diff < 43200) {
+		return `${Math.round(diff/3600)} h`;
+	} else {
+		return (new Date(milliseconds)).toDateString();
+	}
+
+}
+
+utils.downloadObjectAsJson = function(exportObj, exportName){
+	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
+	var downloadAnchorNode = document.createElement('a');
+	downloadAnchorNode.setAttribute("href",     dataStr);
+	downloadAnchorNode.setAttribute("download", exportName);
+	document.body.appendChild(downloadAnchorNode); // required for firefox
+	downloadAnchorNode.click();
+	downloadAnchorNode.remove();
+}
+
 export default utils;

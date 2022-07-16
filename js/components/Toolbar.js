@@ -1,24 +1,16 @@
 const {neverland: Component, render, html, useState, useEffect} = window.neverland;
 
+import Directory from './Directory.js';
 import Shortcuts from './Shortcuts.js';
 import Settings from './Settings.js';
 import About from './About.js';
 
-function downloadObjectAsJson(exportObj, exportName){
-	var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportObj));
-	var downloadAnchorNode = document.createElement('a');
-	downloadAnchorNode.setAttribute("href",     dataStr);
-	downloadAnchorNode.setAttribute("download", exportName);
-	document.body.appendChild(downloadAnchorNode); // required for firefox
-	downloadAnchorNode.click();
-	downloadAnchorNode.remove();
-}
+import utils from '../utils.js';
+let { downloadObjectAsJson, randomString } = utils;
 
-const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, options, setOptions, updateNodeText) {
+const Toolbar = Component(function(doc, setDoc, directory, setDirectory, docId, setDocId, title, setTitle, setMode, options, setOptions, updateNodeText) {
 
-	let [shortcuts, setShortcuts] = useState(false);
-	let [settings, setSettings] = useState(false);
-	let [about, setAbout] = useState(false);
+	let [modal, setModal] = useState(false);
 
 	function Button(icon, action, callback) {
 		return html`<button onclick="${callback}" data-action="${action}"><i class="fas fa-${icon}"></i></button>`;
@@ -42,17 +34,18 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 
 		${Button('folder-open', 'Open file', () => {
 			updateNodeText();
-			document.getElementById('file-input').click();
+			setModal('directory');
 		})}
 	
 		${Button('download', 'Download', () => {
 			updateNodeText();
-			downloadObjectAsJson(doc, `${title}.argx`);
+			downloadObjectAsJson(directory[docId], `${title}.argx`);
 		})}
 
 		${Button('i-cursor', 'Rename', () => {
 			updateNodeText();
-			setTitle(prompt("Edit the file name and click 'OK'.", title));
+			let newTitle = prompt("Edit the file name and click 'OK'.", title);
+			setTitle(newTitle ? newTitle : title);
 		})}
 
 		</div>
@@ -88,17 +81,17 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 
 		${Button('cog', 'Settings', () => {
 			updateNodeText();
-			setSettings(true);
+			setModal('settings');
 		})}
 
 		${Button('keyboard', 'Shortcuts', () => {
 			updateNodeText();
-			setShortcuts(true);
+			setModal('shortcuts');
 		})}
 	
 		${Button('question', 'About this tool', () => {
 			updateNodeText();
-			setAbout(true);
+			setModal('about');
 		})}
 
 		</div>
@@ -107,11 +100,15 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 			let file = ev.target.files[0], // FileList object
 				reader = new FileReader();
 			
-			setTitle(file.name.replace('.argx', ''));
 
 			reader.onload = function(e) {
 				let data = JSON.parse(e.target.result);
-				setDoc(data);
+				setDirectory(prevDirectory => {
+					let newDirectory = {...prevDirectory};
+					newDirectory[randomString()] = data;
+					window.localStorage.files = JSON.stringify(newDirectory);
+					return newDirectory;
+				})
 			}
 
 			reader.readAsText(file)
@@ -119,9 +116,10 @@ const Toolbar = Component(function(doc, setDoc, title, setTitle, setMode, option
 	
 	</div>
 
-	${settings ? Settings(setSettings, options, setOptions) : ''}
-	${shortcuts ? Shortcuts(setShortcuts) : ''}
-	${about ? About(setAbout, setTitle, setDoc) : ''}
+	${modal == 'directory' ? Directory(directory, setDirectory, docId, setDocId, doc, setDoc, title, setTitle, setModal, options, setOptions) : ''}
+	${modal == 'settings' ? Settings(setModal, options, setOptions) : ''}
+	${modal == 'shortcuts' ? Shortcuts(setModal) : ''}
+	${modal == 'about' ? About(setModal, setTitle, setDoc, directory, setDirectory, setDocId) : ''}
 
 	`;
 

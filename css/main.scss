@@ -624,8 +624,8 @@ main {
 	justify-content: center;
 	top: 0;
 	left: 0;
-	width: 100vw;
-	height: 100vh;
+	width: calc(100vw - 2*var(--h));
+	height: calc(100vh - 2*var(--h));
 	padding: var(--h);
 	// font-size: .9rem;
 
@@ -636,6 +636,136 @@ main {
 
 	.modal {
 		width: 450px;
+		max-height: 100%;
+
+		&.directory {
+			width: 800px;
+			align-self: flex-start;
+			padding-top: 40px;
+
+			p {
+				font-size: .9rem;
+			}
+		}
+
+		.file-list {
+
+			position: relative;
+			margin-bottom: calc(2*var(--p));
+
+			.top-actions {
+				
+				display: grid;
+				grid-template-columns: 1fr;
+				grid-template-rows: auto;
+
+				position: absolute;
+				top: var(--p);
+				right: calc(100% + 2*var(--p));
+				
+				// &::first-child {
+				// 	border-radius: var(--h) var(--h) 0 0;
+				// }
+
+				// &::last-child {
+				// 	border-radius: 0 0 var(--h) var(--h);
+				// }
+
+				button {
+					display: block;
+					position: relative;
+					background-color: #000;
+					color: #fff;
+					border: none;
+					padding: var(--h);
+					cursor: pointer;
+
+					&:first-of-type {
+						border-radius: var(--q) var(--q) 0 0;
+					}
+					&:last-of-type {
+						border-radius: 0 0 var(--q) var(--q);
+					}
+
+					&:before {
+						content: attr(data-action);
+						
+						display: none;
+						position: absolute;
+						right: 0;
+						margin-right: 100%;
+						margin-top: calc(-1 * var(--h));
+						padding: var(--h);
+						border-radius: var(--q) 0 0 var(--q);
+						
+						text-align: right;
+						color: var(--black);
+
+						background-color: #fcfcfcaa;
+						backdrop-filter: blur(2px);
+						white-space: nowrap;
+					}
+
+					&:hover {
+						background-color: #000000cc;
+						&:before {
+							display: block;
+						}
+					}
+				}
+
+			}
+
+
+			.file {
+				border-bottom: 1px solid #ddd;
+				cursor: pointer;
+				display: grid;
+				grid-template-columns: 1fr auto;
+
+				.open {
+					display: flex;
+					justify-content: space-between;
+					padding: var(--p) var(--p) var(--p) 0;
+
+					.title {
+						font-weight: 500;
+					}
+
+					.edited {
+						font-weight: 300;
+						font-style: italic;
+					}
+
+					&:hover {
+						.title {
+							text-decoration: underline;
+						}
+					}
+				}
+
+				.actions {
+					display: flex;
+
+					button {
+						display: block;
+						background-color: transparent;
+						border: none;
+						font-size: 1rem;
+						padding: var(--p);
+						cursor: pointer;
+						opacity: 0.2;
+						
+						&:hover {
+							opacity: 1;
+						}
+					}
+
+				}
+
+			}
+
+		}
 
 		.shortcuts {
 			display: grid;

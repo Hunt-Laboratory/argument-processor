@@ -10,7 +10,13 @@ import examples from './examples.js';
 
 const Processor = Component(function() {
 	
-	let [title, setTitle] = useState('New Argument');
+	let [title, setTitle] = useState(() => {
+		if (Object.keys(window.localStorage).includes('fileId')) {
+			return JSON.parse(window.localStorage.files)[window.localStorage.fileId].title;
+		} else {
+			return 'Socrates';
+		}
+	});
 
 	let [mode, setMode] = useState('auto');
 
@@ -39,10 +45,6 @@ const Processor = Component(function() {
 		})
 		
 	}, [options.key]);
-
-	useEffect(() => {
-		document.title = title;
-	}, [title]);
 
 	function defaultNode(indent, text = '', suggestion = false, joint = false, type = 'pro') {
 
@@ -121,7 +123,57 @@ const Processor = Component(function() {
 		return doc;
 	}
 
-	let [doc, setDoc] = useState(annotate(_.cloneDeep(examples["New Argument"])));
+	let [directory, setDirectory] = useState(() => {
+		// Remember, you can only store strings in local storage, so need to stringify JSON first.
+
+		if (Object.keys(window.localStorage).includes('files')) {
+			return JSON.parse(window.localStorage.files);
+		} else {
+			let newDirectory = {};
+			newDirectory[randomString()] = {
+				title: 'Socrates',
+				lastEdited: Date.parse(String(new Date())),
+				doc: annotate(_.cloneDeep(examples["New Argument"]))
+			};
+			window.localStorage.files = JSON.stringify(newDirectory);
+			return newDirectory;
+		}
+	});
+
+	let [docId, setDocId] = useState(() => {
+
+		if (Object.keys(window.localStorage).includes('fileId')) {
+			let id = window.localStorage.fileId;
+			return id;
+		} else {
+			let id = Object.keys(directory)[0];
+			window.localStorage.fileId = id;
+			return id;
+		}
+	})
+	let [doc, setDoc] = useState(directory[docId].doc);
+
+	// When doc or title is updated, update directory and write to local storage.
+	useEffect(() => {
+		setDirectory(oldDirectory => {
+			let newDirectory = {...oldDirectory};
+			newDirectory[docId].doc = _.cloneDeep(doc);
+			newDirectory[docId].lastEdited = Date.parse(String(new Date()));
+			newDirectory[docId].title = title;
+			window.localStorage.files = JSON.stringify(newDirectory);
+			return newDirectory;
+		})
+	}, [JSON.stringify(doc), title])
+
+	// When docId is updated, update title and local storage.
+	useEffect(() => {
+		setTitle(directory[docId].title);
+		window.localStorage.fileId = docId;
+	}, [docId])
+
+	useEffect(() => {
+		document.title = title;
+	}, [title]);
 
 	let [focus, setFocus] = useState({
 		node: null,
@@ -592,7 +644,7 @@ const Processor = Component(function() {
 
 		<div id="loader" class="loader hide"></div>
 		
-		${Toolbar(doc, setDoc, title, setTitle, setMode, options, setOptions, updateNodeText)}
+		${Toolbar(doc, setDoc, directory, setDirectory, docId, setDocId, title, setTitle, setMode, options, setOptions, updateNodeText)}
 
 	`;
 

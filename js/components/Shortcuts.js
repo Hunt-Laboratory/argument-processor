@@ -1,8 +1,8 @@
 const {neverland: Component, render, html, useState, useEffect} = window.neverland;
 
-const Shortcuts = Component(function(setShortcuts) {
+const Shortcuts = Component(function(setModal) {
 
-	return html`<div class="modal-box" onclick="${() => {setShortcuts(false)}}">
+	return html`<div class="modal-box" onclick="${() => {setModal(false)}}">
 		<div class="modal">
 			<div class="shortcuts">
 				<span class="key">Ctrl+↑</span> <span>Move focus up</span>
