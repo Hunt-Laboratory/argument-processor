@@ -9,7 +9,7 @@ const Settings = Component(function(setModal, options, setOptions) {
 
 	return html`<div class="modal-box">
 		<div class="modal">
-			<p>Enter your OpenAI API key to enable language model tools.</p>
+			<p>Enter an <a href="https://beta.openai.com/account/api-keys" target="_blank" rel="noopener noreferrer">OpenAI API key</a> to enable language model tools. <span class="details">The key will only be stored in your browser's local storage and used to query the the GPT-3 API when you use the 'suggest' tools in the toolbar. It is not shared with anyone else or used for any other purpose.</span></p>
 
 			<div class="key">
 				<input

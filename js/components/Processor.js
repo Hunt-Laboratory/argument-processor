@@ -157,9 +157,11 @@ const Processor = Component(function() {
 	useEffect(() => {
 		setDirectory(oldDirectory => {
 			let newDirectory = {...oldDirectory};
-			newDirectory[docId].doc = _.cloneDeep(doc);
-			newDirectory[docId].lastEdited = Date.parse(String(new Date()));
-			newDirectory[docId].title = title;
+			if (Object.keys(newDirectory).includes(docId)) {
+				newDirectory[docId].doc = _.cloneDeep(doc);
+				newDirectory[docId].lastEdited = Date.parse(String(new Date()));
+				newDirectory[docId].title = title;
+			}
 			window.localStorage.files = JSON.stringify(newDirectory);
 			return newDirectory;
 		})

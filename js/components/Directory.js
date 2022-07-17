@@ -87,15 +87,49 @@ const Directory = Component(function(directory, setDirectory, docId, setDocId, d
 								<i class="fas fa-download"></i>
 							</button>
 							<button onclick="${() => {
+									
 									if (fileId == docId) {
-										setDocId(Object.keys(directory).filter(d => d != fileId)[0]);
+									
+										if (Object.keys(directory).length > 1) {
+
+											// Delete and open the next most recently edited file.
+
+											let newId = Object.keys(directory)
+												.filter(d => d != fileId)
+												.sort((a, b) => {
+													return directory[b].lastEdited - directory[a].lastEdited;
+												})[0];
+
+											setDoc(_.cloneDeep(directory[newId].doc));
+											setDocId(newId);
+
+											setDirectory(prevDirectory => {
+												let newDirectory = {...prevDirectory};
+												delete newDirectory[fileId];
+												window.localStorage.files = JSON.stringify(newDirectory);
+												return newDirectory;
+											})
+
+										} else {
+
+											// "Delete" and replace with an empty file.
+
+											setTitle('New Argument');
+											setDoc([defaultNode(0)]);
+
+										}
+									
+									} else {
+
+										setDirectory(prevDirectory => {
+											let newDirectory = {...prevDirectory};
+											delete newDirectory[fileId];
+											window.localStorage.files = JSON.stringify(newDirectory);
+											return newDirectory;
+										})
+
 									}
-									setDirectory(prevDirectory => {
-										let newDirectory = {...prevDirectory};
-										delete newDirectory[fileId];
-										window.localStorage.files = JSON.stringify(newDirectory);
-										return newDirectory;
-									})
+
 								}}">
 								<i class="fas fa-trash"></i>
 							</button>

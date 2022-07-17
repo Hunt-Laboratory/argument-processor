@@ -32,6 +32,8 @@ const About = Component(function(setModal, setTitle, setDoc, directory, setDirec
 
 			<p>An argument processor is to structured argumentation what a word processor is to arbitrary text.</p>
 
+			<p>In the settings, you can add an OpenAI API key to enable language model functionality built on GPT-3.</p>
+
 			<p>Please address any enquiries to <a href="https://lukethorburn.com">Luke Thorburn</a>.</p>
 
 			<p>Thank you to Ashley Barnett for contributing the following sample arguments (click to load).</p>

@@ -10,7 +10,14 @@ let { downloadObjectAsJson, randomString } = utils;
 
 const Toolbar = Component(function(doc, setDoc, directory, setDirectory, docId, setDocId, title, setTitle, setMode, options, setOptions, updateNodeText) {
 
-	let [modal, setModal] = useState(false);
+	let [modal, setModal] = useState(() => {
+		if (!window.localStorage.hasOwnProperty('usedBefore')) {
+			window.localStorage['usedBefore'] = true;
+			return 'about';
+		} else {
+			return false;
+		}
+	});
 
 	function Button(icon, action, callback) {
 		return html`<button onclick="${callback}" data-action="${action}"><i class="fas fa-${icon}"></i></button>`;
@@ -51,10 +58,10 @@ const Toolbar = Component(function(doc, setDoc, directory, setDirectory, docId, 
 		</div>
 		<div class="group ${options.keyIsValid ? '' : 'hide'}">
 
-		${Button('route', 'Suggest intermediary claims', () => {
+		${false ? Button('route', 'Suggest intermediary claims', () => {
 			updateNodeText();
 			changeMode('generate-reasoning');
-		})}
+		}) : ''}
 
 		${Button('comment-slash', 'Suggest copremise', () => {
 			updateNodeText();
@@ -71,10 +78,10 @@ const Toolbar = Component(function(doc, setDoc, directory, setDirectory, docId, 
 			changeMode('suggest-objections');
 		})}
 
-		${Button('shapes', 'Suggest abstraction', () => {
+		${false ? Button('shapes', 'Suggest abstraction', () => {
 			updateNodeText();
 			changeMode('suggest-abstraction');
-		})}		
+		}) : ''}
 
 		</div>
 		<div class="group">

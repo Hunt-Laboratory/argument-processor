@@ -489,6 +489,11 @@ main .node.sortable-ghost {
   width: 450px;
   max-height: 100%;
 }
+.modal-box .modal p .details {
+  display: block;
+  font-size: 0.85rem;
+  margin-top: var(--q);
+}
 .modal-box .modal.directory {
   width: 800px;
   align-self: flex-start;

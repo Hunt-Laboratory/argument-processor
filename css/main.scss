@@ -654,6 +654,14 @@ main {
 		width: 450px;
 		max-height: 100%;
 
+		p {
+			.details {
+				display: block;
+				font-size: .85rem;
+				margin-top: var(--q);
+			}
+		}
+
 		&.directory {
 			width: 800px;
 			align-self: flex-start;

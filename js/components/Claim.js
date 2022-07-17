@@ -594,7 +594,10 @@ const Claim = Component(function(node, idx, doc, props) {
 
 			<button
 				class="${node.suggestion ? 'hide' : ''}"
-				onclick="${mode === 'auto' ? () => {setMenu(!menu)} : () => {}}">
+				onclick="${mode === 'auto' ? () => {
+					updateNodeText();
+					setMenu(!menu)} : () => {}
+				}">
 				<i class="far fa-bars"></i>
 			</button>
 
